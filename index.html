@@ -129,6 +129,12 @@ footer{background:#060F1A;padding:2.5rem 2rem}
       var page=location.pathname.split('/').pop()||'index.html';
       var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
       if(link)link.classList.add('active');
+      var btn=document.getElementById('nav-hamburger');
+      var menu=document.getElementById('nav-links');
+      if(btn&&menu){
+        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);});
+        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
+      }
     });
   </script>
 
