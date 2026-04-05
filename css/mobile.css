@@ -29,6 +29,7 @@
   .hero-inner{grid-template-columns:1fr;gap:1.5rem}
   .hero-content{padding-bottom:0}
   .hero h1{font-size:1.75rem}
+  .hero-actions{justify-content:center}
   .hero-phone{justify-content:center;padding-bottom:0}
   .hero-phone img{width:160px;padding-bottom:1.5rem}
   .hero-stats{flex-direction:column;gap:1rem;padding:1.25rem}
