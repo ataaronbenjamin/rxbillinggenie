@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — Rx Billing Genie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/mobile.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.page{max-width:900px;margin:0 auto}
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
+.nav-logo span{color:var(--teal-mid)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-links a.active{color:var(--navy);font-weight:500}
+.nav-social{display:flex;gap:12px;align-items:center}
+.nav-social a{color:var(--muted);text-decoration:none;display:flex;align-items:center}
+.nav-social a:hover{color:var(--teal-mid)}
+.nav-divider{width:1px;height:18px;background:var(--border)}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy);padding:3rem 2rem;text-align:center}
+.page-hero-eyebrow{display:inline-flex;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem}
+.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.2rem;color:var(--white);margin-bottom:0.75rem;line-height:1.2}
+.page-hero p{font-size:14px;color:#9AA8BC;max-width:500px;margin:0 auto;line-height:1.8}
+
+/* FEATURED POST */
+.featured-section{background:var(--white);padding:2.5rem 2rem}
+.featured-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:1.25rem}
+.featured-card{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;background:var(--bg);border:0.5px solid var(--border);border-radius:14px;overflow:hidden}
+.featured-img{height:100%;min-height:260px;overflow:hidden}
+.featured-img img{width:100%;height:100%;object-fit:cover;display:block}
+.featured-body{padding:2rem 2rem 2rem 0}
+.post-tag{display:inline-block;background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:0.75rem}
+.featured-body h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);line-height:1.3;margin-bottom:0.75rem}
+.featured-body h2 a{text-decoration:none;color:inherit}
+.featured-body h2 a:hover{color:var(--teal-mid)}
+.post-meta{font-size:12px;color:var(--muted);margin-bottom:0.85rem}
+.post-excerpt{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.read-more{font-size:13px;color:var(--teal-mid);font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.read-more:hover{color:var(--teal)}
+.read-more::after{content:'→'}
+
+/* POSTS GRID */
+.posts-section{padding:2rem 2rem 3rem}
+.posts-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-top:1.25rem}
+.post-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.post-card-img{height:160px;overflow:hidden}
+.post-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease}
+.post-card:hover .post-card-img img{transform:scale(1.03)}
+.post-card-body{padding:1.1rem;flex:1;display:flex;flex-direction:column}
+.post-card-title{font-family:'Fraunces',serif;font-weight:300;font-size:1rem;color:var(--navy);line-height:1.4;margin-bottom:0.5rem;flex:1}
+.post-card-title a{text-decoration:none;color:inherit}
+.post-card-title a:hover{color:var(--teal-mid)}
+.post-card-meta{font-size:11px;color:var(--muted);margin-top:0.75rem;display:flex;align-items:center;justify-content:space-between}
+.post-card-meta .read-more{font-size:12px}
+
+/* CTA */
+.blog-cta{background:var(--navy);padding:2.5rem 2rem;text-align:center}
+.blog-cta h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--white);margin-bottom:0.5rem}
+.blog-cta p{font-size:14px;color:#9AA8BC;margin-bottom:1.5rem}
+.btn-primary{background:var(--teal-mid);color:var(--white);padding:11px 24px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;display:inline-block}
+
+/* FOOTER */
+footer{background:#060F1A;padding:2.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
+.footer-col{}
+.footer-brand img{width:120px;object-fit:contain;opacity:0.9}
+.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.35);font-weight:500;margin-bottom:0.75rem}
+.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(29,158,117,0.3);display:inline-block;margin-bottom:4px}
+.footer-email:hover{color:#5DCAA5}
+.footer-social{display:flex;gap:14px;margin:0.85rem 0}
+.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center}
+.footer-social a:hover{color:#1D9E75}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.28);margin-top:0.5rem}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
+.footer-link:hover{color:#1D9E75}
+.footer-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:2rem}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .featured-card{grid-template-columns:1fr}
+  .featured-img{min-height:200px}
+  .featured-body{padding:1.25rem}
+  .posts-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:420px){
+  .posts-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div id="site-nav"></div>
+  <script>
+    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+      document.getElementById('site-nav').innerHTML=html;
+      var page=location.pathname.split('/').pop()||'index.html';
+      var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
+      if(link)link.classList.add('active');
+    });
+  </script>
+
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Blog</div>
+    <h1>Pharmacy billing insights &amp; tips</h1>
+    <p>Practical guidance for pharmacists and pharmacy teams on billing, adjudication, and workflow efficiency.</p>
+  </div>
+
+  <!-- FEATURED POST -->
+  <div class="featured-section">
+    <div class="featured-label">Latest post</div>
+    <div class="featured-card">
+      <div class="featured-img">
+        <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1738130132838-OICGHIK2YTF57O94J4V2/Billing+Companies+Streamlining+Pharmacy+Workflows.png" alt="How Billing Insurance Companies Can Streamline Pharmacy Workflows"/>
+      </div>
+      <div class="featured-body">
+        <div class="post-tag">Workflow</div>
+        <h2><a href="blog/how-billing-insurance-companies-can-streamline-pharmacy-workflows.html">How Billing Insurance Companies Can Streamline Pharmacy Workflows</a></h2>
+        <div class="post-meta">Shelley Morgan &nbsp;·&nbsp; January 30, 2025</div>
+        <p class="post-excerpt">Timely and accurate patient care depends on effective pharmacy processes. Navigating insurance billing is one of the most challenging aspects of the industry — but simplifying it can lower costs, reduce delays, and improve service quality.</p>
+        <a href="blog/how-billing-insurance-companies-can-streamline-pharmacy-workflows.html" class="read-more">Read article </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL POSTS GRID -->
+  <div class="posts-section">
+    <div class="featured-label">All posts</div>
+    <div class="posts-grid">
+
+      <div class="post-card">
+        <div class="post-card-img">
+          <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1738129727501-KZD8FN1HPGR4E29KOTA7/Claim+Processes+for+Pharmacies.jpg" alt="How Insurance Adjudicators Help Simplify Claim Processes" loading="lazy"/>
+        </div>
+        <div class="post-card-body">
+          <div class="post-tag">Adjudication</div>
+          <div class="post-card-title"><a href="#">How Insurance Adjudicators Help Simplify Claim Processes for Pharmacies</a></div>
+          <div class="post-card-meta">
+            <span>Jan 13, 2025</span>
+            <a href="#" class="read-more">Read </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-img">
+          <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1729149861503-37DVNJ7LJLU6W102NQ6R/Third-Party+Insurance+Billing.jpg" alt="Third-Party Insurance Billing: Avoiding Claim Rejections" loading="lazy"/>
+        </div>
+        <div class="post-card-body">
+          <div class="post-tag">Billing</div>
+          <div class="post-card-title"><a href="#">Third-Party Insurance Billing: Avoiding Claim Rejections</a></div>
+          <div class="post-card-meta">
+            <span>Oct 23, 2024</span>
+            <a href="#" class="read-more">Read </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-img">
+          <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1729148569662-B0JZI6QU7H9AHULVERTZ/Rejection+Codes+in+Pharmacy+Billing.jpg" alt="Understanding Adjudication and Rejection Codes" loading="lazy"/>
+        </div>
+        <div class="post-card-body">
+          <div class="post-tag">Rejection Codes</div>
+          <div class="post-card-title"><a href="#">Understanding Adjudication and Rejection Codes in Pharmacy Billing</a></div>
+          <div class="post-card-meta">
+            <span>Oct 9, 2024</span>
+            <a href="#" class="read-more">Read </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-img">
+          <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1728653240372-24N5VJVVYA1UXR217AFA/Pharmacy+Insurance+Rejection+Codes.jpg" alt="How to Deal with Pharmacy Insurance Rejection Codes" loading="lazy"/>
+        </div>
+        <div class="post-card-body">
+          <div class="post-tag">Rejection Codes</div>
+          <div class="post-card-title"><a href="#">How to Deal with Pharmacy Insurance Rejection Codes</a></div>
+          <div class="post-card-meta">
+            <span>Sep 1, 2024</span>
+            <a href="#" class="read-more">Read </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-img">
+          <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1724655012563-FM7DZXODU2IMU1W26HLN/Handle+Pharmacy+Insurance+Rejection+Codes.jpg" alt="How to Handle Pharmacy Insurance Rejection Codes" loading="lazy"/>
+        </div>
+        <div class="post-card-body">
+          <div class="post-tag">Billing</div>
+          <div class="post-card-title"><a href="#">How to Handle Pharmacy Insurance Rejection Codes: Tips for Effective Billing</a></div>
+          <div class="post-card-meta">
+            <span>Aug 27, 2024</span>
+            <a href="#" class="read-more">Read </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="blog-cta">
+    <h2>Ready to spend less time on billing?</h2>
+    <p>See how Rx Billing Genie helps pharmacy teams resolve rejections in seconds.</p>
+    <a href="https://calendly.com/apprxbillinggenie" target="_blank" rel="noopener noreferrer" class="btn-primary">Book a Demo</a>
+  </div>
+
+  <div id="site-footer"></div>
+  <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+
+</div>
+</body>
+</html>
