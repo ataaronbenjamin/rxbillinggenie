@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rx Billing Genie — Pharmacy Workflow Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;
+  --slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB;
+  --pill-bg:#E1F5EE;--pill-text:#0F6E56;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.site{max-width:900px;margin:0 auto}
+
+/* NAV */
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo img{height:44px;width:auto;object-fit:contain}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+
+/* HERO */
+.hero{background:var(--navy);padding:3.5rem 2rem 0;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1fr 240px;gap:2rem;align-items:flex-end}
+.hero-content{padding-bottom:3rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1.25rem}
+.hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.4rem;line-height:1.2;color:var(--white);margin-bottom:1.25rem}
+.hero h1 em{font-style:italic;color:#9FE1CB}
+.hero-sub{font-size:14px;color:#9AA8BC;line-height:1.8;margin-bottom:2rem}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--teal-mid);color:var(--white);padding:11px 22px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;display:inline-block}
+.btn-secondary{background:transparent;color:var(--white);padding:11px 22px;border-radius:8px;font-size:14px;border:0.5px solid rgba(255,255,255,0.3);text-decoration:none;display:inline-block}
+.hero-phone{display:flex;align-items:flex-end;justify-content:center}
+.hero-phone img{width:200px;display:block;filter:drop-shadow(0 -8px 40px rgba(29,158,117,0.25));transform:translateY(4px)}
+.hero-stats{display:flex;gap:2rem;padding:1.5rem 2rem;background:rgba(255,255,255,0.04);border-top:0.5px solid rgba(255,255,255,0.08)}
+.hero-stat-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:var(--white)}
+.hero-stat-label{font-size:11px;color:#7A8FA8;margin-top:2px}
+
+/* TRUST BAR */
+.trust-bar{background:var(--white);border-bottom:0.5px solid var(--border);padding:0.85rem 2rem;display:flex;align-items:center;gap:1.5rem;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:6px}
+.trust-icon{width:14px;height:14px;fill:var(--teal-mid);flex-shrink:0}
+.trust-divider{width:1px;height:16px;background:var(--border)}
+
+/* SECTIONS */
+.section{padding:3rem 2rem}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.6rem}
+.section-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.8rem;color:var(--navy);line-height:1.3;margin-bottom:1rem}
+.section-body{font-size:14px;color:var(--muted);line-height:1.8;max-width:560px}
+.scenario-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.scenario-card p{font-size:14px;line-height:1.8;color:var(--slate)}
+.scenario-card strong{color:var(--navy)}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:1.5rem}
+.product-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem}
+.product-card.featured{border-color:var(--teal-mid);border-width:1.5px}
+.product-badge{display:inline-block;background:var(--pill-bg);color:var(--pill-text);font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:0.75rem}
+.product-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.1rem;color:var(--navy);margin-bottom:0.5rem}
+.product-card p{font-size:13px;color:var(--muted);line-height:1.7}
+.product-features{margin-top:1rem;list-style:none;display:flex;flex-direction:column;gap:6px}
+.product-features li{font-size:12px;color:var(--slate);display:flex;align-items:flex-start;gap:6px}
+.check{color:var(--teal-mid);font-weight:600;flex-shrink:0}
+
+/* IMPACT */
+.impact-row{background:var(--navy);padding:2.5rem 2rem}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center}
+.impact-num{font-family:'Fraunces',serif;font-weight:300;font-size:2rem;color:var(--white)}
+.impact-label{font-size:12px;color:#9AA8BC;margin-top:4px;line-height:1.5}
+
+/* ABOUT / GENIE CHARACTER */
+.about-section{background:var(--white);padding:2.5rem 2rem}
+.about-inner{display:grid;grid-template-columns:1fr 180px;gap:2.5rem;align-items:center}
+.genie-img img{width:160px;object-fit:contain;display:block;margin:0 auto}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.25rem}
+.badge{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--muted);font-weight:500}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--bg);padding:2.5rem 2rem}
+.testimonials-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.4rem}
+.testimonials h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem}
+.quotes-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quote-card{background:var(--white);border:0.5px solid var(--border);border-radius:10px;padding:1.1rem}
+.quote-text{font-size:13px;color:var(--slate);line-height:1.7;margin-bottom:0.75rem}
+.quote-author{font-size:12px;font-weight:500;color:var(--navy)}
+.quote-role{font-size:11px;color:var(--muted)}
+
+/* CTA */
+.cta-section{background:var(--navy);padding:3rem 2rem;text-align:center}
+.cta-section h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.8rem;color:var(--white);margin-bottom:0.75rem}
+.cta-section p{font-size:14px;color:#9AA8BC;margin-bottom:1.75rem}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#060F1A;padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand img{height:36px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.7}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.4);text-decoration:none}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.3);width:100%}
+</style>
+</head>
+<body>
+<div class="site">
+
+  <!-- NAV — logo 1 (mortar & pestle wordmark) -->
+  <nav>
+    <div class="nav-logo">
+      <img src="logo-mortar.png" alt="Rx Billing Genie"/>
+    </div>
+    <div class="nav-links">
+      <a href="#">Products</a>
+      <a href="#">Pharmacies</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#" class="nav-cta">Book a Demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Pharmacy Workflow Intelligence</div>
+        <h1>Helping pharmacies work faster, <em>reduce billing friction,</em> and serve patients better.</h1>
+        <p class="hero-sub">Rx Billing Genie gives pharmacy teams instant access to billing guidance, intervention codes, and rejection fixes — while Rx MedMatch connects pharmacies to reduce medication waste across the network.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">Book a Demo</a>
+          <a href="#" class="btn-secondary">View Products</a>
+        </div>
+      </div>
+      <div class="hero-phone">
+        <img src="app-screenshot.png" alt="Rx Billing Genie app"/>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">$1.7B</div>
+        <div class="hero-stat-label">medications wasted in Canada annually</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">10–15 hrs</div>
+        <div class="hero-stat-label">lost per pharmacy per month to billing calls</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4,600+</div>
+        <div class="hero-stat-label">Ontario pharmacies we can serve</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 16 16"><path d="M8 1L10 6h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg>
+      Built by pharmacists, for pharmacists
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm-.5 4h1v4.5l3 1.7-.5.9-3.5-2V5z"/></svg>
+      Available on iOS, Android &amp; Web
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 16 16"><path d="M8 1L2 4v5c0 3.3 2.5 6.4 6 7.4 3.5-1 6-4.1 6-7.4V4L8 1z"/></svg>
+      PHIPA-aligned data practices
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg class="trust-icon" viewBox="0 0 16 16"><path d="M3 8l3.5 3.5L13 4"/></svg>
+      No hardware upgrades required
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-label">The problem we solve</div>
+    <h2 class="section-title">Billing friction is costing pharmacies time, money, and patients.</h2>
+    <p class="section-body">When a claim is rejected and the right intervention code isn't at hand, pharmacy staff spend 5–15 minutes on hold with insurers — for every single occurrence. Multiply that across a full day of prescriptions and the cost compounds quickly.</p>
+    <div class="scenario-card">
+      <p>A patient hands over a prescription. The claim comes back <strong>rejected</strong>. Your billing binder has no answer. You're on hold with the adjudicator for 12 minutes while the queue builds. You finally get through — only to find the medication is out of stock. <strong>Rx Billing Genie and Rx MedMatch solve both sides of this problem.</strong></p>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="section" style="padding-top:0">
+    <div class="section-label">Our products</div>
+    <h2 class="section-title">Two solutions. One platform.</h2>
+    <div class="products-grid">
+      <div class="product-card featured">
+        <div class="product-badge">Flagship</div>
+        <h3>Rx Billing Genie</h3>
+        <p>A digital billing binder that gives pharmacy teams instant answers to third-party rules, Pseudo-DINs, intervention codes, and rejection fixes — no hold times, no guessing.</p>
+        <ul class="product-features">
+          <li><span class="check">✓</span>All major Canadian adjudicators covered</li>
+          <li><span class="check">✓</span>ODB, Assure, Green Shield, Blue Cross &amp; more</li>
+          <li><span class="check">✓</span>Searchable by rejection code or drug name</li>
+          <li><span class="check">✓</span>Updated as insurer rules change</li>
+        </ul>
+      </div>
+      <div class="product-card">
+        <div class="product-badge">New</div>
+        <h3>Rx MedMatch</h3>
+        <p>A verified pharmacy network for sharing overstock and sourcing hard-to-find medications — reducing waste and improving patient access across the system.</p>
+        <ul class="product-features">
+          <li><span class="check">✓</span>Post overstock before it expires</li>
+          <li><span class="check">✓</span>Request medications your patients need now</li>
+          <li><span class="check">✓</span>Connects independents, chains &amp; hospital networks</li>
+          <li><span class="check">✓</span>Real-time availability across the network</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPACT -->
+  <div class="impact-row">
+    <div class="impact-grid">
+      <div>
+        <div class="impact-num">~$600M</div>
+        <div class="impact-label">wasted annually in community pharmacy alone</div>
+      </div>
+      <div>
+        <div class="impact-num">Minutes</div>
+        <div class="impact-label">to resolve rejections vs. 15+ min on hold</div>
+      </div>
+      <div>
+        <div class="impact-num">Zero</div>
+        <div class="impact-label">hardware upgrades required to get started</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT — genie character logo as brand personality moment -->
+  <div class="about-section">
+    <div class="about-inner">
+      <div>
+        <div class="section-label">About us</div>
+        <h2 class="section-title">Built from real pharmacy experience.</h2>
+        <p class="section-body">Rx Billing Genie was founded by pharmacy professionals who lived the billing problem firsthand. Every feature is shaped by real frontline experience — not abstract market theory. We understand what it feels like to have a patient waiting at the counter while you're stuck on hold.</p>
+        <div class="badges">
+          <div class="badge">PHIPA Aligned</div>
+          <div class="badge">PIPEDA Compliant</div>
+          <div class="badge">Canadian-built</div>
+          <div class="badge">Founder-led</div>
+        </div>
+      </div>
+      <div class="genie-img">
+        <img src="logo-genie.png" alt="Rx Billing Genie character"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonials">
+    <div class="testimonials-label">What pharmacists say</div>
+    <h2>Trusted by pharmacy teams across Canada</h2>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <p class="quote-text">"It has not only saved time but also headaches and stress of not having to call third parties. Don't hesitate — it will allow you to better serve your patients."</p>
+        <div class="quote-author">Farah J.</div>
+        <div class="quote-role">RPh, Pharmacist</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"I originally felt overwhelmed by 3rd party billing. RxBG is the perfect app that stores all the information in one spot. It saves me and my patients' time."</p>
+        <div class="quote-author">Kennedy B.</div>
+        <div class="quote-role">RPhT, Regulated Pharmacy Technician</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"User-friendly and easy to follow. Even someone with minimal pharmacy experience can follow and use the app easily."</p>
+        <div class="quote-author">Peter A.</div>
+        <div class="quote-role">Owner, Independent Pharmacy</div>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"User friendly layout — easy to find info when needed. A real time-saver during a busy shift."</p>
+        <div class="quote-author">Angela D.</div>
+        <div class="quote-role">RPhT, Pharmacy Technician</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to reduce billing friction in your pharmacy?</h2>
+    <p>Book a 20-minute demo or start a conversation with our team.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary">Book a Demo</a>
+      <a href="#" class="btn-secondary">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- FOOTER — logo 1 inverted for dark background -->
+  <footer>
+    <div class="footer-brand">
+      <img src="logo-mortar.png" alt="Rx Billing Genie"/>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Rx Billing Genie Inc. Burlington, Ontario, Canada &nbsp;·&nbsp; contact@rxbillinggenie.com</div>
+  </footer>
+
+</div>
+</body>
+</html>
