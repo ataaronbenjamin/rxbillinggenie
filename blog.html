@@ -93,6 +93,10 @@ footer{background:#060F1A;padding:2.5rem 2rem}
 @media(max-width:420px){
   .posts-grid{grid-template-columns:1fr}
 }
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex}
+}
 </style>
 </head>
 <body>
@@ -105,6 +109,13 @@ footer{background:#060F1A;padding:2.5rem 2rem}
       var page=location.pathname.split('/').pop()||'index.html';
       var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
       if(link)link.classList.add('active');
+      var btn=document.getElementById('nav-hamburger');
+      var menu=document.getElementById('nav-links');
+      if(btn&&menu){
+        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);});
+        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
+        document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){menu.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded',false);});});
+      }
     });
   </script>
 
