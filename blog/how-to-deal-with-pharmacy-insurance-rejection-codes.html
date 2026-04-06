@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Deal with Pharmacy Insurance Rejection Codes — Rx Billing Genie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/mobile.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.page{max-width:900px;margin:0 auto}
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
+.nav-logo span{color:var(--teal-mid)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-links a.active{color:var(--navy);font-weight:500}
+.nav-social{display:flex;gap:12px;align-items:center}
+.nav-social a{color:var(--muted);text-decoration:none;display:flex;align-items:center}
+.nav-social a:hover{color:var(--teal-mid)}
+.nav-divider{width:1px;height:18px;background:var(--border)}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+.post-header{background:var(--navy);padding:3rem 2rem;text-align:center}
+.post-breadcrumb{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:1rem}
+.post-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none}
+.post-breadcrumb a:hover{color:#5DCAA5}
+.post-breadcrumb span{margin:0 6px}
+.post-tag{display:inline-block;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);color:#5DCAA5;font-size:11px;font-weight:500;padding:3px 12px;border-radius:20px;margin-bottom:1rem}
+.post-header h1{font-family:'Fraunces',serif;font-weight:300;font-size:2rem;color:var(--white);line-height:1.25;max-width:680px;margin:0 auto 1rem}
+.post-meta{font-size:13px;color:#9AA8BC;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+.post-meta-divider{width:3px;height:3px;background:#9AA8BC;border-radius:50%}
+.post-hero-img{width:100%;max-height:420px;object-fit:cover;display:block}
+.post-layout{display:grid;grid-template-columns:1fr 260px;gap:3rem;padding:2.5rem 2rem;align-items:start}
+.post-content h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.4rem;color:var(--navy);line-height:1.3;margin:2rem 0 0.75rem}
+.post-content p{font-size:14px;color:var(--slate);line-height:1.85;margin-bottom:1.25rem}
+.post-content ul{margin:0 0 1.25rem 1.25rem}
+.post-content ul li{font-size:14px;color:var(--slate);line-height:1.85;margin-bottom:0.4rem}
+.post-content ol{margin:0 0 1.25rem 1.25rem}
+.post-content ol li{font-size:14px;color:var(--slate);line-height:1.85;margin-bottom:0.4rem}
+.post-content a{color:var(--teal-mid);text-decoration:none}
+.post-content a:hover{text-decoration:underline}
+.post-content img{width:100%;border-radius:10px;margin:1rem 0 1.5rem;display:block;border:0.5px solid var(--border)}
+.post-content strong{color:var(--navy);font-weight:500}
+.post-sidebar{position:sticky;top:80px}
+.sidebar-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem}
+.sidebar-label{font-size:11px;text-transform:uppercase;letter-spacing:0.7px;color:var(--teal-mid);font-weight:500;margin-bottom:0.85rem}
+.sidebar-author{display:flex;align-items:center;gap:10px;margin-bottom:0.75rem}
+.author-avatar{width:40px;height:40px;border-radius:50%;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1rem;color:var(--teal);flex-shrink:0}
+.author-name{font-size:13px;font-weight:500;color:var(--navy)}
+.author-role{font-size:11px;color:var(--muted)}
+.sidebar-bio{font-size:12px;color:var(--muted);line-height:1.7}
+.sidebar-cta{background:var(--navy);border-radius:12px;padding:1.25rem;text-align:center;margin-bottom:1.25rem}
+.sidebar-cta p{font-size:12px;color:#9AA8BC;margin-bottom:0.85rem;line-height:1.6}
+.btn-sm{background:var(--teal-mid);color:var(--white);padding:9px 18px;border-radius:7px;font-size:13px;font-weight:500;text-decoration:none;display:inline-block}
+.sidebar-related .related-link{display:block;font-size:13px;color:var(--slate);text-decoration:none;padding:0.6rem 0;border-bottom:0.5px solid var(--border);line-height:1.4}
+.sidebar-related .related-link:last-child{border-bottom:none;padding-bottom:0}
+.sidebar-related .related-link:hover{color:var(--teal-mid)}
+.post-nav{background:var(--white);border-top:0.5px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.post-nav a{font-size:13px;color:var(--teal-mid);text-decoration:none;font-weight:500}
+.post-nav a:hover{color:var(--teal)}
+footer{background:#060F1A;padding:2.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
+.footer-col{}
+.footer-brand img{width:120px;object-fit:contain;opacity:0.9}
+.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;font-weight:500;margin-bottom:0.75rem}
+.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(29,158,117,0.3);display:inline-block;margin-bottom:4px}
+.footer-email:hover{color:#5DCAA5}
+.footer-social{display:flex;gap:14px;margin:0.85rem 0}
+.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center}
+.footer-social a:hover{color:#1D9E75}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.28);margin-top:0.5rem}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
+.footer-link:hover{color:#1D9E75}
+.footer-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:2rem}
+@media(max-width:640px){
+  .post-header{padding:2rem 1.25rem}
+  .post-header h1{font-size:1.5rem}
+  .post-layout{grid-template-columns:1fr;gap:0;padding:1.5rem 1.25rem}
+  .post-sidebar{position:static}
+  .post-sidebar .sidebar-cta{display:none}
+  .post-nav{padding:1.25rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div id="site-nav"></div>
+  <script>
+    fetch('../partials/nav.html').then(function(r){return r.text();}).then(function(html){
+      document.getElementById('site-nav').innerHTML=html;
+      var link=document.querySelector('#site-nav a[data-page="blog.html"]');
+      if(link)link.classList.add('active');
+    });
+  </script>
+
+  <div class="post-header">
+    <div class="post-breadcrumb">
+      <a href="../blog.html">Blog</a><span>›</span> Rejection Codes
+    </div>
+    <div class="post-tag">Rejection Codes</div>
+    <h1>How to Deal with Pharmacy Insurance Rejection Codes</h1>
+    <div class="post-meta">
+      <span>Shelley Morgan</span>
+      <div class="post-meta-divider"></div>
+      <span>September 1, 2024</span>
+      <div class="post-meta-divider"></div>
+      <span>4 min read</span>
+    </div>
+  </div>
+
+  <img class="post-hero-img" src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/1728653240372-24N5VJVVYA1UXR217AFA/Pharmacy+Insurance+Rejection+Codes.jpg" alt="Dealing with pharmacy insurance rejection codes"/>
+
+  <div class="post-layout">
+    <article class="post-content">
+      
+    <p>Navigating the complexities of pharmacy insurance billing usually means managing insurance rejection codes — an unavoidable part of the process. These codes explain why a claim was rejected, giving pharmacists a clear basis for resubmission or correction. Knowing how to interpret and act on these codes can mean the difference between a smooth approval process and ongoing delays.</p>
+
+    <h2>Common Reasons for Rejection</h2>
+    <p>Rejection codes typically result from issues such as inconsistencies in drug dosage, expired coverage, or incorrect patient data. Pharmacies may receive a rejection because a prescription doesn't meet plan restrictions, or because the insurer — such as Green Shield Canada or ESI — is still missing key information needed to process the claim. Insurance adjudicators will then either reject the claim outright or provide intervention codes that enable resubmission.</p>
+
+    <h2>Steps to Resolve Insurance Rejections</h2>
+    <img src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/7d1d31a6-29e5-401c-95a6-aef2e37ebe16/Resolve+Insurance+Rejections.jpg" alt="Steps to resolve pharmacy insurance rejections"/>
+    <p>To successfully handle rejection codes, pharmacy teams should follow a consistent process:</p>
+    <ol>
+      <li><strong>Review the specific code</strong> provided by the insurer to understand the exact rejection reason.</li>
+      <li><strong>Apply intervention codes</strong> to correct the identified error. If the rejection stems from an incorrect dosage, ensure the resubmitted claim contains the correct information.</li>
+      <li><strong>Work closely with adjudicators</strong> to identify coverage-related issues and ensure all required documentation is submitted.</li>
+    </ol>
+    <p>Fast and accurate handling of rejection codes not only saves time — it also increases reimbursement rates and keeps cash flow consistent. Third-party pharmacy insurance billing professionals who stay ahead of common rejection patterns will see significantly better approval rates over time.</p>
+    <p><a href="../our-app.html"><strong>Rx Billing Genie</strong></a> gives pharmacy teams instant access to rejection and intervention codes across all major Canadian adjudicators — so you can resolve issues at the counter in seconds, not on hold for 15 minutes.</p>
+  
+    </article>
+    <aside class="post-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-label">Written by</div>
+        <div class="sidebar-author">
+          <div class="author-avatar">SM</div>
+          <div>
+            <div class="author-name">Shelley Morgan</div>
+            <div class="author-role">Pharm.D, RPh, BSc — Founder</div>
+          </div>
+        </div>
+        <p class="sidebar-bio">Dr. Shelley Morgan is the founder of Rx Billing Genie, built from her firsthand experience as a community pharmacist navigating insurance billing complexity every day.</p>
+      </div>
+      <div class="sidebar-cta">
+        <p>Spend less time on hold. Resolve rejections in seconds.</p>
+        <a href="https://calendly.com/apprxbillinggenie" target="_blank" rel="noopener noreferrer" class="btn-sm">Book a Demo</a>
+      </div>
+      <div class="sidebar-card sidebar-related">
+        <div class="sidebar-label">More articles</div>
+        <a href="how-billing-insurance-companies-can-streamline-pharmacy-workflows.html" class="related-link">How Billing Insurance Companies Can Streamline Pharmacy Workflows</a>
+        <a href="how-insurance-adjudicators-help-simplify-claim-processes-for-pharmacies.html" class="related-link">How Insurance Adjudicators Help Simplify Claim Processes</a>
+        <a href="third-party-insurance-billing-avoiding-claim-rejections.html" class="related-link">Third-Party Insurance Billing: Avoiding Claim Rejections</a>
+        <a href="understanding-adjudication-and-rejection-codes-in-pharmacy-billing.html" class="related-link">Understanding Adjudication and Rejection Codes</a>
+        <a href="how-to-deal-with-pharmacy-insurance-rejection-codes.html" class="related-link">How to Deal with Pharmacy Insurance Rejection Codes</a>
+        <a href="how-to-handle-pharmacy-insurance-rejection-codes-tips-for-effective-billing.html" class="related-link">Tips for Handling Rejection Codes Effectively</a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="post-nav">
+    <a href="understanding-adjudication-and-rejection-codes-in-pharmacy-billing.html">← Understanding Adjudication and Rejection Codes in Pharmacy Billing</a>
+    <a href="how-to-handle-pharmacy-insurance-rejection-codes-tips-for-effective-billing.html">Tips for Handling Rejection Codes: Effective Billing →</a>
+  </div>
+
+  <div id="site-footer"></div>
+  <script>fetch('../partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+
+</div>
+</body>
+</html>
