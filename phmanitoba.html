@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PhManitoba — Rx Billing Genie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/mobile.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.page{max-width:900px;margin:0 auto}
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
+.nav-logo span{color:var(--teal-mid)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-links a.active{color:var(--navy);font-weight:500}
+.nav-social{display:flex;gap:12px;align-items:center}
+.nav-social a{color:var(--muted);text-decoration:none;display:flex;align-items:center}
+.nav-social a:hover{color:var(--teal-mid)}
+.nav-divider{width:1px;height:18px;background:var(--border)}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+
+/* PASSWORD GATE */
+.gate{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.gate-card{background:var(--white);border:0.5px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.gate-logo{width:72px;margin:0 auto 1.25rem}
+.gate-logo img{width:72px;object-fit:contain}
+.gate-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem}
+.gate-sub{font-size:13px;color:var(--muted);margin-bottom:1.75rem;line-height:1.7}
+.gate-input{width:100%;padding:10px 14px;border:0.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--slate);outline:none;margin-bottom:0.75rem;letter-spacing:0.5px}
+.gate-input:focus{border-color:var(--teal-mid)}
+.gate-btn{width:100%;background:var(--teal-mid);color:var(--white);padding:11px;border-radius:8px;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.gate-btn:hover{background:var(--teal)}
+.gate-error{font-size:12px;color:#D92D20;margin-bottom:0.75rem;display:none}
+
+/* PAGE CONTENT */
+.page-content{display:none}
+.page-hero{background:var(--navy);padding:3.5rem 2rem;text-align:center}
+.page-hero-eyebrow{display:inline-flex;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem}
+.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.2rem;color:var(--white);margin-bottom:0.75rem;line-height:1.2}
+.page-hero p{font-size:14px;color:#9AA8BC;max-width:520px;margin:0 auto;line-height:1.8}
+.section{padding:3rem 2rem}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.5rem}
+.section-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.7rem;color:var(--navy);line-height:1.3;margin-bottom:1rem}
+.section-body{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* FOOTER */
+footer{background:#060F1A;padding:2.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
+.footer-col{}
+.footer-brand img{width:120px;object-fit:contain;opacity:0.9}
+.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;font-weight:500;margin-bottom:0.75rem}
+.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(29,158,117,0.3);display:inline-block;margin-bottom:4px}
+.footer-email:hover{color:#5DCAA5}
+.footer-social{display:flex;gap:14px;margin:0.85rem 0}
+.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center}
+.footer-social a:hover{color:#1D9E75}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.28);margin-top:0.5rem}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
+.footer-link:hover{color:#1D9E75}
+
+@media(max-width:640px){
+  .nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:var(--white);flex-direction:column;align-items:flex-start;padding:1rem 1.25rem;gap:0;border-bottom:0.5px solid var(--border);z-index:100;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+  .nav-links.open{display:flex}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <div id="site-nav"></div>
+  <script>
+    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+      document.getElementById('site-nav').innerHTML=html;
+      var page=location.pathname.split('/').pop()||'index.html';
+      var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
+      if(link)link.classList.add('active');
+      var btn=document.getElementById('nav-hamburger');
+      var menu=document.getElementById('nav-links');
+      if(btn&&menu){
+        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);});
+        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
+        document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){menu.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded',false);});});
+      }
+    });
+  </script>
+
+  <!-- PASSWORD GATE -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <div class="gate-logo">
+        <img src="images/genie_logo.png" alt="Rx Billing Genie"/>
+      </div>
+      <h1 class="gate-title">PhManitoba</h1>
+      <p class="gate-sub">This page is password protected.<br/>Please enter your password to continue.</p>
+      <p class="gate-error" id="gate-error">Incorrect password. Please try again.</p>
+      <input type="password" class="gate-input" id="gate-input" placeholder="Enter password" autocomplete="current-password"/>
+      <button class="gate-btn" id="gate-btn">Enter</button>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT (revealed after auth) -->
+  <div class="page-content" id="page-content">
+    <div class="page-hero">
+      <div class="page-hero-eyebrow">PhManitoba</div>
+      <h1>Welcome to PhManitoba</h1>
+      <p>Pharmacy billing resources and tools for Manitoba pharmacists and pharmacy teams.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Coming soon</div>
+      <h2 class="section-title">Content for this page is on its way.</h2>
+      <p class="section-body">Check back soon for Manitoba-specific billing guidance, resources, and tools from Rx Billing Genie.</p>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="site-footer"></div>
+    <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var PASS = 'PhMB2026';
+    var gate = document.getElementById('gate');
+    var content = document.getElementById('page-content');
+    var input = document.getElementById('gate-input');
+    var btn = document.getElementById('gate-btn');
+    var error = document.getElementById('gate-error');
+
+    function unlock(){
+      sessionStorage.setItem('phmanitoba_auth','1');
+      gate.style.display='none';
+      content.style.display='block';
+    }
+
+    if(sessionStorage.getItem('phmanitoba_auth')==='1'){
+      unlock();
+    }
+
+    btn.addEventListener('click',function(){
+      if(input.value===PASS){
+        unlock();
+      } else {
+        error.style.display='block';
+        input.value='';
+        input.focus();
+      }
+    });
+
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter') btn.click();
+    });
+  })();
+</script>
+</body>
+</html>
