@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Third-Party Pharmacy Insurance and Adjudication Codes | Rx Billing Genie</title>
+<title>Rx Billing Genie — Pharmacy Workflow Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -17,11 +17,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);fo
 
 /* NAV */
 nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
-.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
-.nav-logo span{color:var(--teal-mid)}
+.nav-logo img{height:44px;width:auto;object-fit:contain}
 .nav-links{display:flex;gap:1.5rem;align-items:center}
 .nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
-.nav-links a.active{color:var(--navy);font-weight:500}
 .nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
 
 /* HERO */
@@ -36,7 +34,7 @@ nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2r
 .btn-primary{background:var(--teal-mid);color:var(--white);padding:11px 22px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;display:inline-block}
 .btn-secondary{background:transparent;color:var(--white);padding:11px 22px;border-radius:8px;font-size:14px;border:0.5px solid rgba(255,255,255,0.3);text-decoration:none;display:inline-block}
 .hero-phone{display:flex;align-items:flex-end;justify-content:center}
-.hero-phone img{width:200px;display:block;filter:drop-shadow(0 -8px 40px rgba(29,158,117,0.25));transform:translateY(4px);padding-bottom:2.5rem}
+.hero-phone img{width:200px;display:block;filter:drop-shadow(0 -8px 40px rgba(29,158,117,0.25));transform:translateY(4px)}
 .hero-stats{display:flex;gap:2rem;padding:1.5rem 2rem;background:rgba(255,255,255,0.04);border-top:0.5px solid rgba(255,255,255,0.08)}
 .hero-stat-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:300;color:var(--white)}
 .hero-stat-label{font-size:11px;color:#7A8FA8;margin-top:2px}
@@ -97,46 +95,29 @@ nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2r
 .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
 /* FOOTER */
-footer{background:#060F1A;padding:2.5rem 2rem}
-.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
-.footer-col{}
-.footer-brand img{width:120px;object-fit:contain;opacity:0.9}
-.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;font-weight:500;margin-bottom:0.75rem}
-.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
-.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(255,255,255,0.2)}
-.footer-email:hover{color:var(--teal-mid)}
-.footer-social{display:flex;gap:14px;margin:1rem 0;color:rgba(255,255,255,0.4)}
-.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none}
-.footer-social a:hover{color:var(--teal-mid)}
-.footer-copy{font-size:11px;color:rgba(255,255,255,0.3);margin-top:0.5rem}
-.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
-.footer-link:hover{color:var(--teal-mid)}
-.nav-social{display:flex;gap:12px;align-items:center}
-.nav-social a{color:var(--muted);text-decoration:none;display:flex;align-items:center}
-.nav-social a:hover{color:var(--teal-mid)}
-.nav-divider{width:1px;height:18px;background:var(--border)}
+footer{background:#060F1A;padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand img{height:36px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.7}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.4);text-decoration:none}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.3);width:100%}
 </style>
-<link rel="stylesheet" href="css/mobile.css"/>
 </head>
 <body>
 <div class="site">
 
-  <!-- NAV -->
-  <div id="site-nav"></div>
-  <script>
-    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
-      document.getElementById('site-nav').innerHTML=html;
-      var page=location.pathname.split('/').pop()||'index.html';
-      var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
-      if(link)link.classList.add('active');
-      var btn=document.getElementById('nav-hamburger');
-      var menu=document.getElementById('nav-links');
-      if(btn&&menu){
-        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);});
-        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
-      }
-    });
-  </script>
+  <!-- NAV — logo 1 (mortar & pestle wordmark) -->
+  <nav>
+    <div class="nav-logo">
+      <img src="logo-mortar.png" alt="Rx Billing Genie"/>
+    </div>
+    <div class="nav-links">
+      <a href="#">Products</a>
+      <a href="#">Pharmacies</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#" class="nav-cta">Book a Demo</a>
+    </div>
+  </nav>
 
   <!-- HERO -->
   <div class="hero">
@@ -146,12 +127,12 @@ footer{background:#060F1A;padding:2.5rem 2rem}
         <h1>Helping pharmacies work faster, <em>reduce billing friction,</em> and serve patients better.</h1>
         <p class="hero-sub">Rx Billing Genie gives pharmacy teams instant access to billing guidance, intervention codes, and rejection fixes — while Rx MedMatch connects pharmacies to reduce medication waste across the network.</p>
         <div class="hero-actions">
-          <a href="https://calendly.com/apprxbillinggenie" target="_blank" rel="noopener noreferrer" class="btn-primary">Book a Demo</a>
-          <a href="/rxbillinggenie/our-app.html" class="btn-secondary">View Products</a>
+          <a href="#" class="btn-primary">Book a Demo</a>
+          <a href="#" class="btn-secondary">View Products</a>
         </div>
       </div>
       <div class="hero-phone">
-        <img src="images/app-screenshot.png" alt="Rx Billing Genie app"/>
+        <img src="app-screenshot.png" alt="Rx Billing Genie app"/>
       </div>
     </div>
     <div class="hero-stats">
@@ -266,7 +247,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
         </div>
       </div>
       <div class="genie-img">
-        <img src="images/genie_logo.png" alt="Rx Billing Genie character"/>
+        <img src="logo-genie.png" alt="Rx Billing Genie character"/>
       </div>
     </div>
   </div>
@@ -304,14 +285,23 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     <h2>Ready to reduce billing friction in your pharmacy?</h2>
     <p>Book a 20-minute demo or start a conversation with our team.</p>
     <div class="cta-actions">
-      <a href="https://calendly.com/apprxbillinggenie" target="_blank" rel="noopener noreferrer" class="btn-primary">Book a Demo</a>
+      <a href="#" class="btn-primary">Book a Demo</a>
       <a href="#" class="btn-secondary">Contact Us</a>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div id="site-footer"></div>
-  <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+  <!-- FOOTER — logo 1 inverted for dark background -->
+  <footer>
+    <div class="footer-brand">
+      <img src="logo-mortar.png" alt="Rx Billing Genie"/>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Rx Billing Genie Inc. Burlington, Ontario, Canada &nbsp;·&nbsp; contact@rxbillinggenie.com</div>
+  </footer>
 
 </div>
 </body>
