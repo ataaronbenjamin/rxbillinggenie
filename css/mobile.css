@@ -21,6 +21,8 @@
 }
 @media(min-width:641px){
   .nav-hamburger{display:none}
+  .nav-social{display:none}
+  .nav-divider{display:none}
 }
 
 /* HERO — stack on mobile */
