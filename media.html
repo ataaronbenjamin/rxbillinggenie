@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Media &amp; Press — Rx Billing Genie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.page{max-width:900px;margin:0 auto}
+
+/* NAV */
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
+.nav-logo span{color:var(--teal-mid)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-links a.active{color:var(--navy);font-weight:500}
+.nav-social{display:flex;gap:12px;align-items:center}
+.nav-social a{color:var(--muted);text-decoration:none;display:flex;align-items:center}
+.nav-social a:hover{color:var(--teal-mid)}
+.nav-divider{width:1px;height:18px;background:var(--border)}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy);padding:3.5rem 2rem;text-align:center}
+.page-hero-eyebrow{display:inline-flex;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem}
+.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.2rem;color:var(--white);margin-bottom:0.75rem;line-height:1.2}
+.page-hero p{font-size:14px;color:#9AA8BC;max-width:560px;margin:0 auto;line-height:1.8}
+
+/* SECTIONS */
+.section{padding:3rem 2rem}
+.section.alt{background:var(--white)}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.5rem}
+.section-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.7rem;color:var(--navy);line-height:1.3;margin-bottom:1.5rem}
+
+/* PRESS CARDS */
+.press-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.press-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.press-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;display:block;background:var(--bg)}
+.press-card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.press-card-tag{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.5rem}
+.press-card-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.05rem;color:var(--navy);line-height:1.4;margin-bottom:0.75rem}
+.press-card-desc{font-size:13px;color:var(--muted);line-height:1.7;flex:1;margin-bottom:1.25rem}
+.press-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.press-card-pub{font-size:11px;color:var(--muted);font-style:italic}
+.press-card-link{font-size:12px;font-weight:500;color:var(--teal-mid);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.press-card-link:hover{color:var(--teal)}
+.press-card-link svg{flex-shrink:0}
+
+/* FEATURED QUOTE */
+.featured-quote{background:var(--navy);border-radius:12px;padding:2rem;margin-bottom:2rem}
+.featured-quote blockquote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:1.05rem;color:var(--white);line-height:1.8;margin-bottom:0.75rem}
+.featured-quote cite{font-size:12px;color:#5DCAA5;font-style:normal;font-weight:500}
+
+/* ARTICLE SECTION */
+.article-inner{display:grid;grid-template-columns:200px 1fr;gap:2.5rem;align-items:start}
+.article-cover{border-radius:12px;overflow:hidden;border:0.5px solid var(--border)}
+.article-cover img{width:100%;display:block}
+.article-meta{font-size:11px;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.5px}
+.article-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.3rem;color:var(--navy);line-height:1.3;margin-bottom:0.75rem}
+.article-sub{font-size:13px;font-style:italic;color:var(--teal-mid);margin-bottom:1rem;font-weight:500}
+.article-body{font-size:13px;color:var(--muted);line-height:1.8}
+.article-body p{margin-bottom:0.85rem}
+.article-body p:last-child{margin-bottom:0}
+.article-body strong{color:var(--navy)}
+.article-highlight{background:var(--teal-light);border-left:3px solid var(--teal-mid);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-top:1rem;font-size:13px;color:var(--slate);line-height:1.7;font-style:italic}
+
+/* CTA STRIP */
+.cta-strip{background:var(--teal-light);padding:2.5rem 2rem;text-align:center}
+.cta-strip h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem}
+.cta-strip p{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
+.cta-strip-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--teal-mid);color:var(--white);padding:11px 24px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;display:inline-block}
+.btn-outline{background:transparent;color:var(--navy);padding:11px 24px;border-radius:8px;font-size:14px;border:0.5px solid var(--border);text-decoration:none;display:inline-block}
+
+/* DOWNLOAD */
+.download-section{background:var(--white);padding:2.5rem 2rem;text-align:center;border-top:0.5px solid var(--border)}
+.dl-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.5rem}
+.download-section h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.4rem;color:var(--navy);margin-bottom:0.5rem}
+.dl-sub{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
+.download-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.dl-btn{display:flex;align-items:center;gap:10px;background:var(--navy);color:var(--white);padding:11px 20px;border-radius:10px;text-decoration:none}
+.dl-btn-label{text-align:left}
+.dl-btn-sub{font-size:10px;color:rgba(255,255,255,0.5);display:block}
+.dl-btn-name{font-size:14px;font-weight:500;display:block}
+.dl-btn.web{background:var(--teal)}
+
+/* FOOTER */
+footer{background:#060F1A;padding:2.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
+.footer-brand img{width:120px;object-fit:contain;opacity:0.9}
+.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;font-weight:500;margin-bottom:0.75rem}
+.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(29,158,117,0.3);display:inline-block;margin-bottom:4px}
+.footer-email:hover{color:#5DCAA5}
+.footer-social{display:flex;gap:14px;margin:0.85rem 0}
+.footer-social a{color:rgba(255,255,255,0.4);text-decoration:none;display:flex;align-items:center}
+.footer-social a:hover{color:#1D9E75}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.28);margin-top:0.5rem}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
+.footer-link:hover{color:#1D9E75}
+.footer-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:2rem}
+</style>
+<link rel="stylesheet" href="css/mobile.css"/>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <div id="site-nav"></div>
+  <script>
+    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+      document.getElementById('site-nav').innerHTML = html;
+      var links = document.querySelectorAll('.nav-links a[data-page]');
+      links.forEach(function(l){ if(l.getAttribute('data-page')==='media.html') l.classList.add('active'); });
+      var btn=document.getElementById('nav-hamburger');
+      var menu=document.getElementById('nav-links');
+      if(btn&&menu){
+        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);});
+        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
+      }
+    });
+  </script>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Media &amp; Press</div>
+    <h1>Rx Billing Genie in the news</h1>
+    <p>Press features, magazine covers, and community recognition for Dr. Shelley Morgan-Bair and the Rx Billing Genie team.</p>
+  </div>
+
+  <!-- PRESS CARDS -->
+  <div class="section alt">
+    <div class="section-label">Press coverage</div>
+    <h2 class="section-title">Featured stories</h2>
+    <div class="press-grid">
+
+      <!-- Card 1: Neighbours of Glen Abbey -->
+      <div class="press-card">
+        <img
+          class="press-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/d0977b8f-e7f5-4462-9526-6239b1bd4c2c/Shelley+Morgan-Bair+Rx+Billing+Genie+Rx+MedMatch+Media+Press+Release+September+2025.png"
+          alt="Dr. Shelley Morgan-Bair on the cover of Neighbours of Glen Abbey magazine"/>
+        <div class="press-card-body">
+          <div class="press-card-tag">Magazine Cover · September 2025</div>
+          <h3 class="press-card-title">Local Entrepreneur Dr. Shelley Morgan-Bair Featured on Cover of <em>Neighbours of Glen Abbey</em></h3>
+          <p class="press-card-desc">Dr. Morgan-Bair graces the cover with her three children. The feature highlights her personal journey, including overcoming imposter syndrome, postpartum depression, and building two health-tech products for Canadian pharmacies.</p>
+          <div class="press-card-footer">
+            <span class="press-card-pub">Neighbours of Glen Abbey</span>
+            <a href="https://lnkd.in/gy7e7Rgb" target="_blank" rel="noopener noreferrer" class="press-card-link">
+              Read feature
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Pharmacists Business Women -->
+      <div class="press-card">
+        <img
+          class="press-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/e9ad43ec-3137-4df2-943b-70e55d9bb9f3/PPB+Cover+image.jpeg"
+          alt="Dr. Shelley Morgan on the cover of Pharmacists Business Women publication"/>
+        <div class="press-card-body">
+          <div class="press-card-tag">Magazine Cover</div>
+          <h3 class="press-card-title">Pharmacists Business Women Cover Feature</h3>
+          <p class="press-card-desc">Dr. Morgan-Bair was selected as a cover feature recognizing her entrepreneurship and advocacy within the Canadian pharmacy profession and her work building innovative solutions for pharmacy teams.</p>
+          <div class="press-card-footer">
+            <span class="press-card-pub">Pharmacists Business Women</span>
+            <a href="https://lnkd.in/e9ne_gr6" target="_blank" rel="noopener noreferrer" class="press-card-link">
+              View cover
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Queen's Jubilee -->
+      <div class="press-card">
+        <img
+          class="press-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/065d2519-4f0d-451a-a32f-e2823a474e2d/Queens+70th+Platinum+pin+with+MP+Pam+Damoff+2022-09-01+at+3.41.03+PM.jpeg"
+          alt="Dr. Shelley Morgan-Bair receiving the Queen's Platinum Jubilee Medal from MP Pam Damoff"/>
+        <div class="press-card-body">
+          <div class="press-card-tag">Community Recognition · 2022</div>
+          <h3 class="press-card-title">Recipient of the Queen's Platinum Jubilee Medal</h3>
+          <p class="press-card-desc">Dr. Morgan-Bair was presented with the Queen's Platinum Jubilee Medal by former Liberal MP Pam Damoff, recognizing her outstanding contributions to the community and the pharmacy profession.</p>
+          <div class="press-card-footer">
+            <span class="press-card-pub">Oakville News</span>
+            <a href="https://www.oakvillenews.org/local-news/north-oakville-recipients-queen-s-platinum-jubilee-medal-8481660" target="_blank" rel="noopener noreferrer" class="press-card-link">
+              Read article
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Canadian Healthcare Network -->
+      <div class="press-card">
+        <div style="background:var(--navy);padding:2rem;display:flex;align-items:center;justify-content:center;min-height:160px">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(93,202,165,0.6)" stroke-width="1.5"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"/><path d="M4 11h8"/><path d="M4 16h4"/><path d="M2 7h4v4H2z"/></svg>
+        </div>
+        <div class="press-card-body">
+          <div class="press-card-tag">Industry Feature · March 2021</div>
+          <h3 class="press-card-title">Pharmacy Leader of the Week: Shelley Morgan</h3>
+          <p class="press-card-desc">"Speak up and push beyond your comfort zone." Pharmacy U via the Canadian Healthcare Network profiles Dr. Morgan on her journey from pharmacist to founder, and her vision for pharmacy billing innovation.</p>
+          <div class="press-card-footer">
+            <span class="press-card-pub">Canadian Healthcare Network / Pharmacy U</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FEATURED ARTICLE: Canadian Healthcare Network -->
+  <div class="section" id="pharmacy-leader">
+    <div class="section-label">In depth</div>
+    <h2 class="section-title">Pharmacy Leader of the Week</h2>
+    <div class="featured-quote">
+      <blockquote>"We created a practical tool that will help colleagues. The limitless possibilities — not only patient related but the industry itself — are what excite me most."</blockquote>
+      <cite>— Dr. Shelley Morgan, Founder, Rx Billing Genie · Canadian Healthcare Network, March 2021</cite>
+    </div>
+    <div class="article-inner">
+      <div class="article-cover">
+        <img
+          src="https://images.squarespace-cdn.com/content/v1/5faeae54d1200b5ef8933591/44c22100-04f0-48b9-b1e8-91df54e01235/PPB+Cover+image+%28465x640%29+%282%29.jpg"
+          alt="Magazine cover — Dr. Shelley Morgan"/>
+      </div>
+      <div>
+        <div class="article-meta">Canadian Healthcare Network &nbsp;·&nbsp; Pharmacy U &nbsp;·&nbsp; March 12, 2021</div>
+        <h3 class="article-title">"Speak up and push beyond your comfort zone."</h3>
+        <p class="article-sub">Pharmacy Leader of the Week: Shelley Morgan</p>
+        <div class="article-body">
+          <p>Dr. Shelley Morgan earned her BSc in Biology &amp; Environmental Science from the University of Western Ontario before completing her Doctor of Pharmacy at SUNY Buffalo. She went on to practice at Chedoke-McMaster Rehabilitation Hospital, supporting Stroke and Acquired Brain Injury programs, before building her career in community pharmacy.</p>
+          <p>Her daily frustrations managing insurance claims — losing upward of <strong>15 hours a month</strong> chasing approvals — led her and pharmacy assistant <strong>Nicola Sancho-Persad</strong> to create Rx Billing Genie: a practical billing reference tool designed to help pharmacists and technicians bill accurately and efficiently.</p>
+          <p>On what drives her: <em>"To make the lives of my fellow pharmacists and team members easier."</em></p>
+          <p>Her advice to pharmacy graduates: <em>"Speak up and push beyond your comfort zone."</em></p>
+          <div class="article-highlight">"The limitless possibilities, not only patient related but the industry itself — that's what excites me most about pharmacy's future."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <h2>Want to learn more or connect?</h2>
+    <p>Reach out for press inquiries, speaking opportunities, or to book a product demo.</p>
+    <div class="cta-strip-btns">
+      <a href="contact.html" class="btn-primary">Contact Us</a>
+      <a href="https://calendly.com/apprxbillinggenie" target="_blank" rel="noopener noreferrer" class="btn-outline">Book a Demo</a>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD -->
+  <div class="download-section" id="download">
+    <p class="dl-label">Available now</p>
+    <h2>Get Rx Billing Genie on your device</h2>
+    <p class="dl-sub">iOS, Android, and desktop web — no hardware upgrades required</p>
+    <div class="download-btns">
+      <a href="https://apps.apple.com/us/app/rx-billing-genie-rxbg/id1542505053" class="dl-btn" target="_blank" rel="noopener noreferrer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div class="dl-btn-label"><span class="dl-btn-sub">Download on the</span><span class="dl-btn-name">App Store</span></div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.mevetech.rxbillinggenie" class="dl-btn" target="_blank" rel="noopener noreferrer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.22.99.14l12.12-6.99-2.64-2.64-10.47 9.49zM.47 1.6C.18 1.92 0 2.4 0 3.02v17.96c0 .62.18 1.1.47 1.42l.07.07 10.06-10.06v-.24L.54 1.53l-.07.07zM20.43 10.22l-2.88-1.66-2.96 2.96 2.96 2.96 2.9-1.67c.83-.48.83-1.26-.02-1.59zM3.18.24L15.3 7.23l-2.64 2.64L2.19.38c.3-.08.65-.03.99.14v-.28z"/></svg>
+        <div class="dl-btn-label"><span class="dl-btn-sub">Get it on</span><span class="dl-btn-name">Google Play</span></div>
+      </a>
+      <a href="https://rxbillinggenie.glide.page" class="dl-btn web" target="_blank" rel="noopener noreferrer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <div class="dl-btn-label"><span class="dl-btn-sub">Use on</span><span class="dl-btn-name">Desktop Web</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div id="site-footer"></div>
+  <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+
+</div>
+</body>
+</html>
