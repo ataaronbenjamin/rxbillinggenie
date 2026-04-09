@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Production branch
+[context.production]
+  publish = "."
+
+# Preprod branch deploy
+[context.preprod]
+  publish = "."
