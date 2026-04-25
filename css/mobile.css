@@ -112,3 +112,12 @@
 @media(max-width:640px){
   .origin-inner{grid-template-columns:1fr}
 }
+
+/* CALCULATOR — full-width input, tighter result number */
+@media(max-width:640px){
+  #calc-waste{font-size:16px} /* prevent iOS zoom on focus */
+  #calc-days{font-size:2rem}
+}
+@media(max-width:480px){
+  .calc-input-row{max-width:100%!important}
+}
