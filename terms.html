@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Terms and Conditions | Rx Billing Genie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;
+  --slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB;
+  --pill-bg:#E1F5EE;--pill-text:#0F6E56;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
+.site{max-width:900px;margin:0 auto}
+
+/* NAV */
+nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
+.nav-logo{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--navy);letter-spacing:-0.3px;text-decoration:none}
+.nav-logo span{color:var(--teal-mid)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.nav-links a.active{color:var(--navy);font-weight:500}
+.nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy);padding:3rem 2rem}
+.page-hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem}
+.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2rem;line-height:1.2;color:var(--white);margin-bottom:0.75rem}
+.page-hero p{font-size:14px;color:#9AA8BC;line-height:1.7}
+
+/* T&C LAYOUT */
+.tc-wrapper{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:3rem 2rem;align-items:start}
+
+/* SIDEBAR NAV */
+.tc-sidebar{position:sticky;top:80px}
+.tc-sidebar-label{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:600;margin-bottom:0.75rem}
+.tc-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.tc-nav a{display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:5px 8px;border-radius:5px;line-height:1.4;transition:background 0.15s,color 0.15s}
+.tc-nav a:hover{background:var(--teal-light);color:var(--teal)}
+.tc-nav a.active{background:var(--teal-light);color:var(--teal);font-weight:500}
+.tc-nav-divider{height:1px;background:var(--border);margin:8px 0}
+
+/* CONTENT */
+.tc-content{min-width:0}
+
+/* Section tabs */
+.tc-tabs{display:flex;gap:8px;margin-bottom:2.5rem}
+.tc-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:0.5px solid var(--border);background:var(--white);color:var(--muted);transition:all 0.15s}
+.tc-tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+.tc-section{display:none}
+.tc-section.active{display:block}
+
+/* Part headings */
+.tc-part{margin-bottom:2.5rem;scroll-margin-top:90px}
+.tc-part-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500;margin-bottom:0.4rem}
+.tc-part h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.3rem;color:var(--navy);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:0.5px solid var(--border)}
+.tc-part h3{font-size:14px;font-weight:600;color:var(--navy);margin:1.25rem 0 0.5rem}
+.tc-part p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:0.75rem}
+.tc-part ol,.tc-part ul{margin-left:1.5rem;margin-bottom:0.75rem}
+.tc-part li{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:0.4rem}
+.tc-part em{font-style:italic}
+.tc-part strong{color:var(--slate);font-weight:600}
+
+/* Legal notice box */
+.legal-notice{background:var(--navy);border-radius:10px;padding:1.5rem;margin-bottom:2rem;text-align:center}
+.legal-notice p{color:#9AA8BC;font-size:13px;line-height:1.8;margin-bottom:0.5rem}
+.legal-notice p:last-child{margin-bottom:0}
+.legal-notice strong{color:var(--white)}
+
+/* Effective date badge */
+.effective-date{display:inline-flex;align-items:center;gap:6px;background:var(--teal-light);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--teal);font-weight:500;margin-bottom:2rem}
+
+/* FOOTER */
+footer{background:#060F1A;padding:2.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:160px 1fr 140px 180px;gap:2rem;align-items:start}
+.footer-label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;font-weight:500;margin-bottom:0.75rem}
+.footer-text{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:4px}
+.footer-email{font-size:13px;color:#1D9E75;text-decoration:none;border-bottom:0.5px solid rgba(255,255,255,0.2)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.3);margin-top:0.5rem}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:8px}
+.footer-link:hover{color:var(--teal-mid)}
+.footer-brand{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--white);margin-bottom:0.75rem}
+.footer-brand span{color:var(--teal-mid)}
+
+@media(max-width:700px){
+  .tc-wrapper{grid-template-columns:1fr;gap:1.5rem}
+  .tc-sidebar{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+<link rel="stylesheet" href="css/mobile.css"/>
+</head>
+<body>
+<div class="site">
+
+  <!-- NAV -->
+  <div id="site-nav"></div>
+  <script>
+    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+      document.getElementById('site-nav').innerHTML=html;
+      var page=location.pathname.split('/').pop()||'index.html';
+      var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
+      if(link)link.classList.add('active');
+      var btn=document.getElementById('nav-hamburger');
+      var menu=document.getElementById('nav-links');
+      if(btn&&menu){
+        btn.addEventListener('click',function(){var open=menu.classList.toggle('open');btn.classList.toggle('open',open);});
+        document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!menu.contains(e.target)){menu.classList.remove('open');btn.classList.remove('open');}});
+      }
+    });
+  </script>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-eyebrow">Legal</div>
+    <h1>Terms and Conditions</h1>
+    <p>Please read these terms carefully before using Rx Billing Genie or Rx MedMatch.</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="tc-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="tc-sidebar">
+      <div class="tc-sidebar-label">On this page</div>
+
+      <div id="sidebar-rbg" style="display:block">
+        <ul class="tc-nav">
+          <li><a href="#rbg-notice">Legal Notice</a></li>
+          <li><a href="#rbg-definitions">1. Definitions</a></li>
+          <li><a href="#rbg-license">2. License &amp; Use</a></li>
+          <li><a href="#rbg-restrictions">3. Restrictions</a></li>
+          <li><a href="#rbg-ip">4. Intellectual Property</a></li>
+          <li><a href="#rbg-warranty">5. Disclaimer of Warranty</a></li>
+          <li><a href="#rbg-liability">6. Limitation of Liability</a></li>
+          <li><a href="#rbg-termination">7. Termination</a></li>
+          <li><a href="#rbg-governing">8. Governing Law</a></li>
+        </ul>
+      </div>
+
+      <div id="sidebar-mm" style="display:none">
+        <ul class="tc-nav">
+          <li><a href="#mm-1">1. Introduction</a></li>
+          <li><a href="#mm-2">2. Definitions</a></li>
+          <li><a href="#mm-3">3. Eligibility &amp; Registration</a></li>
+          <li><a href="#mm-4">4. Scope of Services</a></li>
+          <li><a href="#mm-5">5. Fees &amp; Payment</a></li>
+          <li><a href="#mm-6">6. User Obligations</a></li>
+          <li><a href="#mm-7">7. Platform Provider Rights</a></li>
+          <li><a href="#mm-8">8. Data Privacy</a></li>
+          <li><a href="#mm-9">9. Intellectual Property</a></li>
+          <li><a href="#mm-10">10. Disclaimers &amp; Liability</a></li>
+          <li><a href="#mm-11">11. Indemnification</a></li>
+          <li><a href="#mm-12">12. Term &amp; Termination</a></li>
+          <li><a href="#mm-13">13. Dispute Resolution</a></li>
+          <li><a href="#mm-14">14. Governing Law</a></li>
+          <li><a href="#mm-15">15. General Provisions</a></li>
+          <li><a href="#mm-16">16. Contact Information</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="tc-content">
+
+      <!-- TABS -->
+      <div class="tc-tabs">
+        <button class="tc-tab active" onclick="switchTab('rbg')">Rx Billing Genie</button>
+        <button class="tc-tab" onclick="switchTab('mm')">Rx MedMatch</button>
+      </div>
+
+      <!-- RX BILLING GENIE T&C -->
+      <div class="tc-section active" id="tc-rbg">
+
+        <div class="effective-date">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Effective: January 2021
+        </div>
+
+        <div class="legal-notice">
+          <p><strong>LEGAL NOTICE — READ CAREFULLY</strong></p>
+          <p>By selecting the "I ACCEPT" button, you acknowledge that you have read, understand, and agree to be bound in an agreement between you and Rx Billing Genie, as defined by the Terms and Conditions below.</p>
+          <p>Selection of "I ACCEPT" will cause the Software to be activated on your computing device. If you do not wish to be so bound, select "I DO NOT ACCEPT" and the Software will not be activated.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-definitions">
+          <div class="tc-part-label">Section 1</div>
+          <h2>Definitions</h2>
+          <p>For the purpose of each Agreement created by the selection of the "I ACCEPT" button:</p>
+          <ul>
+            <li><strong>Rx Billing Genie</strong> means Rx Billing Genie Inc., the proprietor of the Software.</li>
+            <li><strong>You</strong> means the person who selected the "I ACCEPT" button.</li>
+          </ul>
+        </div>
+
+        <div class="tc-part" id="rbg-license">
+          <div class="tc-part-label">Section 2</div>
+          <h2>License and Permitted Use</h2>
+          <p>You agree that the Software has been downloaded for your personal use as a practising pharmacist or pharmacy technician, to search for insurance billing references.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-restrictions">
+          <div class="tc-part-label">Section 3</div>
+          <h2>Restrictions</h2>
+          <p>You further agree that you will not, and will not permit others to:</p>
+          <ol type="a">
+            <li>Copy, modify, publish, transmit, distribute, perform, alter, participate in the transfer or sale, create derivative works of, or in any way exploit the Software, in whole or in part, otherwise than as expressly permitted;</li>
+            <li>Modify, publish, transmit, distribute, perform, alter, participate in the transfer or sale, create derivative works of, or in any way exploit any of the Content, in whole or in part;</li>
+            <li>Reverse engineer, decompile, or defeat license encryption mechanisms, or disassemble the Software, any license key, or any portion thereof, or otherwise attempt to derive the source code of the Software;</li>
+            <li>Merge the Software with any other software or documentation;</li>
+            <li>Use the Software for the business needs of another person or entity other than the pharmacy in respect of which you provide professional services, including without limitation, providing outsourcing, service bureau, application service provider, or online services to third parties; or</li>
+            <li>Remove, alter, or obscure any proprietary notice that appears on the Software or is created by the Software in use.</li>
+          </ol>
+        </div>
+
+        <div class="tc-part" id="rbg-ip">
+          <div class="tc-part-label">Section 4</div>
+          <h2>Intellectual Property</h2>
+          <p>You acknowledge that all information in the Software, including but not limited to programs, photos, video, text, graphics, and other materials (collectively, "Content") are protected by copyright, patents, design patents, industrial designs, trade-marks, trade secrets and/or other intellectual property or proprietary rights. These rights are valid and protected in all forms, media, and technologies existing now or hereafter developed, and are all owned by Rx Billing Genie.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-warranty">
+          <div class="tc-part-label">Section 5</div>
+          <h2>Disclaimer of Warranty</h2>
+          <p>The Software is a service product and its accuracy and reliability are not guaranteed. The Software is provided on an as-is basis, and Rx Billing Genie disclaims any and all representations or warranties of any kind, whether express or implied, with respect to it, including any implied warranties of merchantability or fitness for a particular purpose. The entire risk arising out of use or performance of the Software remains with you.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-liability">
+          <div class="tc-part-label">Section 6</div>
+          <h2>Limitation of Liability</h2>
+          <p>Rx Billing Genie shall not be liable for any direct, indirect, special, incidental, or consequential damage, whether based on contract or tort or any other legal theory, relating directly or indirectly to the Software.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-termination">
+          <div class="tc-part-label">Section 7</div>
+          <h2>Termination</h2>
+          <p>You acknowledge and agree that Rx Billing Genie, in its sole and absolute discretion, may, without notice to you, suspend or terminate your use of the Software for any reason. You further agree that Rx Billing Genie shall not be liable to you or to any other person as a result of any such suspension or termination, and you will hold Rx Billing Genie harmless from such liability.</p>
+        </div>
+
+        <div class="tc-part" id="rbg-governing">
+          <div class="tc-part-label">Section 8</div>
+          <h2>Governing Law</h2>
+          <p>This Agreement shall be interpreted, construed, and governed by the laws in force in the Province of Ontario, Canada, without reference to its conflict of laws principles.</p>
+        </div>
+
+      </div><!-- /tc-rbg -->
+
+
+      <!-- RX MEDMATCH T&C -->
+      <div class="tc-section" id="tc-mm">
+
+        <div class="effective-date">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Effective: 2025
+        </div>
+
+        <div class="tc-part" id="mm-1">
+          <div class="tc-part-label">Part 1</div>
+          <h2>Introduction and Acceptance</h2>
+
+          <h3>1.1 Service Overview</h3>
+          <p>The MedMatch Service is an online platform designed to connect licensed pharmacies in Ontario, Canada, for the purpose of posting information about their pharmaceutical product needs and/or pharmaceutical products they may have in overstock. MedMatch acts solely as a facilitator for communication and information sharing between its Users.</p>
+
+          <h3>1.2 Acceptance of Terms</h3>
+          <p>By registering for an account, accessing, or using the MedMatch Service in any manner, You, the User (representing an accredited pharmacy), acknowledge that You have read, understood, and agree to be bound by these Terms and Conditions, along with Our Privacy Policy, which is incorporated herein by reference. If You are using the Service on behalf of a pharmacy, You represent and warrant that You have the authority to bind that pharmacy to these Terms. These Terms constitute a legally binding agreement between You and MedMatch.</p>
+          <p>These Terms are in addition to any other general terms and conditions of Rx Billing Genie that may apply to Your use of other services; however, in the event of any conflict between such general terms and these MedMatch-specific Terms regarding Your use of the MedMatch Service, these MedMatch-specific Terms shall prevail.</p>
+
+          <h3>1.3 Modification of Terms</h3>
+          <p>MedMatch reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material, We will provide at least thirty (30) days' notice prior to any new terms taking effect. Notice may be provided by posting the revised Terms on the Platform, by email to the address associated with Your Account, or by other means We deem appropriate. By continuing to access or use Our Service after those revisions become effective, You agree to be bound by the revised Terms. If You do not agree to the new Terms, You must provide written notice to MedMatch within 14 days of the material change.</p>
+        </div>
+
+        <div class="tc-part" id="mm-2">
+          <div class="tc-part-label">Part 2</div>
+          <h2>Definitions</h2>
+          <h3>2.1 Definitions</h3>
+          <p>(a) <strong>"Account"</strong> means the account created by a User to access and use the MedMatch Service.</p>
+          <p>(b) <strong>"Business Information"</strong> means the information provided by the User during registration and use of the Service, including the pharmacy's OCP accreditation number, name of owner(s), full address, phone number and email, name of the Designated Manager, and the name of the person applying if different from the Owner(s)/DM.</p>
+          <p>(c) <strong>"Confidential Information"</strong> means any non-public information disclosed by one party to the other in connection with these Terms or the Service, which is marked as confidential or would reasonably be understood to be confidential.</p>
+          <p>(d) <strong>"Designated Manager (DM)"</strong> means the pharmacist designated as such for the User pharmacy in accordance with the Drug and Pharmacies Regulation Act and OCP requirements.</p>
+          <p>(e) <strong>"Intellectual Property"</strong> means all patents, copyrights, trademarks, trade secrets, database rights, and other proprietary rights of any kind.</p>
+          <p>(f) <strong>"Listing"</strong> means a posting on the Platform by a User detailing either a Product Need or an Overstock Product.</p>
+          <p>(g) <strong>"OCP"</strong> means the Ontario College of Pharmacists.</p>
+          <p>(h) <strong>"Overstock Product"</strong> means a pharmaceutical drug product that has been legitimately procured, never dispensed to a patient, stored in full compliance with all applicable laws and standards, is not expired or subject to recall, is approved for sale in Canada with a valid DIN where applicable, and for which the User pharmacy has clear legal title to offer for transfer.</p>
+          <p>(i) <strong>"Platform"</strong> means the MedMatch website, applications, and related technologies through which the Service is provided.</p>
+          <p>(j) <strong>"Product Need"</strong> means a request posted by a User for a specific pharmaceutical product they require for their pharmacy inventory.</p>
+          <p>(k) <strong>"Service"</strong> means the MedMatch online platform and its functionalities, facilitating the listing of Product Needs and Overstock Products among Users.</p>
+          <p>(l) <strong>"User"</strong> or <strong>"You"</strong> means the accredited pharmacy entity, acting through its authorized representatives, that registers for and uses the Service.</p>
+        </div>
+
+        <div class="tc-part" id="mm-3">
+          <div class="tc-part-label">Part 3</div>
+          <h2>Eligibility and Account Registration</h2>
+
+          <h3>3.1 User Eligibility</h3>
+          <p>To be eligible to register for and use the MedMatch Service, You must:</p>
+          <ol type="a">
+            <li>Hold a current, valid, and unrestricted Certificate of Accreditation issued by the OCP.</li>
+            <li>Operate a physical "bricks-and-mortar" pharmacy located in the Province of Ontario.</li>
+            <li>Be in good standing with the OCP and comply with all applicable federal and provincial laws, regulations, and standards of practice governing pharmacies in Ontario.</li>
+            <li>Be represented by the pharmacy Owner(s), Designated Manager, or another individual duly authorized to enter into these Terms and use the Service on behalf of the pharmacy.</li>
+          </ol>
+
+          <h3>3.2 Account Creation and Information Accuracy</h3>
+          <p>To use the Service, You must register for an Account and provide true, accurate, current, and complete Business Information, including: the pharmacy's OCP accreditation number; the full name(s) of the Owner(s); the full physical address; a valid phone number and email address; the full name of the current Designated Manager; and the full name of the individual applying if different from the Owner(s) or Designated Manager.</p>
+          <p>You agree to promptly update Your Account information to keep it accurate and current. Failure to do so may result in suspension or termination of Your Account.</p>
+
+          <h3>3.3 Verification Process</h3>
+          <p>Upon submission of Your registration information, MedMatch will undertake a verification process, which may take approximately two to three (2–3) business days. Access to the Service will be granted via email confirmation only upon successful verification. MedMatch reserves the right, in its sole discretion, to refuse registration or suspend/terminate an Account if verification is unsuccessful or if any information provided is found to be false or misleading.</p>
+
+          <h3>3.4 Account Security</h3>
+          <p>You are responsible for maintaining the confidentiality of Your Account credentials and are solely responsible for all activities that occur under Your Account. You agree to immediately notify MedMatch of any unauthorized use of Your Account or any other breach of security. MedMatch will not be liable for any loss or damage arising from Your failure to comply with this section.</p>
+        </div>
+
+        <div class="tc-part" id="mm-4">
+          <div class="tc-part-label">Part 4</div>
+          <h2>Scope of Services</h2>
+
+          <h3>4.1 Platform Functionality</h3>
+          <p>The MedMatch Service enables registered Users to: (a) create and post Listings for pharmaceutical products they require ("Product Needs"); and (b) create and post Listings for Overstock Products they wish to make available for transfer or sale to other Users.</p>
+
+          <h3>4.2 MedMatch as a Neutral Facilitator</h3>
+          <p>MedMatch is solely a neutral technology platform provider and facilitator. MedMatch: (a) is not a party to any transaction between Users; (b) does not buy, sell, take possession of, store, handle, transport, or distribute any pharmaceutical products; (c) does not endorse, guarantee, or warrant the quality, safety, legality, or efficacy of any products listed; (d) does not verify the accuracy of any Listings; and (e) is not responsible for the conduct of any User or the performance of any obligations between Users.</p>
+          <p>All transactions and agreements for the transfer or sale of pharmaceutical products are solely between the Users involved. Users are solely responsible for conducting their own due diligence and ensuring compliance with all applicable laws and professional obligations.</p>
+        </div>
+
+        <div class="tc-part" id="mm-5">
+          <div class="tc-part-label">Part 5</div>
+          <h2>Fees and Payment Terms</h2>
+
+          <h3>5.1 Administration Fee</h3>
+          <p>Access to the MedMatch Service is subject to a one-time administration fee of $35.00 (CAD), plus any applicable taxes ("Administration Fee").</p>
+
+          <h3>5.2 Waiver for First Subscribers</h3>
+          <p>The Administration Fee will be waived for Users who register and are successfully verified as "First Subscribers." MedMatch will disclose the criteria for qualifying as a First Subscriber at its sole discretion and reserves the right to amend the First Subscriber Criteria at any time without notice.</p>
+
+          <h3>5.3 Payment Terms</h3>
+          <p>The Administration Fee is payable upon completion of the verification process and prior to full activation of Your Account, unless waived per Section 5.2. Payment shall be made through the payment link or third-party payment processor designated by MedMatch. The Administration Fee is non-refundable once paid, except as required by applicable law. All fees are quoted in Canadian Dollars.</p>
+        </div>
+
+        <div class="tc-part" id="mm-6">
+          <div class="tc-part-label">Part 6</div>
+          <h2>User Obligations and Conduct</h2>
+
+          <h3>6.1 Compliance with Laws and Regulations</h3>
+          <p>You agree to use the MedMatch Service in strict compliance with all applicable federal and provincial laws, regulations, standards of practice, and guidelines. This includes those established by Health Canada, the OCP, NAPRA, the <em>Drug and Pharmacies Regulation Act</em> (Ontario), the <em>Food and Drugs Act</em> (Canada), the <em>Controlled Drugs and Substances Act</em> (Canada), and any other relevant legislation pertaining to the procurement, storage, handling, advertising, sale, transfer, distribution, and disposal of pharmaceutical products.</p>
+
+          <h3>6.2 Accuracy and Legality of Listings</h3>
+          <p>You are solely responsible for the accuracy, completeness, legality, and content of all Listings You post. You warrant that all information in Your Listings is true, current, and not misleading. For Overstock Products, You warrant that You have legal title to such products and the unrestricted right to offer them for transfer or sale.</p>
+
+          <h3>6.3 Product Quality and Standards</h3>
+          <p>When listing an Overstock Product, You warrant and represent that the product: (a) fully complies with the definition of "Overstock Product" in Section 2.1(h); (b) is approved for sale in Canada by Health Canada and possesses a valid DIN, if applicable; (c) is not expired and will have a reasonable remaining shelf-life at the time of transfer; (d) is not adulterated, misbranded, counterfeit, or subject to any active recall or safety advisory; and (e) has been procured, stored, and handled in strict accordance with all applicable laws, regulations, OCP/NAPRA standards, and manufacturer's guidelines.</p>
+
+          <h3>6.4 Restrictions on Listed Items</h3>
+          <p>You agree not to list, offer, seek, or facilitate the transfer of:</p>
+          <ol type="a">
+            <li>Controlled substances (narcotics, controlled drugs, targeted substances), unless explicitly permitted by MedMatch under separate terms. (Such listings are currently prohibited.)</li>
+            <li>Any pharmaceutical product previously sold or dispensed to a patient and returned, regardless of condition.</li>
+            <li>Any product subject to a Health Canada, OCP, or manufacturer recall or under investigation for safety or quality concerns.</li>
+            <li>Compounded preparations, unless explicitly permitted by MedMatch. (Such listings are currently prohibited.)</li>
+            <li>Pharmaceutical samples, investigational drugs, or products not approved for sale in Canada.</li>
+            <li>Any product that cannot legally be transferred or sold between accredited pharmacies in Ontario.</li>
+          </ol>
+
+          <h3>6.5 Transaction Conduct and Record-Keeping</h3>
+          <p>When engaging in a transaction through the Service, You are solely responsible for: (a) conducting due diligence regarding the other User and the products involved; (b) ensuring compliance with all OCP, NAPRA, and Health Canada guidelines governing inter-pharmacy transfers, including creating and maintaining complete and auditable records of the transaction; (c) ensuring secure and appropriate packaging, transportation, and storage conditions during the physical transfer; and (d) complying with all invoicing, payment, and financial record-keeping requirements.</p>
+
+          <h3>6.6 Advertising Compliance</h3>
+          <p>You agree that all Listings will comply with applicable OCP regulations and guidelines concerning the advertising of drugs and pharmacy services, including regulations regarding price information for Schedule I drugs, ensuring information is not false, misleading, or deceptive, and the prohibition on advertising narcotics or controlled substances.</p>
+
+          <h3>6.7 Prohibited Uses of the Platform</h3>
+          <p>You agree not to use the MedMatch Service for any unlawful purpose or any purpose not reasonably intended by MedMatch. Specifically, You agree not to: damage or impair the Service; gain unauthorized access to the Service or other Accounts; use automated means to access the Service without Our express written permission; introduce malicious code or technology; engage in fraudulent activity; harass, abuse, or harm another person or User; circumvent any fees payable to MedMatch; or use the Service to develop a competing product or service.</p>
+        </div>
+
+        <div class="tc-part" id="mm-7">
+          <div class="tc-part-label">Part 7</div>
+          <h2>Platform Provider Rights and Responsibilities</h2>
+
+          <h3>7.1 Service Provision and Availability</h3>
+          <p>MedMatch will use commercially reasonable efforts to make the Service available to Users. However, MedMatch does not guarantee that the Service will be uninterrupted, timely, secure, or error-free. The Service is provided on an "AS IS" and "AS AVAILABLE" basis.</p>
+
+          <h3>7.2 Right to Monitor, Suspend, or Terminate</h3>
+          <p>MedMatch reserves the right, but has no obligation, to monitor any activity and content associated with the Service. MedMatch may, in its sole discretion and without notice or liability: remove any Listing or content that violates these Terms or is otherwise objectionable; investigate any suspected misuse of the Service; and suspend or terminate a User's access to the Service for breach of these Terms, non-payment of applicable fees, engagement in illegal or fraudulent activities, or for any reason MedMatch believes is necessary to protect the Service, its Users, or the public.</p>
+        </div>
+
+        <div class="tc-part" id="mm-8">
+          <div class="tc-part-label">Part 8</div>
+          <h2>Data Privacy and Confidentiality</h2>
+
+          <h3>8.1 Collection and Use of Business Information</h3>
+          <p>MedMatch collects Business Information from Users as detailed in Section 3.2 and as necessary for the provision and improvement of the Service. This information is used for creating and managing User Accounts; verifying User eligibility and OCP accreditation; facilitating communication between Users; processing payments; providing customer support; and ensuring compliance with these Terms and applicable laws. MedMatch is committed to protecting the privacy of Your Business Information in accordance with its Privacy Policy and the requirements of PIPEDA and other applicable privacy legislation.</p>
+
+          <h3>8.2 No Patient Personal Health Information (PHI)</h3>
+          <p>The MedMatch Service is not intended for the collection, storage, transmission, or disclosure of any patient Personal Health Information (PHI) as defined under <em>PHIPA</em> or any other applicable health privacy legislation. Users are strictly prohibited from submitting, uploading, or otherwise transmitting any PHI to or through the MedMatch Platform. MedMatch disclaims all liability for any breach of PHIPA or other health privacy laws resulting from a User's violation of this provision.</p>
+
+          <h3>8.3 Data Security</h3>
+          <p>MedMatch will implement and maintain reasonable administrative, technical, and physical security measures designed to protect Business Information from unauthorized access, use, disclosure, alteration, or destruction. You acknowledge that no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
+
+          <h3>8.4 Confidentiality of MedMatch Information</h3>
+          <p>You agree to keep confidential any non-public information concerning the MedMatch Platform, its design, operation, features, or any business information disclosed to You by MedMatch that is marked as confidential or would reasonably be understood to be confidential. You will not disclose such information to any third party without MedMatch's prior written consent, except as required by law.</p>
+        </div>
+
+        <div class="tc-part" id="mm-9">
+          <div class="tc-part-label">Part 9</div>
+          <h2>Intellectual Property Rights</h2>
+
+          <h3>9.1 Ownership of MedMatch Intellectual Property</h3>
+          <p>The MedMatch Service and Platform, including all underlying software, technology, designs, text, graphics, logos, trademarks, service marks, and other content (excluding User-Generated Content), and all Intellectual Property rights therein, are and will remain the exclusive property of MedMatch and/or its licensors. These Terms do not grant You any right, title, or interest in or to the Service or Platform or any of MedMatch's Intellectual Property, except for the limited right to access and use the Service in accordance with these Terms.</p>
+
+          <h3>9.2 User-Generated Content and License Grant</h3>
+          <p>Users retain ownership of the content they create and post in their Listings ("User-Generated Content"). However, by submitting User-Generated Content to the Service, You grant MedMatch a non-exclusive, worldwide, royalty-free, sublicensable, and transferable license to use, reproduce, distribute, display, modify, and perform Your User-Generated Content solely for the purposes of operating, providing, developing, and promoting the MedMatch Service.</p>
+        </div>
+
+        <div class="tc-part" id="mm-10">
+          <div class="tc-part-label">Part 10</div>
+          <h2>Disclaimers and Limitation of Liability</h2>
+
+          <h3>10.1 Disclaimer Regarding Listed Products and User Conduct</h3>
+          <p>MEDMATCH MAKES NO REPRESENTATIONS, WARRANTIES, OR GUARANTEES, EXPRESS OR IMPLIED, REGARDING THE QUALITY, SAFETY, LEGALITY, AUTHENTICITY, AVAILABILITY, OR EFFICACY OF ANY PRODUCTS LISTED ON THE PLATFORM. ALL RISKS ASSOCIATED WITH TRANSACTIONS ENTERED INTO BETWEEN USERS VIA THE SERVICE ARE BORNE SOLELY BY THE USERS.</p>
+
+          <h3>10.2 Disclaimer of Warranties for Service</h3>
+          <p>THE MEDMATCH SERVICE AND PLATFORM ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS, WITHOUT ANY WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, OR NON-INFRINGEMENT.</p>
+
+          <h3>10.3 Limitation of Liability</h3>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL MEDMATCH, ITS AFFILIATES, DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, OR LICENSORS BE LIABLE FOR ANY INDIRECT, PUNITIVE, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE, THE SERVICE.</p>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, MEDMATCH'S AGGREGATE LIABILITY FOR ALL CLAIMS RELATING TO THE SERVICE OR THESE TERMS SHALL NOT EXCEED THE GREATER OF: (A) THE TOTAL ADMINISTRATION FEE PAID BY YOU TO MEDMATCH IN THE TWELVE (12) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE CLAIM, OR (B) ONE HUNDRED CANADIAN DOLLARS ($100.00 CAD).</p>
+        </div>
+
+        <div class="tc-part" id="mm-11">
+          <div class="tc-part-label">Part 11</div>
+          <h2>Indemnification</h2>
+
+          <h3>11.1 User Indemnification</h3>
+          <p>You agree to defend, indemnify, and hold harmless MedMatch, its affiliates, and their respective officers, directors, employees, agents, and licensors from and against any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable legal fees) arising out of or in any way connected with: (a) Your access to or use of the MedMatch Service; (b) Your User-Generated Content or Listings; (c) any transaction or interaction You have with another User through the Service; (d) Your violation of any provision of these Terms; (e) Your violation of any applicable law, regulation, or standard of professional conduct; or (f) Your infringement or violation of any rights of another party.</p>
+        </div>
+
+        <div class="tc-part" id="mm-12">
+          <div class="tc-part-label">Part 12</div>
+          <h2>Term, Termination, and Suspension</h2>
+
+          <h3>12.1 Term</h3>
+          <p>This Agreement shall commence on the date You first accept these Terms and shall continue in full force and effect until terminated by either You or MedMatch as set forth herein.</p>
+
+          <h3>12.2 Termination by User</h3>
+          <p>You may terminate Your Account and these Terms at any time by discontinuing Your use of the Service and providing MedMatch with written notice of termination. Termination will be effective upon MedMatch's processing of Your request.</p>
+
+          <h3>12.3 Termination or Suspension by MedMatch</h3>
+          <p>MedMatch may, in its sole discretion, suspend or terminate Your Account and access to the Service, with or without prior notice, for any reason including: any material breach of these Terms; engagement in fraudulent, illegal, or harmful activities; revocation or suspension of Your OCP accreditation; or if MedMatch discontinues the Service or a material part thereof.</p>
+
+          <h3>12.4 Effect of Termination</h3>
+          <p>Upon termination: (a) Your right to access and use the Service will immediately cease; (b) You remain liable for any fees or amounts owed accrued prior to the effective date of termination; and (c) MedMatch may, in its discretion, delete Your Account and associated User-Generated Content, subject to its data retention policies and applicable legal requirements. Provisions relating to Definitions, Data Privacy, Intellectual Property, Disclaimers, Indemnification, Dispute Resolution, Governing Law, and General Provisions shall survive termination.</p>
+        </div>
+
+        <div class="tc-part" id="mm-13">
+          <div class="tc-part-label">Part 13</div>
+          <h2>Dispute Resolution</h2>
+
+          <h3>13.1 Dispute Resolution Process</h3>
+          <p>(a) <strong>Good Faith Negotiation:</strong> In the event of any dispute arising from or relating to these Terms, the parties shall first use their best efforts to settle the dispute through good faith negotiations.</p>
+          <p>(b) <strong>Mediation:</strong> If the dispute cannot be resolved through negotiation within thirty (30) days, either party may propose that the dispute be submitted to mediation administered by a mutually agreed-upon mediator or mediation service in Ontario, Canada. The parties shall share the costs of mediation equally.</p>
+          <p>(c) <strong>Binding Arbitration:</strong> If the dispute is not resolved through mediation within sixty (60) days, the dispute shall be finally resolved by binding arbitration. The place of arbitration shall be Toronto, Ontario, Canada. The language of the arbitration shall be English. The decision of the arbitrator(s) shall be final and binding upon the parties.</p>
+          <p>(d) <strong>Exceptions:</strong> Either party may seek injunctive or other equitable relief in a court of competent jurisdiction to prevent actual or threatened infringement of intellectual property rights.</p>
+          <p>(e) <strong>User-to-User Disputes:</strong> MedMatch is not responsible for resolving disputes between Users.</p>
+        </div>
+
+        <div class="tc-part" id="mm-14">
+          <div class="tc-part-label">Part 14</div>
+          <h2>Governing Law and Jurisdiction</h2>
+
+          <h3>14.1 Governing Law and Jurisdiction</h3>
+          <p>These Terms and any dispute or claim arising out of or in connection with them shall be governed by and construed in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to its conflict of law provisions. Subject to the arbitration provisions in Section 13.1, You and MedMatch irrevocably agree to submit to the exclusive jurisdiction of the courts located in Toronto, Ontario, Canada.</p>
+        </div>
+
+        <div class="tc-part" id="mm-15">
+          <div class="tc-part-label">Part 15</div>
+          <h2>General Provisions</h2>
+
+          <h3>15.1 General Provisions</h3>
+          <p>(a) <strong>Severability:</strong> If any provision of these Terms is held to be invalid, illegal, or unenforceable, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions will continue in full force and effect.</p>
+          <p>(b) <strong>Waiver:</strong> No waiver by MedMatch of any term or condition shall be deemed a further or continuing waiver of such term or condition or any other term or condition.</p>
+          <p>(c) <strong>Entire Agreement:</strong> These Terms, together with Our Privacy Policy and any other legal notices or terms published by MedMatch on the Service, shall constitute the entire agreement between You and MedMatch concerning the Service and supersede all prior understandings and agreements.</p>
+          <p>(d) <strong>Notices:</strong> All notices required or permitted hereunder shall be in writing and may be delivered personally, by registered mail, by recognized overnight courier, or by email to the address provided in Your Account. Email shall not be sufficient for notices of termination or an indemnifiable claim.</p>
+          <p>(e) <strong>Assignment:</strong> You may not assign or transfer these Terms without MedMatch's prior written consent. MedMatch may assign or transfer these Terms at its sole discretion, including in connection with a merger, acquisition, or sale of assets.</p>
+          <p>(f) <strong>Headings:</strong> The section headings in these Terms are for convenience only and have no legal or contractual effect.</p>
+        </div>
+
+        <div class="tc-part" id="mm-16">
+          <div class="tc-part-label">Part 16</div>
+          <h2>Contact Information</h2>
+
+          <h3>16.1 Contact Information</h3>
+          <p>If You have any questions about these Terms or the MedMatch Service, please contact MedMatch at:</p>
+          <p><strong>Rx Billing Genie Inc.</strong><br/>
+          2030 Bristol Circle, Unit 210<br/>
+          Oakville, Ontario, Canada, L6H 6P5<br/>
+          Email: <a href="mailto:contact@rxbillinggenie.com" style="color:var(--teal-mid)">contact@rxbillinggenie.com</a></p>
+        </div>
+
+      </div><!-- /tc-mm -->
+
+    </main>
+  </div><!-- /tc-wrapper -->
+
+  <!-- FOOTER -->
+  <div id="site-footer"></div>
+  <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+
+</div><!-- /site -->
+
+<script>
+function switchTab(tab) {
+  // Update tab buttons
+  document.querySelectorAll('.tc-tab').forEach(function(btn, i) {
+    btn.classList.toggle('active', (tab === 'rbg' && i === 0) || (tab === 'mm' && i === 1));
+  });
+  // Show/hide sections
+  document.getElementById('tc-rbg').classList.toggle('active', tab === 'rbg');
+  document.getElementById('tc-mm').classList.toggle('active', tab === 'mm');
+  // Show/hide sidebar
+  document.getElementById('sidebar-rbg').style.display = tab === 'rbg' ? 'block' : 'none';
+  document.getElementById('sidebar-mm').style.display = tab === 'mm' ? 'block' : 'none';
+}
+
+// Highlight active sidebar link on scroll
+window.addEventListener('scroll', function() {
+  var parts = document.querySelectorAll('.tc-part[id]');
+  var links = document.querySelectorAll('.tc-nav a');
+  var scrollY = window.scrollY + 100;
+  var current = '';
+  parts.forEach(function(p) {
+    if (p.offsetTop <= scrollY) current = p.id;
+  });
+  links.forEach(function(a) {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
