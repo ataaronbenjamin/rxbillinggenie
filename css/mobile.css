@@ -3,8 +3,8 @@
    Breakpoints: 640px (tablet), 480px (mobile)
    ============================================================ */
 
-/* NAV — collapse links into hamburger on mobile */
-@media(max-width:640px){
+/* NAV — collapse links into hamburger on mobile + tablet */
+@media(max-width:1024px){
   nav{padding:0 1.25rem;height:56px;position:relative}
   .nav-links{display:none;position:absolute;top:56px;left:0;right:0;background:var(--white);flex-direction:column;align-items:flex-start;padding:1rem 1.25rem;gap:0;border-bottom:0.5px solid var(--border);z-index:100;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
   .nav-links.open{display:flex}
@@ -19,7 +19,7 @@
   .nav-hamburger.open span:nth-child(2){opacity:0}
   .nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 }
-@media(min-width:641px){
+@media(min-width:1025px){
   .nav-hamburger{display:none}
   .nav-social{display:none !important}
   .nav-divider{display:none !important}
