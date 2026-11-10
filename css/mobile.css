@@ -113,9 +113,16 @@
   .origin-inner{grid-template-columns:1fr}
 }
 
-/* CALCULATOR — full-width input, tighter result number */
+/* FORM FIELDS — iOS Safari zooms into any field under 16px on focus.
+   !important is needed to beat inline font-size styles (e.g. calculator inputs).
+   Targets touch devices (not screen width) so landscape phones and tablets are covered too.
+   Pinch-zoom stays enabled for accessibility. */
+@media(hover:none) and (pointer:coarse){
+  input,textarea,select{font-size:16px!important}
+}
+
+/* CALCULATOR — tighter result number */
 @media(max-width:640px){
-  #calc-waste{font-size:16px} /* prevent iOS zoom on focus */
   #calc-days{font-size:2rem}
 }
 @media(max-width:480px){
