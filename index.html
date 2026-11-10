@@ -300,9 +300,10 @@ footer{background:#060F1A;padding:2.5rem 2rem}
       return;
     }
 
+    var annualPrice=600;
     var annualTimeCost=hours*12*rate;
     var combinedAnnualCost=annualTimeCost+waste;
-    var days=Math.round((180/combinedAnnualCost)*365);
+    var days=Math.round((annualPrice/combinedAnnualCost)*365);
 
     document.getElementById('calc-combined').textContent='$'+combinedAnnualCost.toLocaleString('en-CA',{maximumFractionDigits:0});
     document.getElementById('calc-days').textContent=days+(days===1?' day':' days');
@@ -310,7 +311,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     var lines=[];
     if(hours>0) lines.push('Time cost: '+hours+' hrs/mo \u00d7 $'+rate+'/hr = $'+annualTimeCost.toLocaleString('en-CA',{maximumFractionDigits:0})+'/yr');
     if(waste>0) lines.push('Medication waste: $'+waste.toLocaleString('en-CA',{maximumFractionDigits:0})+'/yr');
-    lines.push('Subscription: $180/yr');
+    lines.push('Subscription: $'+annualPrice+'/yr');
     document.getElementById('calc-breakdown').innerHTML=lines.join('<br>');
     result.style.display='block';
 
