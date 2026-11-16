@@ -298,9 +298,15 @@ footer{background:#060F1A;padding:2.5rem 2rem}
             <select id="hc-plan">
               <option value="standard_monthly" selected>Standard team &middot; $49.99/month</option>
               <option value="standard_annual">Standard team &middot; $599.88/year</option>
-              <option value="partner_annual">Partner 2-year plan &middot; $420/year</option>
+              <option value="custom">My association / group rate</option>
             </select>
-            <p class="hc-hint">Partner members on the 2-year plan pay $840 up front, which is $420/year.</p>
+            <div class="hc-f" id="hc-custom-field" style="display:none;margin-top:0.6rem">
+              <div class="hc-row">
+                <div class="hc-affix" style="flex:1"><span>$</span><input id="hc-price" type="number" min="0" step="any" value="599.88"/></div>
+                <select id="hc-cadence"><option value="yearly" selected>per year</option><option value="monthly">per month</option></select>
+              </div>
+            </div>
+            <p class="hc-hint">Belong to an association or buying group? You may qualify for member pricing &mdash; check with your group and enter it here.</p>
           </div>
         </div>
 
@@ -334,10 +340,13 @@ footer{background:#060F1A;padding:2.5rem 2rem}
   <script>
   (function(){
     var g=function(i){return document.getElementById(i);};
-    var ids=['hc-rej','hc-freq','hc-days','hc-min','hc-rate','hc-rec','hc-waste','hc-medrec','hc-transfer','hc-plan'];
+    var ids=['hc-rej','hc-freq','hc-days','hc-min','hc-rate','hc-rec','hc-waste','hc-medrec','hc-transfer','hc-plan','hc-price','hc-cadence'];
     var money=RxROI.money;
     function read(){
-      var p=RxROI.PLANS[g('hc-plan').value]||RxROI.PLANS.standard_monthly;
+      var sel=g('hc-plan').value;
+      var p=(sel==='custom')
+        ? {price:g('hc-price').value, cadence:g('hc-cadence').value}
+        : (RxROI.PLANS[sel]||RxROI.PLANS.standard_monthly);
       return {teamSize:4,rejections:g('hc-rej').value,frequency:g('hc-freq').value,days:g('hc-days').value,
         minutes:g('hc-min').value,hourly:g('hc-rate').value,recoveryPct:g('hc-rec').value,
         price:p.price,cadence:p.cadence,wasteAnnual:g('hc-waste').value,
@@ -345,6 +354,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     }
     function render(){
       g('hc-days-field').style.display = g('hc-freq').value==='day' ? '' : 'none';
+      g('hc-custom-field').style.display = g('hc-plan').value==='custom' ? '' : 'none';
       var r=RxROI.compute(read());
       g('hc-value').textContent=money(r.staffValueAnnual+r.medValueAnnual,0);
       var net=g('hc-net'); net.textContent=money(r.netAnnual,0);

@@ -21,7 +21,6 @@
   var PLANS = {
     standard_monthly: { label: "Standard team · $49.99/month", price: 49.99, cadence: "monthly" },
     standard_annual:  { label: "Standard team · $599.88/year", price: 599.88, cadence: "yearly" },
-    partner_annual:   { label: "Partner 2-year plan · $420/year", price: 420, cadence: "yearly" },
     custom:           { label: "Group / association / custom price", price: null, cadence: null }
   };
 
