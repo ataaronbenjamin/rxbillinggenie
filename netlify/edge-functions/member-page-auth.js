@@ -205,6 +205,11 @@ export default async function memberPageAuth(request, context) {
 
     // Fail closed: without a configured password the page is never served.
     if (!password || password.trim() === "") {
+      // Names the variable, never its value — shows up in the Edge Functions log.
+      console.warn(
+        `member-page-auth: ${gate.env} is not set or is empty, so ${url.pathname} is returning 503. ` +
+          `Set it in Netlify (scope must include Functions, which covers Edge Functions) and redeploy.`,
+      );
       return htmlResponse(unavailablePage(), 503);
     }
 
