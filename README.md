@@ -37,8 +37,8 @@ How it works:
 
 The cookie holds an expiry and an HMAC-SHA256 of that expiry, keyed on the
 password itself — so it carries no secret, it can't be forged, it lapses after
-12 hours, and changing the password in Netlify immediately invalidates every
-outstanding session.
+12 hours, and changing the password invalidates every outstanding session from
+the next deploy onward.
 
 If `PHMANITOBA_PASSWORD` is unset or empty, or anything throws, the function
 returns a 503 and the page is never served. It fails closed by design.

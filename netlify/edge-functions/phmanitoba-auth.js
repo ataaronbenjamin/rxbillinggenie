@@ -11,8 +11,8 @@
  *   GET  with a valid cookie     -> the real page, via context.next()
  *
  * The cookie holds an expiry plus an HMAC-SHA256 of that expiry, keyed on the
- * password itself, so it carries no secret and changing the password in Netlify
- * immediately invalidates every outstanding session.
+ * password itself, so it carries no secret, and changing the password
+ * invalidates every outstanding session from the next deploy onward.
  *
  * Fails closed: if the environment variable is missing, or anything throws,
  * the real page is never served.
