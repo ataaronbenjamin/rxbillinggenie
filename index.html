@@ -216,122 +216,53 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     </div>
   </div>
 
-  <!-- CALCULATOR -->
+  <!-- CALCULATOR TEASER -->
+  <style>
+  .rt-card{display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;align-items:center;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.75rem;margin-top:1.5rem}
+  .rt-list{display:flex;flex-direction:column;gap:0.85rem}
+  .rt-item{display:flex;gap:0.7rem;align-items:flex-start;font-size:13px;color:var(--slate);line-height:1.6}
+  .rt-item svg{flex-shrink:0;margin-top:2px;color:var(--teal-mid)}
+  .rt-right{text-align:center;border-left:0.5px solid var(--border);padding-left:2rem}
+  .rt-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:0.5rem}
+  .rt-example{font-family:'Fraunces',serif;font-weight:300;font-size:2.1rem;color:var(--navy);line-height:1.1}
+  .rt-note{font-size:11px;color:var(--muted);margin-top:0.6rem;line-height:1.6}
+  .rt-btn{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:var(--white);padding:12px 26px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;margin-top:1.25rem}
+  .rt-btn:hover{background:var(--teal-mid)}
+  @media(max-width:720px){
+    .rt-card{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem}
+    .rt-right{border-left:none;border-top:0.5px solid var(--border);padding-left:0;padding-top:1.5rem}
+  }
+  </style>
   <div class="section" style="background:var(--white);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)">
     <div class="section-label">ROI calculator</div>
     <h2 class="section-title">See how fast it pays for itself.</h2>
-    <p class="section-body">Enter your pharmacy's time and medication waste costs. We'll show you how quickly Rx Billing Genie recovers its own cost.</p>
-    <div class="scenario-card" style="margin-top:1.5rem">
-      <div style="display:flex;flex-direction:column;gap:1.5rem">
+    <p class="section-body">Put your own numbers in and see what billing rejections cost you in staff time, what redistributing medication could recover, and how that compares with what you pay.</p>
 
-        <div>
-          <div style="font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:0.75rem">Time cost</div>
-          <div style="display:flex;flex-direction:column;gap:0.75rem">
-            <div>
-              <label for="calc-hours" style="display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px">Hours wasted per month</label>
-              <input id="calc-hours" type="number" min="0" step="0.5" placeholder="e.g. 8"
-                style="border:0.5px solid var(--border);border-radius:6px;padding:9px 12px;font-size:14px;color:var(--slate);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);width:100%;max-width:260px;box-sizing:border-box;-moz-appearance:textfield"/>
-            </div>
-            <div>
-              <label for="calc-rate" style="display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px">Blended staff rate ($/hr)</label>
-              <div style="display:flex;align-items:center;max-width:260px">
-                <span style="background:var(--bg);border:0.5px solid var(--border);border-right:none;border-radius:6px 0 0 6px;padding:9px 12px;font-size:14px;color:var(--muted)">$</span>
-                <input id="calc-rate" type="number" min="0" step="1" value="45" placeholder="45"
-                  style="flex:1;border:0.5px solid var(--border);border-radius:0 6px 6px 0;padding:9px 12px;font-size:14px;color:var(--slate);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);-moz-appearance:textfield"/>
-              </div>
-              <div style="font-size:11px;color:var(--muted);margin-top:4px">Suggested: $45/hr blended RPh/RPhT/PhA rate</div>
-            </div>
-          </div>
+    <div class="rt-card">
+      <div class="rt-list">
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Staff time</strong> &mdash; what rejections cost at your own blended rate, and how much of it you might reclaim.</span>
         </div>
-
-        <div>
-          <div style="font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:0.75rem">Medication waste <span style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">(optional)</span></div>
-          <div>
-            <label for="calc-waste" style="display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px">Annual medication waste ($)</label>
-            <div style="display:flex;align-items:center;max-width:260px">
-              <span style="background:var(--bg);border:0.5px solid var(--border);border-right:none;border-radius:6px 0 0 6px;padding:9px 12px;font-size:14px;color:var(--muted)">$</span>
-              <input id="calc-waste" type="number" min="0" step="100" placeholder="e.g. 5000"
-                style="flex:1;border:0.5px solid var(--border);border-radius:0 6px 6px 0;padding:9px 12px;font-size:14px;color:var(--slate);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);-moz-appearance:textfield"/>
-            </div>
-          </div>
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Medication value</strong> &mdash; the purchase-cost value at risk, and the share you estimate Rx MedMatch could help recover.</span>
         </div>
-
-        <div id="calc-error" style="display:none;font-size:13px;color:#c0392b">Please enter at least one value greater than $0.</div>
-
-        <div>
-          <button onclick="rxCalc()" class="btn-primary" style="border:none;cursor:pointer">Calculate</button>
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Break-even</strong> &mdash; the staff time you'd need to recover each month to cover the subscription.</span>
         </div>
-
-        <div id="calc-result" style="display:none">
-          <div style="border-top:0.5px solid var(--border);padding-top:1rem">
-            <div style="display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1rem">
-              <div>
-                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:4px">Combined annual cost</div>
-                <div id="calc-combined" style="font-family:'Fraunces',serif;font-weight:300;font-size:2rem;color:var(--navy);line-height:1.1"></div>
-              </div>
-              <div>
-                <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:4px">Days to break even</div>
-                <div id="calc-days" style="font-family:'Fraunces',serif;font-weight:300;font-size:2rem;color:var(--teal-mid);line-height:1.1"></div>
-              </div>
-            </div>
-            <div id="calc-breakdown" style="background:var(--bg);border-radius:8px;padding:0.75rem 1rem;font-size:12px;color:var(--muted);line-height:2"></div>
-          </div>
-        </div>
-
+      </div>
+      <div class="rt-right">
+        <div class="rt-eyebrow">Example scenario</div>
+        <div class="rt-example">19.5 hrs</div>
+        <p class="rt-note">a month spent on billing rejections, for a pharmacy handling three a day at thirteen minutes each.</p>
+        <a class="rt-btn" href="/roi.html">Open the calculator
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
   </div>
-  <script>
-  function rxCalc(){
-    var hours=parseFloat(document.getElementById('calc-hours').value)||0;
-    var rate=parseFloat(document.getElementById('calc-rate').value)||45;
-    var waste=parseFloat(document.getElementById('calc-waste').value)||0;
-    var result=document.getElementById('calc-result');
-    var error=document.getElementById('calc-error');
-
-    document.getElementById('calc-hours').blur();
-    document.getElementById('calc-rate').blur();
-    document.getElementById('calc-waste').blur();
-    error.style.display='none';
-    result.style.display='none';
-
-    if(hours<=0&&waste<=0){
-      error.style.display='block';
-      return;
-    }
-
-    var annualPrice=600;
-    var annualTimeCost=hours*12*rate;
-    var combinedAnnualCost=annualTimeCost+waste;
-    var days=Math.round((annualPrice/combinedAnnualCost)*365);
-
-    document.getElementById('calc-combined').textContent='$'+combinedAnnualCost.toLocaleString('en-CA',{maximumFractionDigits:0});
-    document.getElementById('calc-days').textContent=days+(days===1?' day':' days');
-
-    var lines=[];
-    if(hours>0) lines.push('Time cost: '+hours+' hrs/mo \u00d7 $'+rate+'/hr = $'+annualTimeCost.toLocaleString('en-CA',{maximumFractionDigits:0})+'/yr');
-    if(waste>0) lines.push('Medication waste: $'+waste.toLocaleString('en-CA',{maximumFractionDigits:0})+'/yr');
-    lines.push('Subscription: $'+annualPrice+'/yr');
-    document.getElementById('calc-breakdown').innerHTML=lines.join('<br>');
-    result.style.display='block';
-
-    if(typeof gtag==='function'){
-      gtag('event','roi_calculated',{
-        waste_amount: waste,
-        hours_monthly: hours,
-        blended_rate: rate,
-        annual_time_cost: annualTimeCost,
-        combined_annual_cost: combinedAnnualCost,
-        payback_days: days,
-        currency: 'CAD'
-      });
-    }
-  }
-
-  ['calc-hours','calc-rate','calc-waste'].forEach(function(id){
-    document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter')rxCalc();});
-  });
-  </script>
 
   <!-- PRODUCTS -->
   <div class="section">
