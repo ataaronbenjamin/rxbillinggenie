@@ -179,7 +179,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
   <!-- NAV -->
   <div id="site-nav"></div>
   <script>
-    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+    fetch('/partials/nav.html').then(function(r){return r.text();}).then(function(html){
       document.getElementById('site-nav').innerHTML=html;
       var page=location.pathname.split('/').pop()||'index.html';
       var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
@@ -194,7 +194,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     });
   </script>
 
-  <!-- PAGE CONTENT (access is enforced upstream by netlify/edge-functions/phmanitoba-auth.js) -->
+  <!-- PAGE CONTENT (access is enforced upstream by netlify/edge-functions/member-page-auth.js) -->
   <div class="page-content" id="page-content">
 
     <!-- HERO -->
@@ -335,7 +335,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
 
     <!-- FOOTER -->
     <div id="site-footer"></div>
-    <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+    <script>fetch('/partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
 
   </div><!-- end page-content -->
 

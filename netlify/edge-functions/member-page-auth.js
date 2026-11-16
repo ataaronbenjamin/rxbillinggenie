@@ -1,24 +1,41 @@
 /**
- * Password gate for /phmanitoba.
+ * Password gate for partner / member pages.
  *
- * The password lives in the PHMANITOBA_PASSWORD environment variable on the
- * Netlify site (scope must include Edge Functions). It is never sent to the
- * browser and never stored in this repo.
+ * Each gated page has its own password, read from its own environment variable
+ * on the Netlify site (scope must include Edge Functions). Passwords are never
+ * sent to the browser and never stored in this repo.
  *
- * Flow:
+ * To add another member page: create the .html file, add an entry to GATES
+ * below keyed on its path, add both URL variants to `config.path` at the
+ * bottom, and set the environment variable in Netlify.
+ *
+ * Flow, per page:
  *   GET  without a valid cookie  -> 401 + login form
  *   POST with the right password -> 303 + signed HttpOnly cookie
  *   GET  with a valid cookie     -> the real page, via context.next()
  *
- * The cookie holds an expiry plus an HMAC-SHA256 of that expiry, keyed on the
- * password itself, so it carries no secret, and changing the password
- * invalidates every outstanding session from the next deploy onward.
+ * Each cookie holds an expiry plus an HMAC-SHA256 of that expiry, keyed on that
+ * page's password, so it carries no secret and changing the password
+ * invalidates every outstanding session from the next deploy onward. Cookies
+ * are per-page: unlocking one member page does not unlock any other.
  *
- * Fails closed: if the environment variable is missing, or anything throws,
- * the real page is never served.
+ * Fails closed: if a page's environment variable is missing, or anything
+ * throws, the real page is never served.
  */
 
-const COOKIE_NAME = "phmb_auth";
+const GATES = {
+  "/phmanitoba": {
+    env: "PHMANITOBA_PASSWORD",
+    cookie: "phmb_auth",
+    title: "PhManitoba",
+  },
+  "/opa": {
+    env: "OPA_PASSWORD",
+    cookie: "opa_auth",
+    title: "Ontario Pharmacists Association",
+  },
+};
+
 const SESSION_SECONDS = 60 * 60 * 12; // 12 hours
 
 const encoder = new TextEncoder();
@@ -89,6 +106,14 @@ function readCookie(cookieHeader, name) {
   return null;
 }
 
+/** "/OPA.html", "/opa/", "/opa.html" all resolve to the "/opa" gate. */
+function normalizePath(pathname) {
+  let path = pathname.toLowerCase();
+  if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
+  if (path.endsWith(".html")) path = path.slice(0, -5);
+  return path;
+}
+
 const NO_STORE = "private, no-store, max-age=0";
 
 function htmlResponse(body, status, extraHeaders = {}) {
@@ -145,10 +170,10 @@ ${inner}
 </html>`;
 }
 
-function loginPage({ showError }) {
+function loginPage(title, { showError }) {
   return shell(
-    "PhManitoba",
-    `    <h1 class="gate-title">PhManitoba</h1>
+    title,
+    `    <h1 class="gate-title">${title}</h1>
     <p class="gate-sub">This page is password protected.<br/>Please enter your password to continue.</p>
     ${showError ? '<p class="gate-error">Incorrect password. Please try again.</p>' : ""}
     <form method="POST" autocomplete="on">
@@ -168,16 +193,20 @@ function unavailablePage() {
   );
 }
 
-export default async function phmanitobaAuth(request, context) {
+export default async function memberPageAuth(request, context) {
   try {
-    const password = Netlify.env.get("PHMANITOBA_PASSWORD");
+    const url = new URL(request.url);
+    const gate = GATES[normalizePath(url.pathname)];
+
+    // Unknown path means config.path and GATES disagree. Fail closed.
+    if (!gate) return htmlResponse(unavailablePage(), 503);
+
+    const password = Netlify.env.get(gate.env);
 
     // Fail closed: without a configured password the page is never served.
     if (!password || password.trim() === "") {
       return htmlResponse(unavailablePage(), 503);
     }
-
-    const url = new URL(request.url);
 
     if (request.method === "POST") {
       const form = await request.formData();
@@ -188,7 +217,7 @@ export default async function phmanitobaAuth(request, context) {
       );
 
       if (!ok) {
-        return htmlResponse(loginPage({ showError: true }), 401);
+        return htmlResponse(loginPage(gate.title, { showError: true }), 401);
       }
 
       const token = await issueToken(password);
@@ -196,7 +225,7 @@ export default async function phmanitobaAuth(request, context) {
         status: 303,
         headers: {
           location: url.pathname,
-          "set-cookie": `${COOKIE_NAME}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_SECONDS}`,
+          "set-cookie": `${gate.cookie}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_SECONDS}`,
           "cache-control": NO_STORE,
         },
       });
@@ -209,7 +238,7 @@ export default async function phmanitobaAuth(request, context) {
       });
     }
 
-    const token = readCookie(request.headers.get("cookie"), COOKIE_NAME);
+    const token = readCookie(request.headers.get("cookie"), gate.cookie);
     if (await tokenIsValid(token, password)) {
       const response = await context.next();
       const gated = new Response(response.body, response);
@@ -218,25 +247,26 @@ export default async function phmanitobaAuth(request, context) {
       return gated;
     }
 
-    return htmlResponse(loginPage({ showError: false }), 401);
+    return htmlResponse(loginPage(gate.title, { showError: false }), 401);
   } catch (error) {
-    // Never fall through to the protected page on an unexpected error.
-    console.error("phmanitoba-auth failed:", error);
+    // Never fall through to a protected page on an unexpected error.
+    console.error("member-page-auth failed:", error);
     return htmlResponse(unavailablePage(), 503);
   }
 }
 
 export const config = {
-  path: ["/phmanitoba", "/phmanitoba.html"],
+  path: ["/phmanitoba", "/phmanitoba.html", "/opa", "/opa.html"],
 };
 
 // Exported for local tests only; unused at the edge.
 export const __test = {
+  GATES,
   issueToken,
   tokenIsValid,
   passwordMatches,
   readCookie,
   constantTimeEqual,
+  normalizePath,
   SESSION_SECONDS,
-  COOKIE_NAME,
 };
