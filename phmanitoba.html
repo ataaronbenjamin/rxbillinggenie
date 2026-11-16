@@ -27,22 +27,6 @@ nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2r
 .nav-divider{width:1px;height:18px;background:var(--border)}
 .nav-cta{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:500}
 
-/* PASSWORD GATE */
-.gate{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:2rem}
-.gate-card{background:var(--white);border:0.5px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
-.gate-logo{width:72px;margin:0 auto 1.25rem}
-.gate-logo img{width:72px;object-fit:contain}
-.gate-title{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);margin-bottom:0.5rem}
-.gate-sub{font-size:13px;color:var(--muted);margin-bottom:1.75rem;line-height:1.7}
-.gate-input{width:100%;padding:10px 14px;border:0.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--slate);outline:none;margin-bottom:0.75rem;letter-spacing:0.5px}
-.gate-input:focus{border-color:var(--teal-mid)}
-.gate-btn{width:100%;background:var(--teal-mid);color:var(--white);padding:11px;border-radius:8px;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.gate-btn:hover{background:var(--teal)}
-.gate-error{font-size:12px;color:#D92D20;margin-bottom:0.75rem;display:none}
-
-/* PAGE CONTENT */
-.page-content{display:none}
-
 /* HERO */
 .page-hero{
   background:var(--navy);
@@ -195,7 +179,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
   <!-- NAV -->
   <div id="site-nav"></div>
   <script>
-    fetch('partials/nav.html').then(function(r){return r.text();}).then(function(html){
+    fetch('/partials/nav.html').then(function(r){return r.text();}).then(function(html){
       document.getElementById('site-nav').innerHTML=html;
       var page=location.pathname.split('/').pop()||'index.html';
       var link=document.querySelector('#site-nav a[data-page="'+page+'"]');
@@ -210,21 +194,7 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     });
   </script>
 
-  <!-- PASSWORD GATE -->
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <div class="gate-logo">
-        <img src="images/genie_logo.png" alt="Rx Billing Genie"/>
-      </div>
-      <h1 class="gate-title">PhManitoba</h1>
-      <p class="gate-sub">This page is password protected.<br/>Please enter your password to continue.</p>
-      <p class="gate-error" id="gate-error">Incorrect password. Please try again.</p>
-      <input type="password" class="gate-input" id="gate-input" placeholder="Enter password" autocomplete="current-password"/>
-      <button class="gate-btn" id="gate-btn">Enter</button>
-    </div>
-  </div>
-
-  <!-- PAGE CONTENT (revealed after auth) -->
+  <!-- PAGE CONTENT (access is enforced upstream by netlify/edge-functions/member-page-auth.js) -->
   <div class="page-content" id="page-content">
 
     <!-- HERO -->
@@ -365,45 +335,11 @@ footer{background:#060F1A;padding:2.5rem 2rem}
 
     <!-- FOOTER -->
     <div id="site-footer"></div>
-    <script>fetch('partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
+    <script>fetch('/partials/footer.html').then(function(r){return r.text();}).then(function(html){document.getElementById('site-footer').innerHTML=html;});</script>
 
   </div><!-- end page-content -->
 
 </div><!-- end page -->
 
-<script>
-  (function(){
-    var PASS = 'PhMB2026';
-    var gate = document.getElementById('gate');
-    var content = document.getElementById('page-content');
-    var input = document.getElementById('gate-input');
-    var btn = document.getElementById('gate-btn');
-    var error = document.getElementById('gate-error');
-
-    function unlock(){
-      sessionStorage.setItem('phmanitoba_auth','1');
-      gate.style.display='none';
-      content.style.display='block';
-    }
-
-    if(sessionStorage.getItem('phmanitoba_auth')==='1'){
-      unlock();
-    }
-
-    btn.addEventListener('click',function(){
-      if(input.value===PASS){
-        unlock();
-      } else {
-        error.style.display='block';
-        input.value='';
-        input.focus();
-      }
-    });
-
-    input.addEventListener('keydown',function(e){
-      if(e.key==='Enter') btn.click();
-    });
-  })();
-</script>
 </body>
 </html>
