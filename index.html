@@ -216,168 +216,53 @@ footer{background:#060F1A;padding:2.5rem 2rem}
     </div>
   </div>
 
-  <!-- CALCULATOR -->
+  <!-- CALCULATOR TEASER -->
   <style>
-  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
-  .hc-group{display:flex;flex-direction:column;gap:0.85rem}
-  .hc-gl{font-size:11px;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.6px}
-  .hc-gl span{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0}
-  .hc-f label{display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px}
-  .hc-f input[type=number],.hc-f select{border:0.5px solid var(--border);border-radius:6px;padding:9px 12px;font-size:14px;color:var(--slate);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);width:100%;-moz-appearance:textfield}
-  .hc-f input:focus,.hc-f select:focus{border-color:var(--teal-mid)}
-  .hc-row{display:flex;gap:8px}.hc-row>*{flex:1}
-  .hc-affix{display:flex}
-  .hc-affix span{background:var(--bg);border:0.5px solid var(--border);border-right:none;border-radius:6px 0 0 6px;padding:9px 12px;font-size:14px;color:var(--muted);display:flex;align-items:center}
-  .hc-affix input{border-radius:0 6px 6px 0!important}
-  .hc-sfx{background:var(--bg);border:0.5px solid var(--border);border-left:none;border-radius:0 6px 6px 0;padding:9px 12px;font-size:13px;color:var(--muted);display:flex;align-items:center}
-  .hc-affix input.sfx{border-radius:6px 0 0 6px!important}
-  .scenario-card .hc-hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6}
-  .hc-res{border-top:0.5px solid var(--border);margin-top:1.5rem;padding-top:1.5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-  .hc-rl{font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:5px}
-  .hc-rv{font-family:'Fraunces',serif;font-weight:300;font-size:1.9rem;line-height:1.1;color:var(--navy);font-variant-numeric:tabular-nums}
-  .hc-rv.teal{color:var(--teal-mid)}.hc-rv.neg{color:#D92D20}
-  .hc-rs{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.55}
-  .hc-break{background:var(--bg);border-radius:8px;padding:0.8rem 1rem;font-size:12px;color:var(--muted);line-height:1.9;margin-top:1.25rem}
-  .hc-more{display:inline-flex;align-items:center;gap:6px;margin-top:1.25rem;font-size:13px;font-weight:500;color:var(--teal);text-decoration:none}
-  @media(max-width:720px){.hc-grid{grid-template-columns:1fr}.hc-res{grid-template-columns:1fr;gap:1rem}}
+  .rt-card{display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;align-items:center;background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.75rem;margin-top:1.5rem}
+  .rt-list{display:flex;flex-direction:column;gap:0.85rem}
+  .rt-item{display:flex;gap:0.7rem;align-items:flex-start;font-size:13px;color:var(--slate);line-height:1.6}
+  .rt-item svg{flex-shrink:0;margin-top:2px;color:var(--teal-mid)}
+  .rt-right{text-align:center;border-left:0.5px solid var(--border);padding-left:2rem}
+  .rt-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:var(--muted);margin-bottom:0.5rem}
+  .rt-example{font-family:'Fraunces',serif;font-weight:300;font-size:2.1rem;color:var(--navy);line-height:1.1}
+  .rt-note{font-size:11px;color:var(--muted);margin-top:0.6rem;line-height:1.6}
+  .rt-btn{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:var(--white);padding:12px 26px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;margin-top:1.25rem}
+  .rt-btn:hover{background:var(--teal-mid)}
+  @media(max-width:720px){
+    .rt-card{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem}
+    .rt-right{border-left:none;border-top:0.5px solid var(--border);padding-left:0;padding-top:1.5rem}
+  }
   </style>
   <div class="section" style="background:var(--white);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)">
     <div class="section-label">ROI calculator</div>
     <h2 class="section-title">See how fast it pays for itself.</h2>
-    <p class="section-body">Enter your pharmacy's billing time and the medication value you expect to put at risk. We'll show the potential value of recovered staff time and redistributed stock against what you pay.</p>
+    <p class="section-body">Put your own numbers in and see what billing rejections cost you in staff time, what redistributing medication could recover, and how that compares with what you pay.</p>
 
-    <div class="scenario-card" style="margin-top:1.5rem">
-      <div class="hc-grid">
-
-        <div class="hc-group">
-          <div class="hc-gl">Rx Billing Genie &middot; Time</div>
-          <div class="hc-f">
-            <label for="hc-rej">Billing rejections across the pharmacy</label>
-            <div class="hc-row">
-              <input id="hc-rej" type="number" min="0" step="any" value="3"/>
-              <select id="hc-freq"><option value="day" selected>per day</option><option value="week">per week</option><option value="month">per month</option></select>
-            </div>
-          </div>
-          <div class="hc-f" id="hc-days-field">
-            <label for="hc-days">Operating days per month</label>
-            <div class="hc-affix"><input id="hc-days" class="sfx" type="number" min="1" max="31" step="any" value="30"/><span class="hc-sfx">days</span></div>
-          </div>
-          <div class="hc-f">
-            <label for="hc-min">Time per rejection</label>
-            <div class="hc-affix"><input id="hc-min" class="sfx" type="number" min="0" step="any" value="13"/><span class="hc-sfx">min</span></div>
-          </div>
-          <div class="hc-f">
-            <label for="hc-rate">Staff cost per hour</label>
-            <div class="hc-affix"><span>$</span><input id="hc-rate" type="number" min="0" step="any" value="35"/></div>
-          </div>
-          <div class="hc-f">
-            <label for="hc-rec">Assumed time recovery</label>
-            <div class="hc-affix"><input id="hc-rec" class="sfx" type="number" min="0" max="100" step="any" value="50"/><span class="hc-sfx">%</span></div>
-            <p class="hc-hint">A scenario assumption, not a guarantee.</p>
-          </div>
+    <div class="rt-card">
+      <div class="rt-list">
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Staff time</strong> &mdash; what rejections cost at your own blended rate, and how much of it you might reclaim.</span>
         </div>
-
-        <div class="hc-group">
-          <div class="hc-gl">Rx MedMatch &middot; Medication <span>(optional)</span></div>
-          <div class="hc-f">
-            <label for="hc-waste">Medication value at risk / year</label>
-            <div class="hc-affix"><span>$</span><input id="hc-waste" type="number" min="0" step="any" value="0" placeholder="e.g. 5000"/></div>
-            <p class="hc-hint">Purchase-cost value of usable stock otherwise expected to go to waste, after returns and credits.</p>
-          </div>
-          <div class="hc-f">
-            <label for="hc-medrec">Estimated recoverable share</label>
-            <div class="hc-affix"><input id="hc-medrec" class="sfx" type="number" min="0" max="100" step="any" value="0"/><span class="hc-sfx">%</span></div>
-            <p class="hc-hint">Nothing is assumed until you enter your own estimate.</p>
-          </div>
-          <div class="hc-f">
-            <label for="hc-transfer">Transfer costs / year</label>
-            <div class="hc-affix"><span>$</span><input id="hc-transfer" type="number" min="0" step="any" value="0"/></div>
-          </div>
-          <div class="hc-f">
-            <label for="hc-plan">Your subscription</label>
-            <select id="hc-plan">
-              <option value="standard_monthly" selected>Standard team &middot; $49.99/month</option>
-              <option value="standard_annual">Standard team &middot; $599.88/year</option>
-              <option value="custom">My association / group rate</option>
-            </select>
-            <div class="hc-f" id="hc-custom-field" style="display:none;margin-top:0.6rem">
-              <div class="hc-row">
-                <div class="hc-affix" style="flex:1"><span>$</span><input id="hc-price" type="number" min="0" step="any" value="599.88"/></div>
-                <select id="hc-cadence"><option value="yearly" selected>per year</option><option value="monthly">per month</option></select>
-              </div>
-            </div>
-            <p class="hc-hint">Belong to an association or buying group? You may qualify for member pricing &mdash; check with your group and enter it here.</p>
-          </div>
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Medication value</strong> &mdash; the purchase-cost value at risk, and the share you estimate Rx MedMatch could help recover.</span>
         </div>
-
-      </div>
-
-      <div class="hc-res">
-        <div>
-          <div class="hc-rl">Recoverable value / yr</div>
-          <div class="hc-rv" id="hc-value">$0</div>
-          <div class="hc-rs" id="hc-value-sub">staff time + medication</div>
-        </div>
-        <div>
-          <div class="hc-rl">Combined net value / yr</div>
-          <div class="hc-rv teal" id="hc-net">$0</div>
-          <div class="hc-rs" id="hc-net-sub">after subscription and transfers</div>
-        </div>
-        <div>
-          <div class="hc-rl">Break-even point</div>
-          <div class="hc-rv" id="hc-be">&mdash;</div>
-          <div class="hc-rs">staff time recovered per month</div>
+        <div class="rt-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <span><strong style="color:var(--navy);font-weight:500">Break-even</strong> &mdash; the staff time you'd need to recover each month to cover the subscription.</span>
         </div>
       </div>
-
-      <div class="hc-break" id="hc-breakdown"></div>
-      <a class="hc-more" href="/roi.html">See the full breakdown
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div class="rt-right">
+        <div class="rt-eyebrow">Example scenario</div>
+        <div class="rt-example">19.5 hrs</div>
+        <p class="rt-note">a month spent on billing rejections, for a pharmacy handling three a day at thirteen minutes each.</p>
+        <a class="rt-btn" href="/roi.html">Open the calculator
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </div>
-  <script src="/js/roi-calculator.js"></script>
-  <script>
-  (function(){
-    var g=function(i){return document.getElementById(i);};
-    var ids=['hc-rej','hc-freq','hc-days','hc-min','hc-rate','hc-rec','hc-waste','hc-medrec','hc-transfer','hc-plan','hc-price','hc-cadence'];
-    var money=RxROI.money;
-    function read(){
-      var sel=g('hc-plan').value;
-      var p=(sel==='custom')
-        ? {price:g('hc-price').value, cadence:g('hc-cadence').value}
-        : (RxROI.PLANS[sel]||RxROI.PLANS.standard_monthly);
-      return {teamSize:4,rejections:g('hc-rej').value,frequency:g('hc-freq').value,days:g('hc-days').value,
-        minutes:g('hc-min').value,hourly:g('hc-rate').value,recoveryPct:g('hc-rec').value,
-        price:p.price,cadence:p.cadence,wasteAnnual:g('hc-waste').value,
-        medRecoveryPct:g('hc-medrec').value,transferAnnual:g('hc-transfer').value};
-    }
-    function render(){
-      g('hc-days-field').style.display = g('hc-freq').value==='day' ? '' : 'none';
-      g('hc-custom-field').style.display = g('hc-plan').value==='custom' ? '' : 'none';
-      var r=RxROI.compute(read());
-      g('hc-value').textContent=money(r.staffValueAnnual+r.medValueAnnual,0);
-      var net=g('hc-net'); net.textContent=money(r.netAnnual,0);
-      net.className='hc-rv teal'+(r.netAnnual<0?' neg':'');
-      g('hc-be').textContent=r.breakEvenMinutes===null?'—':r.breakEvenMinutes+' min';
-      var l=[];
-      l.push('Staff time: '+r.hoursLostMonthly.toFixed(1)+' hrs/mo lost × '+money(parseFloat(g('hc-rate').value)||0,0)+'/hr at '+(parseFloat(g('hc-rec').value)||0)+'% recovery = '+money(r.staffValueAnnual,0)+'/yr');
-      if(r.medValueAnnual>0) l.push('Medication: '+money(r.medValueAnnual,0)+'/yr recoverable'+(r.transferAnnual>0?' less '+money(r.transferAnnual,0)+' transfer costs':''));
-      l.push('Subscription: '+money(r.subscriptionAnnual)+'/yr ('+money(r.subscriptionMonthly)+'/mo)');
-      g('hc-breakdown').innerHTML=l.join('<br>');
-    }
-    ids.forEach(function(i){g(i).addEventListener('input',render);g(i).addEventListener('change',render);});
-    var done=false;
-    g('hc-waste').addEventListener('change',function(){
-      if(done||typeof gtag!=='function')return;
-      var r=RxROI.compute(read());
-      gtag('event','roi_calculated',{hours_monthly:r.hoursLostMonthly,waste_amount:parseFloat(g('hc-waste').value)||0,
-        net_annual:r.netAnnual,break_even_minutes:r.breakEvenMinutes,currency:'CAD'});
-      done=true;
-    });
-    render();
-  })();
-  </script>
 
   <!-- PRODUCTS -->
   <div class="section">
