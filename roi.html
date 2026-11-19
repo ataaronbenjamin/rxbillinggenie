@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="UTF-8"/>
 <link rel="icon" type="image/png" href="/favicon.png"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ROI Calculator — Rx Billing Genie</title>
-<meta name="description" content="Estimate what billing rejections cost your pharmacy, and the potential value of recovered staff time and redistributed medication with Rx Billing Genie and Rx MedMatch."/>
+<title>Pharmacy ROI Calculator — Rx Billing Genie &amp; Rx MedMatch</title>
+<meta name="description" content="Explore the cost of pharmacy billing interruptions and model estimated recoverable staff time and medication value with an editable Rx Billing Genie ROI calculator."/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB}
+:root{--navy:#0B2545;--teal:#0F6E56;--teal-light:#E1F5EE;--teal-mid:#1D9E75;--slate:#344054;--muted:#667085;--border:#E4E7EC;--white:#fff;--bg:#F8FAFB;--cost:#A24A4F;--cost-bg:#FCF2F2;--cost-border:#E4C5C8}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);font-size:15px}
-.page{max-width:1120px;margin:0 auto}
+.page{max-width:1180px;margin:0 auto}
+a{color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--teal-mid);outline-offset:2px}
 
 /* NAV */
 nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:10}
@@ -29,74 +33,195 @@ nav{background:var(--white);border-bottom:0.5px solid var(--border);padding:0 2r
 /* HERO */
 .page-hero{background:var(--navy);padding:3.25rem 2rem;text-align:center}
 .page-hero-eyebrow{display:inline-flex;background:rgba(29,158,117,0.18);border:0.5px solid rgba(29,158,117,0.4);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:500;color:#5DCAA5;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem}
-.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.2rem;color:var(--white);margin-bottom:0.75rem;line-height:1.2}
-.page-hero p{font-size:14px;color:#9AA8BC;max-width:560px;margin:0 auto;line-height:1.8}
+.page-hero h1{font-family:'Fraunces',serif;font-weight:300;font-size:2.3rem;color:var(--white);margin-bottom:0.75rem;line-height:1.18}
+.page-hero h1 em{font-style:italic;color:#9FD9C2}
+.page-hero p{font-size:14px;color:#9AA8BC;max-width:600px;margin:0 auto;line-height:1.8}
 
-/* LAYOUT */
-.calc-wrap{display:grid;grid-template-columns:1fr 400px;gap:28px;padding:2.5rem 2rem}
-.calc-col{display:flex;flex-direction:column;gap:18px}
-.calc-side{position:sticky;top:88px;align-self:start;display:flex;flex-direction:column;gap:18px}
+.wrap{padding:2.5rem 2rem}
+.card{background:var(--white);border:0.5px solid var(--border);border-radius:12px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal-mid);font-weight:500}
 
-/* CARDS */
-.card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem}
-.card-head{display:flex;align-items:center;gap:0.65rem;margin-bottom:1.25rem}
-.card-num{background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:600;border-radius:5px;padding:3px 7px;letter-spacing:0.5px}
-.card-title{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--navy)}
-.field{margin-bottom:1rem}
+/* NATIONAL EVIDENCE */
+.evidence{padding:1.75rem;margin-bottom:1.25rem}
+.evidence-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.evidence-head h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.65rem;color:var(--navy);line-height:1.25;margin-top:0.5rem}
+.evidence-head>p{font-size:13px;line-height:1.8;color:var(--muted);max-width:380px}
+.evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.evidence-grid>article{padding-right:1.5rem;border-right:0.5px solid var(--border)}
+.evidence-grid>article:last-child{border-right:none;padding-right:0}
+.evidence-stat{display:block;font-family:'Fraunces',serif;font-weight:300;font-size:2.2rem;color:var(--navy);line-height:1.15}
+.evidence-grid article>p{font-size:13px;line-height:1.75;color:var(--muted);margin:0.75rem 0}
+.evidence-grid article>p strong{font-weight:500;color:var(--navy)}
+.benchmark{border-top:0.5px solid var(--border);margin-top:1rem;padding-top:0.85rem;display:flex;flex-direction:column;gap:5px}
+.benchmark>span{font-size:11px;color:var(--muted);line-height:1.6}
+.benchmark>strong{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:500;color:var(--cost);letter-spacing:-0.5px;overflow-wrap:anywhere}
+.fee-contrast{background:var(--teal-light);border-radius:10px;padding:1.25rem!important;border:none!important;display:flex;flex-direction:column;justify-content:center}
+.fee-contrast .contrast-label{font-size:10px;letter-spacing:0.8px;text-transform:uppercase;color:var(--teal);font-weight:600;line-height:1.5}
+.fee-contrast>strong{font-family:'Fraunces',serif;font-size:2.3rem;font-weight:500;color:var(--teal);letter-spacing:-1px;margin-top:0.6rem;line-height:1.15}
+.fee-contrast>strong>span{font-size:11px;letter-spacing:0;font-weight:400;margin-left:5px;color:var(--teal)}
+.fee-contrast>p{font-size:12px!important;color:var(--teal)!important;margin:0.6rem 0 0.85rem!important}
+.fee-contrast>a{font-size:12px;font-weight:500;color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+.evidence-source{font-size:11px;line-height:1.8;margin-top:1.25rem;color:var(--muted)}
+.evidence-source a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+
+/* OFFER BANNER */
+.offer{background:var(--teal-light);border:0.5px solid rgba(29,158,117,0.3);border-radius:12px;padding:1.5rem 1.75rem;margin-bottom:1.75rem;display:flex;justify-content:space-between;align-items:center;gap:2rem}
+.offer-kicker{font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:var(--teal)}
+.offer h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.5rem;color:var(--navy);line-height:1.25;margin:0.5rem 0}
+.offer p{font-size:13px;line-height:1.8;color:var(--teal);max-width:720px}
+.offer p strong{font-weight:500}
+.offer-action{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0}
+.offer-action>a{display:inline-flex;gap:10px;align-items:center;background:var(--teal);color:var(--white);border-radius:8px;padding:12px 20px;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
+.offer-action>a:hover{background:var(--teal-mid)}
+.offer-action>span{font-size:10px;color:var(--muted);text-align:center;line-height:1.5}
+
+/* WORKSPACE */
+.workspace{display:grid;grid-template-columns:340px minmax(0,1fr);gap:24px;align-items:start}
+.inputs{overflow:hidden}
+.panel-head{padding:1.1rem 1.35rem;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--border)}
+.panel-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--navy)}
+.reset-btn{border:0;background:none;color:var(--muted);font-size:12px;display:flex;align-items:center;gap:5px;padding:4px 0}
+.reset-btn:hover{color:var(--teal)}
+.in-sec{padding:1.35rem;border-bottom:0.5px solid var(--border)}
+.in-sec:last-child{border-bottom:none}
+.sec-label{display:flex;align-items:center;gap:9px;margin-bottom:1.1rem}
+.sec-label>span{font-size:10px;font-weight:600;color:var(--teal);background:var(--teal-light);border-radius:5px;padding:4px 6px;letter-spacing:0.5px}
+.sec-label h3{font-size:13px;font-weight:600;color:var(--navy)}
+.field{margin-bottom:0.95rem}
 .field:last-child{margin-bottom:0}
-label,.lbl{display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px}
-input[type=number],select{border:0.5px solid var(--border);border-radius:6px;padding:9px 12px;font-size:14px;color:var(--slate);font-family:'DM Sans',sans-serif;outline:none;background:var(--white);width:100%;-moz-appearance:textfield}
-input[type=number]:focus,select:focus{border-color:var(--teal-mid)}
-.row{display:flex;gap:8px}
-.row>*{flex:1}
-.affix{display:flex;align-items:stretch}
-.affix span{background:var(--bg);border:0.5px solid var(--border);border-right:none;border-radius:6px 0 0 6px;padding:9px 12px;font-size:14px;color:var(--muted);display:flex;align-items:center}
-.affix input{border-radius:0 6px 6px 0}
-.suffix{background:var(--bg);border:0.5px solid var(--border);border-left:none;border-radius:0 6px 6px 0;padding:9px 12px;font-size:13px;color:var(--muted);display:flex;align-items:center}
-.affix input.has-suffix{border-radius:0}
-.hint{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
-input[type=range]{width:100%;accent-color:var(--teal-mid);margin-top:4px}
-.range-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+label{display:block;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:6px;line-height:1.4}
+.hint-inline{font-weight:400;color:var(--muted);font-size:11px}
+.iwrap{display:flex;align-items:stretch;min-width:0;border:0.5px solid var(--border);border-radius:7px;background:var(--white);overflow:hidden;min-height:42px}
+.iwrap:focus-within{border-color:var(--teal-mid);box-shadow:0 0 0 2px var(--teal-light)}
+.iwrap input{flex:1;min-width:0;border:0;background:transparent;padding:10px 12px;font-size:15px;font-weight:500;color:var(--navy);outline:none;-moz-appearance:textfield}
+.iwrap input::-webkit-inner-spin-button,.iwrap input::-webkit-outer-spin-button{appearance:none;margin:0}
+.iwrap .cur{display:flex;align-items:center;padding-left:12px;color:var(--muted);font-size:14px}
+.iwrap .cur+input{padding-left:5px}
+.iwrap .unit{display:flex;align-items:center;padding-right:12px;color:var(--muted);font-size:11px;white-space:nowrap}
+.iwrap select{border:0;border-left:0.5px solid var(--border);background:var(--bg);color:var(--slate);font-size:12px;padding:0 9px;width:118px;flex-shrink:0;outline:none}
+.field>select{width:100%;border:0.5px solid var(--border);border-radius:7px;min-height:42px;padding:10px;color:var(--slate);font-size:12px;background:var(--white);outline:none}
+.field>select:focus{border-color:var(--teal-mid)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.grid2>.field{min-width:0}
+.grid2 .field{margin-bottom:0}
+.note{font-size:11px;line-height:1.7;color:var(--muted);margin-top:0.7rem}
+.err{font-size:11px;line-height:1.5;color:var(--cost);margin-top:5px}
+.err:empty{display:none}
+[aria-invalid=true]{background:var(--cost-bg)}
+.rec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:0.9rem}
+.rec-head label{margin:0}
+.pct{display:flex;align-items:center;background:var(--teal-light);border:0.5px solid rgba(29,158,117,0.3);border-radius:6px;padding-right:9px}
+.pct input{width:46px;text-align:right;border:0;background:transparent;padding:6px 3px 6px 6px;font-size:15px;font-weight:500;color:var(--navy);outline:none;-moz-appearance:textfield}
+input[type=range]{display:block;width:100%;accent-color:var(--teal-mid)}
+.range-ends{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px}
 
 /* RESULTS */
-.res-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.1rem}
-.res-title{font-family:'Fraunces',serif;font-weight:400;font-size:1.05rem;color:var(--navy)}
-.res-unit{font-size:10px;letter-spacing:0.7px;color:var(--muted);text-transform:uppercase}
-.line{margin-bottom:0.9rem}
-.line-top{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-bottom:5px}
-.line-label{color:var(--slate)}
-.line-val{font-weight:500;color:var(--navy);font-variant-numeric:tabular-nums}
-.bar{height:5px;border-radius:3px;background:var(--border);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:3px;background:var(--teal-mid);transition:width 0.25s}
-.bar.cost i{background:#98A2B3}
-.net{border-top:0.5px solid var(--border);margin-top:1.1rem;padding-top:1.1rem;display:flex;justify-content:space-between;align-items:baseline}
-.net-label{font-size:12.5px;color:var(--slate)}
-.net-val{font-family:'Fraunces',serif;font-weight:500;font-size:1.75rem;color:var(--teal);letter-spacing:-0.5px;font-variant-numeric:tabular-nums}
-.net-val.neg{color:#D92D20}
-.net-sub{font-size:11px;color:var(--muted);text-align:right;margin-top:2px}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stat{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.1rem 1.25rem}
-.stat-lbl{font-size:10px;letter-spacing:0.7px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
-.stat-val{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;color:var(--navy);line-height:1.1;font-variant-numeric:tabular-nums}
-.stat-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.55}
-.verdict{display:flex;gap:8px;align-items:flex-start;font-size:12px;border-radius:8px;padding:0.75rem 0.9rem;line-height:1.6}
-.verdict.good{background:var(--teal-light);color:var(--teal)}
-.verdict.bad{background:#FEF3F2;color:#B42318}
-.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;margin-top:5px}
+.results{min-width:0}
+.res-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;gap:10px;min-height:34px}
+.live{font-size:10px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:var(--teal)}
+.dot{display:inline-block;height:6px;width:6px;border-radius:50%;background:var(--teal-mid);flex-shrink:0}
+.dot.warn{background:var(--cost)}
+.switch{background:var(--border);border-radius:7px;padding:3px;display:flex}
+.switch button{font-size:11px;border:0;color:var(--muted);background:none;padding:7px 13px;border-radius:5px}
+.switch button[aria-pressed=true]{background:var(--white);color:var(--navy);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.invalid-note{background:var(--cost-bg);color:var(--cost);border:0.5px solid var(--cost-border);border-radius:8px;font-size:12px;line-height:1.6;padding:0.8rem 1rem;margin-bottom:0.8rem}
+.results.invalid .impact,.results.invalid .hero-res,.results.invalid .metrics,.results.invalid .med-res,.results.invalid .breakdown,.results.invalid .detail-grid,.results.invalid .res-bottom{opacity:.35;filter:grayscale(1)}
 
-/* BEHIND */
-.behind{padding:0 2rem 3rem}
-.behind-card{background:var(--white);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem}
+/* monthly impact — cost framing per the handoff colour direction */
+.impact{background:var(--cost-bg);border:0.5px solid var(--cost-border);border-radius:12px;padding:1.4rem 1.6rem;margin-bottom:1rem}
+.impact-kicker{font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:var(--cost);line-height:1.6}
+.impact h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.3rem;color:var(--navy);margin:0.6rem 0 0.9rem;line-height:1.3}
+.impact-amount{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px}
+.impact-amount>strong{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:500;color:var(--cost);letter-spacing:-1.5px;line-height:1.1;overflow-wrap:anywhere}
+.impact-amount>span{font-size:12px;color:#7D6266;line-height:1.7}
+.impact>p{font-size:12px;line-height:1.8;margin-top:0.6rem;color:#7D6266}
+.impact-cmp{margin-top:1.1rem;padding-top:0.9rem;border-top:0.5px solid var(--cost-border);display:flex;justify-content:space-between;gap:1.25rem;align-items:flex-end;flex-wrap:wrap}
+.impact-cmp>div{display:flex;flex-direction:column;gap:5px}
+.impact-cmp>div>span{font-size:11px;color:#7D6266}
+.impact-cmp strong{font-size:1.05rem;font-weight:500;color:var(--teal);line-height:1.3}
+.impact-cmp>p{font-size:12px;font-weight:500;color:var(--teal);line-height:1.7;max-width:220px;text-align:right}
+.impact-note{font-size:11px;color:#7D6266;margin-top:1rem;line-height:1.8}
+
+/* hero result */
+.hero-res{position:relative;overflow:hidden;border-radius:12px;padding:1.6rem 1.75rem;color:var(--white);background:var(--navy)}
+.hero-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.hero-cap{font-size:12.5px;color:#9FD9C2}
+.tag{font-size:9px;letter-spacing:1px;color:#9AA8BC;border:0.5px solid rgba(255,255,255,0.22);padding:5px 7px;border-radius:4px;white-space:nowrap;text-transform:uppercase}
+.hero-num{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:1.1rem 0 0.5rem}
+.hero-num>span:first-child{font-family:'Fraunces',serif;font-size:3rem;font-weight:500;letter-spacing:-2px;line-height:1.1;overflow-wrap:anywhere}
+.hero-num>span:last-child{font-size:14px;color:#9AA8BC}
+.hero-res.negative .hero-num>span:first-child{color:#F4CBD1}
+.hero-exp{font-size:12px;color:#9AA8BC;line-height:1.7;max-width:560px;margin-bottom:1.3rem}
+.hero-bottom{border-top:0.5px solid rgba(255,255,255,0.14);display:flex;justify-content:space-between;gap:1rem;padding-top:1.1rem;flex-wrap:wrap}
+.hero-bottom>div{display:flex;flex-direction:column;gap:5px}
+.hero-bottom span:first-child{font-family:'Fraunces',serif;font-size:1.3rem;color:#5DCAA5;font-weight:500}
+.hero-bottom span:last-child,.roi-stat span{font-size:10px;color:#9AA8BC;line-height:1.5}
+.roi-stat{text-align:right}
+.roi-stat strong{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500;color:#5DCAA5;display:block;line-height:1.2}
+
+.metrics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin:1rem 0}
+.metric{padding:1.15rem 1.25rem}
+.metric-label{font-size:11px;color:var(--muted)}
+.metric-num{font-family:'Fraunces',serif;line-height:1.3;font-size:1.6rem;font-weight:500;color:var(--navy);letter-spacing:-0.6px;margin-top:0.7rem;overflow-wrap:anywhere}
+.metric-num span{font-size:11px;font-weight:400;letter-spacing:0;color:var(--muted);font-family:'DM Sans',sans-serif}
+.metric p{font-size:11px;color:var(--muted);margin-top:6px}
+
+.med-res{border:0.5px solid rgba(29,158,117,0.3);border-radius:12px;background:var(--teal-light);padding:1.35rem 1.5rem;margin-bottom:1rem}
+.med-badge{font-size:10px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:var(--teal);margin-bottom:0.7rem}
+.med-res h3{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:0.8rem}
+.med-amount{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
+.med-amount strong{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:500;color:var(--teal);letter-spacing:-1px;overflow-wrap:anywhere}
+.med-amount>span{font-size:12px;color:var(--teal)}
+.med-res>p{font-size:11px;color:var(--teal);line-height:1.8;margin-top:0.6rem}
+.med-net{border-top:0.5px solid rgba(29,158,117,0.25);display:flex;justify-content:space-between;gap:12px;margin-top:0.9rem;padding-top:0.8rem;font-size:12px;line-height:1.7;color:var(--teal)}
+.med-net strong{white-space:nowrap;font-weight:600}
+
+.breakdown{padding:1.4rem 1.5rem}
+.bd-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:1.2rem}
+.bd-head h3{font-size:13px;font-weight:600;color:var(--navy)}
+.bd-head>span{font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.bar-row{display:flex;justify-content:space-between;font-size:12px;align-items:baseline;margin-bottom:6px;gap:10px;color:var(--slate)}
+.bar-row strong{font-weight:500;color:var(--navy);font-variant-numeric:tabular-nums}
+.bar-track{background:var(--border);height:6px;border-radius:3px;margin-bottom:1rem;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width .25s ease}
+.bar-fill.gross{background:var(--teal-mid)}
+.bar-fill.med{background:var(--teal)}
+.bar-fill.transfer{background:#C1969B}
+.bar-fill.sub{background:#98A2B3}
+.bd-total{display:flex;align-items:baseline;justify-content:space-between;gap:15px;border-top:0.5px solid var(--border);padding-top:1rem;font-size:12.5px;color:var(--slate)}
+.bd-total strong{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;color:var(--teal);letter-spacing:-0.5px}
+.bd-note{font-size:10px;color:var(--muted);margin-top:0.7rem;text-align:right;line-height:1.6}
+
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:1rem}
+.detail{padding:1.25rem}
+.detail-eyebrow{font-size:9px;letter-spacing:1px;font-weight:600;text-transform:uppercase;color:var(--muted)}
+.detail-num{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:500;color:var(--navy);letter-spacing:-0.8px;margin-top:0.8rem;overflow-wrap:anywhere}
+.detail>p{font-size:11px;color:var(--muted);margin-top:5px}
+.detail-foot{font-size:11px;line-height:1.7;color:var(--muted);border-top:0.5px solid var(--border);padding-top:0.7rem;margin-top:0.8rem}
+.res-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:1rem;flex-wrap:wrap}
+.res-bottom p{display:flex;gap:7px;align-items:center;font-size:11px;line-height:1.5;color:var(--slate)}
+.print-btn{display:flex;align-items:center;gap:6px;border:0.5px solid var(--border);background:var(--white);border-radius:7px;padding:9px 13px;font-size:11px;color:var(--teal);white-space:nowrap}
+.print-btn:hover{background:var(--teal-light)}
+.print-btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* METHODOLOGY */
+.method{margin-top:2.5rem;padding-top:2rem;border-top:0.5px solid var(--border);display:grid;grid-template-columns:340px 1fr;gap:24px}
+.method h2{font-family:'Fraunces',serif;font-weight:300;font-size:1.6rem;color:var(--navy);line-height:1.25;margin:0.6rem 0}
+.method-intro>p{font-size:12px;line-height:1.8;color:var(--muted);max-width:280px}
+.method-details{border-top:0.5px solid var(--border)}
 details{border-bottom:0.5px solid var(--border)}
-details:last-of-type{border-bottom:none}
-summary{cursor:pointer;list-style:none;padding:0.9rem 0;font-size:13.5px;font-weight:500;color:var(--navy);display:flex;justify-content:space-between;align-items:center}
+summary{cursor:pointer;list-style:none;padding:0.95rem 0;font-size:13px;font-weight:500;color:var(--navy);display:flex;justify-content:space-between;gap:15px;align-items:center}
 summary::-webkit-details-marker{display:none}
 summary::after{content:'+';color:var(--teal-mid);font-size:1.1rem;font-weight:400}
 details[open] summary::after{content:'\2013'}
-details p,details li{font-size:12.5px;color:var(--muted);line-height:1.8}
-details .body{padding:0 0 1rem}
-details ul{margin:0.4rem 0 0 1.1rem}
-.disclaim{font-size:11px;color:var(--muted);margin-top:1rem;line-height:1.7}
+details>div{padding-bottom:1rem}
+details p{font-size:12px;line-height:1.9;color:var(--muted);margin-bottom:0.6rem}
+details p:last-child{margin-bottom:0}
+details strong{font-weight:500;color:var(--navy)}
+details a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+.disclaim{font-size:11px;color:var(--muted);line-height:1.8;margin-top:1.25rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+[hidden]{display:none!important}
 
 /* FOOTER */
 footer{background:#060F1A;padding:2.5rem 2rem}
@@ -114,15 +239,45 @@ footer{background:#060F1A;padding:2.5rem 2rem}
 .footer-link:hover{color:#1D9E75}
 .footer-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.08);margin-top:2rem}
 
-@media(max-width:900px){
-  .calc-wrap{grid-template-columns:1fr;padding:1.75rem 1.25rem}
-  .calc-side{position:static}
-  .page-hero{padding:2.5rem 1.25rem}
-  .page-hero h1{font-size:1.7rem}
-  .behind{padding:0 1.25rem 2.5rem}
+@media(max-width:1000px){
+  .workspace{grid-template-columns:1fr}
+  .method{grid-template-columns:1fr;gap:1rem}
+  .evidence-grid{grid-template-columns:1fr 1fr}
+  .evidence-grid>article:nth-child(2){border-right:none;padding-right:0}
+  .fee-contrast{grid-column:1/-1}
+  .offer{flex-direction:column;align-items:stretch}
+  .offer-action>a{justify-content:center}
 }
-@media(max-width:420px){
-  .stat-grid{grid-template-columns:1fr}
+@media(max-width:640px){
+  .page-hero{padding:2.5rem 1.25rem}
+  .page-hero h1{font-size:1.75rem}
+  .wrap{padding:1.5rem 1.25rem}
+  .evidence{padding:1.25rem}
+  .evidence-grid{grid-template-columns:1fr;gap:1.25rem}
+  .evidence-grid>article{border-right:none;padding-right:0;border-bottom:0.5px solid var(--border);padding-bottom:1.25rem}
+  .evidence-grid>article:last-child{border-bottom:none;padding-bottom:0}
+  .metrics,.detail-grid{grid-template-columns:1fr}
+  .impact-amount>strong{font-size:2.1rem}
+  .impact-cmp>p{text-align:left;max-width:none}
+  .hero-num>span:first-child{font-size:2.4rem}
+  .res-bottom{align-items:flex-start}
+  .iwrap input{font-size:16px}
+  .pct input{font-size:16px}
+}
+@media print{
+  nav,.offer,.switch,.print-btn,.res-bottom,.reset-btn,#site-footer{display:none!important}
+  body{background:#fff}
+  .page-hero{background:#fff;color:var(--navy);padding:0 0 1rem;text-align:left}
+  .page-hero h1{color:var(--navy);font-size:1.6rem}
+  .page-hero p{color:var(--slate)}
+  .page-hero-eyebrow{color:var(--teal);background:none;border:none;padding:0}
+  .workspace{grid-template-columns:240px 1fr;gap:1rem}
+  .hero-res{background:#fff;color:var(--navy);border:0.5px solid var(--border)}
+  .hero-cap,.hero-exp,.hero-bottom span:last-child,.roi-stat span{color:var(--slate)}
+  .hero-bottom span:first-child,.roi-stat strong{color:var(--teal)}
+  details>div{display:block!important}
+  .method{break-before:page}
+  .card,.impact,.hero-res,.med-res{break-inside:avoid}
 }
 </style>
 <link rel="stylesheet" href="/css/mobile.css"/>
@@ -150,289 +305,531 @@ footer{background:#060F1A;padding:2.5rem 2rem}
   </script>
 
   <div class="page-hero">
-    <div class="page-hero-eyebrow">ROI Calculator</div>
-    <h1>What is your team&rsquo;s time worth?</h1>
-    <p>A few minutes at the billing counter add up. See the cost of rejections, and the potential value of recovered time and redistributed medication.</p>
+    <div class="page-hero-eyebrow">More time for your pharmacy</div>
+    <h1>What is billing friction <em>costing you every month?</em></h1>
+    <p>Every rejection takes time from your team. See the monthly cost, compare your subscription, and estimate what you could recover.</p>
   </div>
 
-  <div class="calc-wrap">
+  <div class="wrap">
 
-    <!-- INPUTS -->
-    <div class="calc-col">
-
-      <div class="card">
-        <div class="card-head"><span class="card-num">01</span><span class="card-title">Billing workflow</span></div>
-        <div class="field">
-          <label for="teamSize">People on your team</label>
-          <div class="affix"><input id="teamSize" type="number" min="1" max="1000" step="1" value="4" class="has-suffix"/><span class="suffix">people</span></div>
+    <!-- NATIONAL EVIDENCE -->
+    <section class="card evidence" aria-labelledby="evidence-title">
+      <div class="evidence-head">
+        <div>
+          <div class="eyebrow">The national picture &middot; CPhA</div>
+          <h2 id="evidence-title">The hours add up. So does the cost.</h2>
         </div>
-        <div class="field">
-          <label for="rejections">Billing rejections across the pharmacy</label>
-          <div class="row">
-            <input id="rejections" type="number" min="0" step="any" value="3"/>
-            <select id="frequency">
-              <option value="day" selected>per day</option>
-              <option value="week">per week</option>
-              <option value="month">per month</option>
-            </select>
-          </div>
-        </div>
-        <div class="field" id="days-field">
-          <label for="days">Operating days per month</label>
-          <div class="affix"><input id="days" type="number" min="1" max="31" step="any" value="30" class="has-suffix"/><span class="suffix">days</span></div>
-        </div>
-        <div class="field">
-          <label for="minutes">Time per rejection</label>
-          <div class="affix"><input id="minutes" type="number" min="0" max="1440" step="any" value="13" class="has-suffix"/><span class="suffix">min</span></div>
-        </div>
-        <div class="field">
-          <label for="hourly">Staff cost per hour</label>
-          <div class="affix"><span>$</span><input id="hourly" type="number" min="0" step="any" value="35"/></div>
-          <p class="hint">Use your blended staff cost. All amounts are CAD.</p>
-        </div>
+        <p>CPhA reported on a national survey of <strong>more than 1,100 pharmacists.</strong> The findings put the scale of third-party payer administration in perspective.</p>
       </div>
+      <div class="evidence-grid">
+        <article>
+          <strong class="evidence-stat">75%</strong>
+          <p>report <strong>at least 5 hours a week</strong> managing third-party payer claims.</p>
+          <div class="benchmark">
+            <span>5 hours/week at <span class="bm-rate">$35.00</span>/hour</span>
+            <strong id="bm-five">$758.33</strong>
+            <span>illustrative staff time cost / average month</span>
+          </div>
+        </article>
+        <article>
+          <strong class="evidence-stat">Nearly 20%</strong>
+          <p>report <strong>more than 15 hours a week</strong> on these claims.</p>
+          <div class="benchmark">
+            <span>More than 15 hours/week at <span class="bm-rate">$35.00</span>/hour</span>
+            <strong id="bm-fifteen">Over $2,275.00</strong>
+            <span>illustrative staff time cost / average month</span>
+          </div>
+        </article>
+        <article class="fee-contrast">
+          <span class="contrast-label">Standard team subscription</span>
+          <strong>$49.99<span>/ month</span></strong>
+          <p id="bm-fraction">Just 6.6% of the 5-hour/week time-cost illustration.</p>
+          <a href="#calculator">See your pharmacy&rsquo;s numbers &darr;</a>
+        </article>
+      </div>
+      <p class="evidence-source">Source: <a href="https://www.newswire.ca/news-releases/cpha-calls-for-regulation-of-insurer-practices-straining-pharmacies-and-threatening-patient-choice-843871254.html" target="_blank" rel="noopener noreferrer">Canadian Pharmacists Association, September 4, 2025</a>. Survey findings cover all third-party payer claim management, not only rejected claims. Cost illustrations use the editable hourly rate below and 52 weeks &divide; 12 months (5 hours/week &asymp; 21.7 hours/month). They are time-value estimates, not measured product savings.</p>
+    </section>
 
-      <div class="card">
-        <div class="card-head"><span class="card-num">02</span><span class="card-title">Time you could recover</span></div>
-        <div class="field">
-          <label for="recovery">Assumed time recovery</label>
-          <div class="affix"><input id="recovery" type="number" min="0" max="100" step="any" value="50" class="has-suffix"/><span class="suffix">%</span></div>
-          <input id="recovery-range" type="range" min="0" max="100" step="1" value="50" aria-label="Assumed time recovery"/>
+    <!-- OFFER -->
+    <section class="offer" id="offer" aria-labelledby="offer-title">
+      <div>
+        <span class="offer-kicker">Start free. Save for the future.</span>
+        <h2 id="offer-title">Your time has value. Start reclaiming it.</h2>
+        <p><strong>Sign up now for complimentary access through December 31, 2026.</strong> Paid subscriptions begin January 1, 2027, with discounted Year One offers for eligible pharmacies. Enter your applicable group or quoted fee below to see your ROI.</p>
+      </div>
+      <div class="offer-action">
+        <a href="https://rxbillinggenie.glide.page/" target="_blank" rel="noopener noreferrer">Sign up for free &rsaquo;</a>
+        <span>2027 offer eligibility and terms apply.</span>
+      </div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section class="workspace" id="calculator" aria-label="Interactive pharmacy return on investment calculator">
+      <form class="card inputs" id="roi-form" novalidate>
+        <div class="panel-head">
+          <h2>Your pharmacy</h2>
+          <button class="reset-btn" id="reset" type="button"><span aria-hidden="true">&#8634;</span> Reset</button>
+        </div>
+
+        <section class="in-sec">
+          <div class="sec-label"><span>01</span><h3>Billing workflow</h3></div>
+          <div class="field">
+            <label for="teamSize">People on your team</label>
+            <div class="iwrap"><input id="teamSize" type="number" min="1" max="1000" step="1" value="4" inputmode="numeric" aria-describedby="teamSize-error"/><span class="unit">people</span></div>
+            <p class="err" id="teamSize-error"></p>
+          </div>
+          <div class="field">
+            <label for="rejections">Billing rejections <span class="hint-inline">across the pharmacy</span></label>
+            <div class="iwrap">
+              <input id="rejections" type="number" min="0" max="10000" step="any" value="3" inputmode="decimal" aria-describedby="rejections-error"/>
+              <select id="frequency" aria-label="Rejection frequency period">
+                <option value="day">per day</option><option value="week">per week</option><option value="month">per month</option>
+              </select>
+            </div>
+            <p class="err" id="rejections-error"></p>
+          </div>
+          <div class="field" id="days-field">
+            <label for="days">Operating days per month</label>
+            <div class="iwrap"><input id="days" type="number" min="1" max="31" step="any" value="30" inputmode="decimal" aria-describedby="days-error"/><span class="unit">days</span></div>
+            <p class="err" id="days-error"></p>
+          </div>
+          <div class="grid2">
+            <div class="field">
+              <label for="minutes">Time per rejection</label>
+              <div class="iwrap"><input id="minutes" type="number" min="0" max="1440" step="any" value="13" inputmode="decimal" aria-describedby="minutes-error"/><span class="unit">min</span></div>
+              <p class="err" id="minutes-error"></p>
+            </div>
+            <div class="field">
+              <label for="hourly">Staff cost per hour</label>
+              <div class="iwrap"><span class="cur">$</span><input id="hourly" type="number" min="0" max="10000" step="any" value="35" inputmode="decimal" aria-describedby="hourly-error"/></div>
+              <p class="err" id="hourly-error"></p>
+            </div>
+          </div>
+          <p class="note">Use your blended staff cost. All amounts are CAD.</p>
+        </section>
+
+        <section class="in-sec">
+          <div class="sec-label"><span>02</span><h3>Time you could recover</h3></div>
+          <div class="rec-head">
+            <label for="recovery">Assumed time recovery</label>
+            <div class="pct"><input id="recovery" type="number" min="0" max="100" step="1" value="50" inputmode="decimal" aria-describedby="recovery-help recovery-error"/><span>%</span></div>
+          </div>
+          <input id="recovery-range" type="range" min="0" max="100" step="1" value="50" aria-label="Assumed time recovery percentage"/>
           <div class="range-ends"><span>0%</span><span>100%</span></div>
-          <p class="hint">Model the share of rejection time Rx Billing Genie might help you reclaim. The 50% starting point is a scenario assumption, not a guarantee.</p>
-        </div>
-      </div>
+          <p class="err" id="recoveryPct-error"></p>
+          <p class="note" id="recovery-help">Model the share of rejection time Rx Billing Genie might help you reclaim. The 50% starting point is a scenario assumption.</p>
+        </section>
 
-      <div class="card">
-        <div class="card-head"><span class="card-num">03</span><span class="card-title">Your subscription</span></div>
-        <div class="field">
-          <label for="plan">Price starting point</label>
-          <select id="plan">
-            <option value="standard_monthly" selected>Standard team &middot; $49.99/month</option>
-            <option value="standard_annual">Standard team &middot; $599.88/year</option>
+        <section class="in-sec">
+          <div class="sec-label"><span>03</span><h3>Your subscription</h3></div>
+          <div class="field">
+            <label for="plan">Price starting point</label>
+            <select id="plan">
+              <option value="standard_monthly">Standard team &middot; $49.99/month</option>
+              <option value="standard_annual">Standard team &middot; $599.88/year</option>
               <option value="custom">Group / association / custom price</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="price">Total pharmacy subscription</label>
-          <div class="row">
-            <div class="affix" style="flex:1"><span>$</span><input id="price" type="number" min="0" step="any" value="49.99"/></div>
-            <select id="cadence">
-              <option value="monthly" selected>per month</option>
-              <option value="yearly">per year</option>
             </select>
           </div>
-          <p class="hint">Standard pricing is $49.99/month ($599.88/year) for up to four team members. Belong to an association or buying group? You may qualify for member pricing &mdash; check with your group and enter your rate above. Prices exclude tax.</p>
-        </div>
-      </div>
+          <div class="field">
+            <label for="price">Total pharmacy subscription</label>
+            <div class="iwrap">
+              <span class="cur">$</span>
+              <input id="price" type="number" min="0" max="1000000" step="any" value="49.99" inputmode="decimal" aria-describedby="price-error plan-note"/>
+              <select id="cadence" aria-label="Subscription billing period">
+                <option value="monthly">per month</option><option value="yearly">per year</option>
+              </select>
+            </div>
+            <p class="err" id="price-error"></p>
+          </div>
+          <p class="note" id="plan-note">Standard pricing is $49.99/month ($599.88/year) for up to four team members. Have group or association pricing? Enter your total pharmacy fee and choose monthly or annual billing. Prices exclude tax.</p>
+        </section>
 
-      <div class="card">
-        <div class="card-head"><span class="card-num">04</span><span class="card-title">Rx MedMatch &middot; Medication value</span></div>
-        <div class="field">
-          <label for="wasteAnnual">Estimated medication value at risk / year</label>
-          <div class="affix"><span>$</span><input id="wasteAnnual" type="number" min="0" step="any" value="0"/></div>
-          <p class="hint">Purchase-cost value of usable stock otherwise expected to go to waste, after supplier returns and credits.</p>
-        </div>
-        <div class="field">
-          <label for="medRecovery">Estimated recoverable share</label>
-          <div class="affix"><input id="medRecovery" type="number" min="0" max="100" step="any" value="0" class="has-suffix"/><span class="suffix">%</span></div>
-          <p class="hint">Share of that purchase-cost value you estimate could be recovered through redistribution.</p>
-        </div>
-        <div class="field">
-          <label for="transferAnnual">Estimated transfer costs / year</label>
-          <div class="affix"><span>$</span><input id="transferAnnual" type="number" min="0" step="any" value="0"/></div>
-          <p class="hint">Additional shipping and handling costs. Leave at $0 if none are expected. No medication recovery is assumed until you enter your own estimates &mdash; these are potential values, not confirmed recoveries.</p>
-        </div>
-      </div>
+        <section class="in-sec">
+          <div class="sec-label"><span>04</span><h3>Rx MedMatch &middot; Medication value</h3></div>
+          <div class="field">
+            <label for="wasteAnnual">Estimated medication value at risk / year</label>
+            <div class="iwrap"><span class="cur">$</span><input id="wasteAnnual" type="number" min="0" max="100000000" step="any" value="0" inputmode="decimal" aria-describedby="wasteAnnual-help wasteAnnual-error"/></div>
+            <p class="err" id="wasteAnnual-error"></p>
+            <p class="note" id="wasteAnnual-help">Purchase-cost value of usable stock otherwise expected to go to waste, after supplier returns and credits.</p>
+          </div>
+          <div class="field">
+            <label for="medRecovery">Estimated recoverable share</label>
+            <div class="iwrap"><input id="medRecovery" type="number" min="0" max="100" step="any" value="0" inputmode="decimal" aria-describedby="medRecovery-help medRecoveryPct-error"/><span class="unit">%</span></div>
+            <p class="err" id="medRecoveryPct-error"></p>
+            <p class="note" id="medRecovery-help">Share of that purchase-cost value you estimate could be recovered through redistribution.</p>
+          </div>
+          <div class="field">
+            <label for="transferAnnual">Estimated transfer costs / year</label>
+            <div class="iwrap"><span class="cur">$</span><input id="transferAnnual" type="number" min="0" max="100000000" step="any" value="0" inputmode="decimal" aria-describedby="transferAnnual-help transferAnnual-error"/></div>
+            <p class="err" id="transferAnnual-error"></p>
+            <p class="note" id="transferAnnual-help">Additional shipping and handling costs. Leave at $0 if none are expected.</p>
+          </div>
+          <p class="note">No medication recovery is assumed until you enter your own estimates. These are potential values, not confirmed recoveries.</p>
+        </section>
+      </form>
 
-    </div>
-
-    <!-- RESULTS -->
-    <div class="calc-side">
-      <div class="card">
-        <div class="res-head">
-          <span class="res-title">Where the value comes from</span>
-          <span class="res-unit">Annual &middot; CAD</span>
-        </div>
-        <div class="line">
-          <div class="line-top"><span class="line-label">Estimated recoverable staff time value</span><span class="line-val" id="o-staff">$0.00</span></div>
-          <div class="bar"><i id="b-staff" style="width:0%"></i></div>
-        </div>
-        <div class="line">
-          <div class="line-top"><span class="line-label">Estimated recoverable medication value</span><span class="line-val" id="o-med">$0.00</span></div>
-          <div class="bar"><i id="b-med" style="width:0%"></i></div>
-        </div>
-        <div class="line">
-          <div class="line-top"><span class="line-label">Estimated transfer costs</span><span class="line-val" id="o-transfer">$0.00</span></div>
-          <div class="bar cost"><i id="b-transfer" style="width:0%"></i></div>
-        </div>
-        <div class="line">
-          <div class="line-top"><span class="line-label">Subscription cost</span><span class="line-val" id="o-sub">$0.00</span></div>
-          <div class="bar cost"><i id="b-sub" style="width:0%"></i></div>
-        </div>
-        <div class="net">
-          <span class="net-label">Estimated combined net value</span>
-          <div style="text-align:right">
-            <div class="net-val" id="o-net">$0.00</div>
-            <div class="net-sub" id="o-net-sub"></div>
+      <div class="results" id="results">
+        <div class="res-toolbar">
+          <div class="live"><span class="dot"></span> Your pharmacy&rsquo;s estimate</div>
+          <div class="switch" role="group" aria-label="Results period">
+            <button type="button" data-period="month" aria-pressed="false">Monthly</button>
+            <button type="button" data-period="year" aria-pressed="true">Annual</button>
           </div>
         </div>
+
+        <div id="invalid-notice" class="invalid-note" role="status" hidden>Check the highlighted inputs to see your estimate.</div>
+
+        <section class="impact" aria-labelledby="impact-title">
+          <span class="impact-kicker">The monthly cost of your rejection workflow</span>
+          <h2 id="impact-title">What is slipping away each month?</h2>
+          <div class="impact-amount"><strong id="impact-cost">$682.50</strong><span>in estimated staff time value</span></div>
+          <p id="impact-time">19.5 staff hours / month &middot; $8,190.00 / year</p>
+          <div class="impact-cmp">
+            <div><span>Your subscription</span><strong id="impact-fee">$49.99 / month</strong></div>
+            <p id="impact-fraction">7.3% of this monthly time cost.</p>
+          </div>
+          <p class="impact-note">Time cost is not the same as recoverable value. Your assumed recovery percentage is applied below. Medication value is estimated separately.</p>
+        </section>
+
+        <div class="hero-res" id="hero-res">
+          <div class="hero-top">
+            <span class="hero-cap" id="net-label">Estimated combined net annual value</span>
+            <span class="tag">Your scenario</span>
+          </div>
+          <div class="hero-num"><span id="net-savings">$3,495.12</span><span id="net-period">/ year</span></div>
+          <p class="hero-exp">Estimated staff time value + recoverable medication value, less transfer and subscription costs.</p>
+          <div class="hero-bottom">
+            <div><span id="recovered-time">117 hours</span><span id="recovered-period">potentially recovered / year</span></div>
+            <div class="roi-stat"><strong id="roi-value">583%</strong><span id="roi-label">estimated return on modelled costs</span></div>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <article class="card metric">
+            <span class="metric-label">Time lost to rejections</span>
+            <div class="metric-num" id="hours-primary">234 <span>hours / year</span></div>
+            <p id="hours-secondary">19.5 hours each month</p>
+          </article>
+          <article class="card metric">
+            <span class="metric-label">Current staff time cost</span>
+            <div class="metric-num" id="cost-primary">$8,190.00 <span>/ year</span></div>
+            <p id="cost-secondary">$682.50 each month</p>
+          </article>
+        </div>
+
+        <section class="med-res" aria-labelledby="med-title">
+          <div class="med-badge">Rx MedMatch &middot; Inventory</div>
+          <h3 id="med-title">Estimated recoverable medication value</h3>
+          <div class="med-amount"><strong id="medication-value">$0.00</strong><span id="medication-period">/ year</span></div>
+          <p id="medication-note">Enter your medication assumptions to include an inventory estimate.</p>
+          <div class="med-net"><span>Estimated medication value after transfer costs</span><strong id="medication-net">$0.00</strong></div>
+          <p>An estimate of potential recovery, not confirmed savings. Subscription is deducted once in the combined total.</p>
+        </section>
+
+        <section class="card breakdown" aria-labelledby="bd-title">
+          <div class="bd-head"><h3 id="bd-title">Where the value comes from</h3><span id="bd-period">Annual &middot; CAD</span></div>
+          <div class="bar-row"><span>Estimated recoverable staff time value</span><strong id="gross-value">$4,095.00</strong></div>
+          <div class="bar-track"><div id="gross-bar" class="bar-fill gross"></div></div>
+          <div class="bar-row"><span>Estimated recoverable medication value</span><strong id="medication-row">$0.00</strong></div>
+          <div class="bar-track"><div id="medication-bar" class="bar-fill med"></div></div>
+          <div class="bar-row"><span>Estimated transfer costs</span><strong id="transfer-row">$0.00</strong></div>
+          <div class="bar-track"><div id="transfer-bar" class="bar-fill transfer"></div></div>
+          <div class="bar-row"><span>Subscription cost</span><strong id="subscription-value">$599.88</strong></div>
+          <div class="bar-track"><div id="subscription-bar" class="bar-fill sub"></div></div>
+          <div class="bd-total"><span>Estimated combined net value</span><strong id="net-row">$3,495.12</strong></div>
+          <p class="bd-note" id="subscription-note">$49.99/month &middot; $599.88/year</p>
+        </section>
+
+        <div class="detail-grid">
+          <section class="card detail">
+            <div class="detail-eyebrow">Break-even point</div>
+            <div class="detail-num" id="breakeven-value">86 min</div>
+            <p id="breakeven-unit">staff time recovered per month</p>
+            <div class="detail-foot" id="breakeven-detail">About 14 rejections/month at 50% recovery.</div>
+          </section>
+          <section class="card detail">
+            <div class="detail-eyebrow">Cost per team member</div>
+            <div class="detail-num" id="person-day">$0.41</div>
+            <p>per calendar day</p>
+            <div class="detail-foot" id="person-details">$12.50/month &middot; $149.97/year</div>
+          </section>
+        </div>
+
+        <div class="res-bottom">
+          <p><span class="dot" id="outcome-dot"></span><span id="outcome-text">Your scenario exceeds the break-even point.</span></p>
+          <button type="button" class="print-btn" id="print">Print estimate</button>
+        </div>
+        <p class="sr-only" id="result-announcement" aria-live="polite" aria-atomic="true"></p>
       </div>
+    </section>
 
-      <div class="stat-grid">
-        <div class="stat">
-          <div class="stat-lbl">Break-even point</div>
-          <div class="stat-val" id="o-be">&mdash;</div>
-          <div class="stat-sub">staff time recovered per month</div>
-          <div class="stat-sub" id="o-be-sub"></div>
-        </div>
-        <div class="stat">
-          <div class="stat-lbl">Cost per team member</div>
-          <div class="stat-val" id="o-per">&mdash;</div>
-          <div class="stat-sub">per calendar day</div>
-          <div class="stat-sub" id="o-per-sub"></div>
-        </div>
+    <!-- METHODOLOGY -->
+    <section class="method" id="methodology" aria-labelledby="method-title">
+      <div class="method-intro">
+        <div class="eyebrow">Behind the estimate</div>
+        <h2 id="method-title">Clear inputs. Transparent maths.</h2>
+        <p>A planning tool for the potential value of pharmacy time and medication inventory.</p>
       </div>
-
-      <div class="verdict good" id="o-verdict"><span class="dot"></span><span id="o-verdict-text">Enter your numbers to see an estimate.</span></div>
-    </div>
-  </div>
-
-  <div class="behind">
-    <div class="behind-card">
-      <div class="res-head" style="margin-bottom:0.25rem">
-        <span class="res-title">Behind the estimate</span>
+      <div class="method-details">
+        <details>
+          <summary>What do the CPhA comparisons mean?</summary>
+          <div>
+            <p>CPhA&rsquo;s September 4, 2025 release describes a national survey of more than 1,100 pharmacists. Three quarters report at least five hours each week managing third-party payer claims; close to one fifth report more than fifteen hours weekly. <a href="https://www.newswire.ca/news-releases/cpha-calls-for-regulation-of-insurer-practices-straining-pharmacies-and-threatening-patient-choice-843871254.html" target="_blank" rel="noopener noreferrer">Read the CPhA release.</a></p>
+            <p>The comparison converts weekly time to an average month using 52 &divide; 12. Five hours/week is approximately 21.7 hours/month; fifteen hours/week is 65 hours/month. A four-week period would instead be 20 and 60 hours. Both the national comparisons and your pharmacy&rsquo;s staff time cost use your editable hourly cost. Survey time covers broader work than rejection troubleshooting, so it is not automatically counted as time Rx Billing Genie will recover.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How is the estimate calculated?</summary>
+          <div>
+            <p><strong>Time lost:</strong> monthly rejections &times; minutes per rejection &divide; 60.</p>
+            <p><strong>Staff time cost:</strong> time lost &times; hourly staff cost.</p>
+            <p><strong>Estimated recoverable staff time value:</strong> staff time cost &times; assumed time recovery percentage.</p>
+            <p><strong>Estimated recoverable medication value:</strong> annual purchase-cost value at risk &times; estimated recoverable share. This is potential recovery, not confirmed savings.</p>
+            <p><strong>Estimated combined net value:</strong> staff time value + medication value &minus; transfer costs &minus; subscription cost. The subscription is deducted only once.</p>
+            <p>Daily frequency uses your operating days per month. Weekly frequency uses 52 weeks &divide; 12 months. Annual values equal 12 monthly values. An annual subscription is spread over 12 months for comparison.</p>
+            <p>Break-even minutes are the recovered staff time needed to cover remaining modelled costs after estimated medication recovery. Transfer costs increase those costs. If estimated medication recovery already covers the costs, zero additional minutes are needed in the scenario. Equivalent rejections include your assumed recovery percentage and round up to a whole rejection. Per-person daily cost uses 365 calendar days. Figures are calculated before rounding.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Where do the starting assumptions come from?</summary>
+          <div>
+            <p>The 13-minute added delay per rejection is an approximate weighted estimate from Rx Billing Genie&rsquo;s 2025 pharmacist survey (approximately 70&ndash;75 respondents). The $35/hour blended staff cost and three rejections per day are established Rx Billing Genie planning inputs.</p>
+            <p>A four-person team and 30 operating days per month create an editable example. Medication value at risk, recoverable share and transfer costs start at zero; enter pharmacy-specific estimates. The 50% time recovery rate is an illustrative assumption, not a measured product outcome. The subscription baseline is the standard $49.99/month team plan, equivalent to $599.88/year. Team limits apply; use the custom-price field for your actual quoted total.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What does the calculator include?</summary>
+          <div>
+            <p>This models the value of staff time potentially recovered with Rx Billing Genie and estimated recoverable medication value with Rx MedMatch. It is an estimate, not a guarantee of reduced payroll, increased revenue, or clinical outcomes. Medication transfer costs are included when entered. Taxes, training time and other implementation costs are excluded.</p>
+            <p>Rx MedMatch connects pharmacies with surplus stock and medication needs. Medication recovery is an editable estimate; stock listed or transferred does not automatically equal the amount recovered. Patient access benefits are not assigned a dollar value here.</p>
+            <p>Inputs are processed in your browser. This calculator does not send or store your pharmacy entries.</p>
+          </div>
+        </details>
+        <p class="disclaim">Planning estimates only, in Canadian dollars. Figures depend entirely on the inputs you provide and are not a forecast, a guarantee, or financial advice.</p>
       </div>
-      <p class="hint" style="margin-bottom:0.75rem">A planning tool for the potential value of pharmacy time and medication inventory.</p>
-
-      <details>
-        <summary>How is the estimate calculated?</summary>
-        <div class="body">
-          <p><strong>Time lost</strong> = monthly rejections &times; minutes per rejection &divide; 60.</p>
-          <p><strong>Staff time cost</strong> = time lost &times; hourly staff cost.</p>
-          <p><strong>Estimated recoverable staff time value</strong> = staff time cost &times; assumed time recovery percentage.</p>
-          <p><strong>Estimated recoverable medication value</strong> = annual purchase-cost value at risk &times; estimated recoverable share. This is potential recovery, not confirmed savings.</p>
-          <p><strong>Estimated combined net value</strong> = staff time value + medication value &minus; transfer costs &minus; subscription cost. The subscription is deducted only once.</p>
-          <p>Daily frequency uses your operating days per month. Weekly frequency uses 52 weeks &divide; 12 months. Annual values equal 12 monthly values. An annual subscription is spread over 12 months for comparison.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Where do the starting assumptions come from?</summary>
-        <div class="body">
-          <p>The defaults are a starting scenario, not a claim about your pharmacy. The 50% time recovery figure is an assumption for modelling and nothing more &mdash; move the slider to whatever you believe is realistic.</p>
-          <p>No medication recovery is assumed at all until you enter your own figures. Both medication fields start at zero on purpose.</p>
-          <p>Every input is yours to change. Nothing here is a guarantee of savings.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>What does the calculator include?</summary>
-        <div class="body">
-          <p>Break-even minutes are the staff time you would need to recover each month to cover the remaining modelled costs after estimated medication recovery. Transfer costs increase those costs. If estimated medication recovery already covers them, no additional minutes are needed.</p>
-          <p>Not included: tax, training time, hardware, or any change in dispensing volume.</p>
-        </div>
-      </details>
-
-      <p class="disclaim">Planning estimates only, in Canadian dollars. Figures depend entirely on the inputs you provide and are not a forecast, a guarantee, or financial advice.</p>
-    </div>
+    </section>
   </div>
 
   <div id="site-footer"></div>
   <script>fetch('/partials/footer.html').then(function(r){return r.text();}).then(function(h){document.getElementById('site-footer').innerHTML=h;});</script>
-
 </div>
 
 <script src="/js/roi-calculator.js"></script>
 <script>
 (function(){
-  var ids=['teamSize','rejections','frequency','days','minutes','hourly','recovery','recovery-range','plan','price','cadence','wasteAnnual','medRecovery','transferAnnual'];
-  var el={}; ids.forEach(function(i){el[i]=document.getElementById(i);});
+  var $=function(id){return document.getElementById(id);};
   var money=RxROI.money;
+  var nf=new Intl.NumberFormat('en-CA',{maximumFractionDigits:1});
+  var num=function(n){return nf.format(Object.is(n,-0)?0:n);};
+  var period='year', announceTimer;
+
+  var FIELDS=['teamSize','rejections','frequency','days','minutes','hourly','recovery','plan','price','cadence','wasteAnnual','medRecovery','transferAnnual'];
+  var ERROR_FIELDS=['teamSize','rejections','minutes','hourly','days','recoveryPct','price','wasteAnnual','medRecoveryPct','transferAnnual'];
+  var DOM_FOR={recoveryPct:'recovery',medRecoveryPct:'medRecovery'};
 
   function read(){
     return {
-      teamSize:el.teamSize.value, rejections:el.rejections.value, frequency:el.frequency.value,
-      days:el.days.value, minutes:el.minutes.value, hourly:el.hourly.value,
-      recoveryPct:el.recovery.value, price:el.price.value, cadence:el.cadence.value,
-      wasteAnnual:el.wasteAnnual.value, medRecoveryPct:el.medRecovery.value,
-      transferAnnual:el.transferAnnual.value
+      teamSize:$('teamSize').value, rejections:$('rejections').value, frequency:$('frequency').value,
+      days:$('frequency').value==='day'?$('days').value:30, minutes:$('minutes').value,
+      hourly:$('hourly').value, recoveryPct:$('recovery').value,
+      price:$('price').value, cadence:$('cadence').value,
+      wasteAnnual:$('wasteAnnual').value, medRecoveryPct:$('medRecovery').value,
+      transferAnnual:$('transferAnnual').value
     };
   }
+  function set(id,v){var e=$(id); if(e) e.textContent=v;}
+  function metric(id,value,unit){
+    var node=$(id); node.textContent=value+' ';
+    var s=document.createElement('span'); s.textContent=unit; node.appendChild(s);
+  }
+  function announce(msg){clearTimeout(announceTimer);announceTimer=setTimeout(function(){set('result-announcement',msg);},500);}
 
-  function render(){
-    el['days-field'] = document.getElementById('days-field');
-    document.getElementById('days-field').style.display = el.frequency.value==='day' ? '' : 'none';
+  function update(){
+    var input=read();
+    var errors=RxROI.validate(input);
 
-    var r = RxROI.compute(read());
-    var scale = Math.max(r.staffValueAnnual, r.medValueAnnual, r.transferAnnual, r.subscriptionAnnual, 1);
-    function set(id,bar,val){
-      document.getElementById(id).textContent = money(val);
-      document.getElementById(bar).style.width = Math.min(100,(val/scale)*100) + '%';
+    ERROR_FIELDS.forEach(function(key){
+      var domId=DOM_FOR[key]||key;
+      var el=$(domId);
+      if(el) el.setAttribute('aria-invalid', String(!!errors[key]));
+      set(key+'-error', errors[key]||'');
+    });
+
+    $('days-field').hidden = input.frequency!=='day';
+
+    var rec=Number(input.recoveryPct);
+    if(input.recoveryPct!==''&&isFinite(rec)&&rec>=0&&rec<=100) $('recovery-range').value=rec;
+
+    // CPhA context, valued at the pharmacy's own rate
+    var validHourly = input.hourly!=='' && !errors.hourly;
+    var w = validHourly ? RxROI.workloadIllustration(Number(input.hourly), 49.99) : null;
+    set('bm-five', w?money(w.fiveCostMonth):'—');
+    set('bm-fifteen', w?((Number(input.hourly)>0?'Over ':'')+money(w.fifteenCostMonth)):'—');
+    Array.prototype.forEach.call(document.querySelectorAll('.bm-rate'),function(el){
+      el.textContent = validHourly ? money(Number(input.hourly)) : '—';
+    });
+    set('bm-fraction', (w&&w.feeShare!==null)
+      ? (w.feeShare<100?'Just ':'')+num(w.feeShare)+'% of the 5-hour/week time-cost illustration.'
+      : 'Enter a positive hourly staff cost below to compare.');
+
+    // subscription note adapts to team size and custom pricing
+    set('plan-note', Number(input.teamSize)>4
+      ? 'For a team above four, enter your applicable quoted total subscription price. Per-person cost uses your full team size. Prices exclude tax.'
+      : $('plan').value==='custom'
+        ? 'Enter your total pharmacy fee under your group, association or quoted offer, then choose monthly or annual billing. For multi-year offers, use the average annual fee. Prices exclude tax.'
+        : 'Standard pricing is $49.99/month ($599.88/year) for up to four team members. Have group or association pricing? Enter your total pharmacy fee and choose monthly or annual billing. Prices exclude tax.');
+
+    var invalid = Object.keys(errors).length>0;
+    $('results').classList.toggle('invalid', invalid);
+    $('invalid-notice').hidden = !invalid;
+    $('print').disabled = invalid;
+    if(invalid){announce('Check the highlighted inputs to see your estimate.');return;}
+
+    var r=RxROI.compute(input);
+    var annual = period==='year';
+    var suffix = annual?'year':'month';
+
+    set('impact-cost', money(r.staffCostMonthly));
+    set('impact-time', num(r.hoursLostMonthly)+' staff hours / month · '+money(r.staffCostAnnual)+' / year');
+    set('impact-fee', money(r.subscriptionMonthly)+' / month');
+    set('impact-fraction', r.staffCostMonthly>0
+      ? num(r.subscriptionMonthly/r.staffCostMonthly*100)+'% of this monthly time cost.'
+      : 'Enter rejection time and a positive hourly cost to compare.');
+
+    var net = annual?r.netAnnual:r.netMonthly;
+    var recovered = annual?r.staffValueAnnual:r.staffValueMonthly;
+    var sub = annual?r.subscriptionAnnual:r.subscriptionMonthly;
+    var medValue = annual?r.medValueAnnual:r.medValueMonthly;
+    var transfers = annual?r.transferAnnual:r.transferMonthly;
+
+    set('net-label','Estimated combined net '+(annual?'annual':'monthly')+' '+(net<0?'shortfall':'value'));
+    set('net-savings', money(Math.abs(net)));
+    set('net-period','/ '+suffix);
+    $('hero-res').classList.toggle('negative', net<0);
+    set('recovered-time', num(annual?r.recoveredHoursAnnual:r.recoveredHoursMonthly)+' hours');
+    set('recovered-period','potentially recovered / '+suffix);
+    set('roi-value', r.combinedRoi===null?'—':num(r.combinedRoi)+'%');
+    set('roi-label', r.combinedRoi===null?'no modelled costs':'estimated return on modelled costs');
+
+    metric('hours-primary', num(annual?r.hoursLostAnnual:r.hoursLostMonthly), 'hours / '+suffix);
+    set('hours-secondary', num(annual?r.hoursLostMonthly:r.hoursLostAnnual)+' hours each '+(annual?'month':'year'));
+    metric('cost-primary', money(annual?r.staffCostAnnual:r.staffCostMonthly), '/ '+suffix);
+    set('cost-secondary', money(annual?r.staffCostMonthly:r.staffCostAnnual)+' each '+(annual?'month':'year'));
+
+    set('medication-value', money(medValue));
+    set('medication-period','/ '+suffix);
+    set('medication-net', money(annual?r.medNetAnnual:r.medNetMonthly));
+    set('medication-note', (Number(input.wasteAnnual)===0&&Number(input.medRecoveryPct)===0)
+      ? 'Enter your medication assumptions to include an inventory estimate.'
+      : money(Number(input.wasteAnnual))+' at risk / year × '+num(Number(input.medRecoveryPct))+'% estimated recoverable share. Before transfer costs.');
+
+    set('bd-period', (annual?'Annual':'Monthly')+' · CAD');
+    set('gross-value', money(recovered));
+    set('medication-row', money(medValue));
+    set('transfer-row', money(transfers));
+    set('subscription-value', money(sub));
+    set('net-row', money(net));
+    var scale=Math.max(recovered, sub, medValue, transfers, 1);
+    $('gross-bar').style.width=(recovered/scale*100)+'%';
+    $('medication-bar').style.width=(medValue/scale*100)+'%';
+    $('transfer-bar').style.width=(transfers/scale*100)+'%';
+    $('subscription-bar').style.width=(sub/scale*100)+'%';
+    set('subscription-note', money(r.subscriptionMonthly)+'/month · '+money(r.subscriptionAnnual)+'/year'+(input.cadence==='yearly'?' · paid annually':''));
+
+    set('breakeven-value', r.breakEvenMinutes===null?'Unavailable':r.breakEvenMinutes+' min');
+    set('breakeven-unit', r.breakEvenMinutes===null?'positive hourly staff cost needed':'staff time recovered per month');
+    var detail;
+    if(r.remainingCostMonthly===0){
+      detail = r.medValueMonthly>0
+        ? 'Estimated medication recovery covers the modelled subscription and transfer costs.'
+        : 'No modelled cost to recover.';
+    } else if(r.breakEvenRejections===null){
+      detail = 'Enter positive time, staff cost and recovery to calculate equivalent rejections.';
+    } else {
+      detail = num(r.breakEvenRejections)+' rejections/month at '+num(rec)+'% time recovery, after estimated medication value and transfer costs.';
     }
-    set('o-staff','b-staff',r.staffValueAnnual);
-    set('o-med','b-med',r.medValueAnnual);
-    set('o-transfer','b-transfer',r.transferAnnual);
-    set('o-sub','b-sub',r.subscriptionAnnual);
+    set('breakeven-detail', detail);
 
-    var net=document.getElementById('o-net');
-    net.textContent = money(r.netAnnual);
-    net.className = 'net-val' + (r.netAnnual<0?' neg':'');
-    document.getElementById('o-net-sub').textContent =
-      money(r.subscriptionMonthly)+'/month · '+money(r.subscriptionAnnual)+'/year';
+    set('person-day', money(r.costPerMemberDay));
+    set('person-details', money(r.costPerMemberMonthly)+'/month · '+money(r.costPerMemberAnnual)+'/year');
 
-    document.getElementById('o-be').textContent = r.breakEvenMinutes===null ? '—' : r.breakEvenMinutes+' min';
-    document.getElementById('o-be-sub').textContent = r.breakEvenRejections
-      ? r.breakEvenRejections+' rejections/month at '+(parseFloat(el.recovery.value)||0)+'% time recovery, after estimated medication value and transfer costs.'
-      : (r.breakEvenMinutes===0 ? 'Estimated medication recovery already covers the modelled costs.' : '');
+    var eps=0.000001;
+    set('outcome-text', r.netMonthly>eps?'Your scenario exceeds the break-even point.'
+      : r.netMonthly<-eps?'Your scenario is below the break-even point.'
+      : 'Your scenario is at the break-even point.');
+    $('outcome-dot').classList.toggle('warn', r.netMonthly<-eps);
 
-    document.getElementById('o-per').textContent = money(r.costPerMemberDay);
-    document.getElementById('o-per-sub').textContent =
-      money(r.costPerMemberMonthly)+'/month · '+money(r.costPerMemberAnnual)+'/year';
-
-    var v=document.getElementById('o-verdict');
-    v.className = 'verdict ' + (r.aboveBreakEven ? 'good':'bad');
-    document.getElementById('o-verdict-text').textContent = r.aboveBreakEven
-      ? 'Your scenario exceeds the break-even point.'
-      : 'Your scenario is below the break-even point with these inputs.';
+    announce('Estimated combined net '+(annual?'annual':'monthly')+' '+(net<0?'shortfall':'value')+': '+money(Math.abs(net))+'. Subscription: '+money(sub)+' per '+suffix+'.');
   }
 
-  // plan presets drive the price + cadence fields
-  el.plan.addEventListener('change', function(){
-    var p = RxROI.PLANS[el.plan.value];
-    if(p && p.price!==null){ el.price.value=p.price; el.cadence.value=p.cadence==='yearly'?'yearly':'monthly'; }
-    render();
-  });
-  function markCustom(){ el.plan.value='custom'; }
-  el.price.addEventListener('input',markCustom);
-  el.cadence.addEventListener('change',markCustom);
+  $('roi-form').addEventListener('submit',function(e){e.preventDefault();});
 
-  // keep the percentage box and slider in step
-  el.recovery.addEventListener('input',function(){ el['recovery-range'].value=el.recovery.value; render(); });
-  el['recovery-range'].addEventListener('input',function(){ el.recovery.value=el['recovery-range'].value; render(); });
-
-  ids.forEach(function(i){
-    if(i==='recovery'||i==='recovery-range') return;
-    el[i].addEventListener('input',render);
-    el[i].addEventListener('change',render);
+  FIELDS.forEach(function(id){
+    var el=$(id); if(!el) return;
+    var evt=(['frequency','cadence','plan'].indexOf(id)>-1)?'change':'input';
+    el.addEventListener(evt,function(){
+      if(id==='plan'){
+        var p=RxROI.PLANS[$('plan').value];
+        if(p&&p.price!==null){$('price').value=p.price;$('cadence').value=(p.cadence==='yearly')?'yearly':'monthly';}
+      }
+      if(id==='price') $('plan').value='custom';
+      if(id==='cadence'&&$('plan').value!=='custom'){
+        var yearly=$('cadence').value==='yearly';
+        $('plan').value=yearly?'standard_annual':'standard_monthly';
+        $('price').value=yearly?'599.88':'49.99';
+      }
+      update();
+    });
   });
+
+  $('recovery-range').addEventListener('input',function(){$('recovery').value=$('recovery-range').value;update();});
+  $('reset').addEventListener('click',function(){
+    var d=RxROI.DEFAULTS;
+    $('teamSize').value=d.teamSize; $('rejections').value=d.rejections; $('frequency').value=d.frequency;
+    $('days').value=d.days; $('minutes').value=d.minutes; $('hourly').value=d.hourly;
+    $('recovery').value=d.recoveryPct; $('recovery-range').value=d.recoveryPct;
+    $('plan').value='standard_monthly'; $('price').value=d.price; $('cadence').value=d.cadence;
+    $('wasteAnnual').value=d.wasteAnnual; $('medRecovery').value=d.medRecoveryPct; $('transferAnnual').value=d.transferAnnual;
+    update();
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-period]'),function(btn){
+    btn.addEventListener('click',function(){
+      period=btn.dataset.period;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-period]'),function(b){
+        b.setAttribute('aria-pressed', String(b===btn));
+      });
+      update();
+    });
+  });
+
+  var detailStates=[];
+  window.addEventListener('beforeprint',function(){
+    detailStates=Array.prototype.map.call(document.querySelectorAll('details'),function(d){return d.open;});
+    Array.prototype.forEach.call(document.querySelectorAll('details'),function(d){d.open=true;});
+  });
+  window.addEventListener('afterprint',function(){
+    Array.prototype.forEach.call(document.querySelectorAll('details'),function(d,i){d.open=detailStates[i]||false;});
+  });
+  $('print').addEventListener('click',function(){window.print();});
+
+  // Complimentary-access banner retires itself after 31 Dec 2026 (America/Toronto)
+  $('offer').hidden = !RxROI.isFreeOfferOpen();
 
   var reported=false;
-  function reportOnce(){
-    if(reported||typeof gtag!=='function') return;
-    var r=RxROI.compute(read());
-    gtag('event','roi_calculated',{
-      hours_monthly:r.hoursLostMonthly, blended_rate:parseFloat(el.hourly.value)||0,
-      waste_amount:parseFloat(el.wasteAnnual.value)||0, med_recovery_pct:parseFloat(el.medRecovery.value)||0,
-      net_annual:r.netAnnual, break_even_minutes:r.breakEvenMinutes, currency:'CAD'
+  ['wasteAnnual','medRecovery','rejections','hourly'].forEach(function(id){
+    $(id).addEventListener('change',function(){
+      if(reported||typeof gtag!=='function') return;
+      var r=RxROI.compute(read());
+      gtag('event','roi_calculated',{
+        hours_monthly:r.hoursLostMonthly, net_annual:r.netAnnual,
+        break_even_minutes:r.breakEvenMinutes, currency:'CAD'
+      });
+      reported=true;
     });
-    reported=true;
-  }
-  ['wasteAnnual','medRecovery','rejections','hourly'].forEach(function(i){
-    el[i].addEventListener('change',reportOnce);
   });
 
-  render();
+  update();
 })();
 </script>
 </body>
